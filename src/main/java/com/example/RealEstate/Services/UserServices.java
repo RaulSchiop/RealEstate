@@ -2,9 +2,11 @@ package com.example.RealEstate.Services;
 
 import com.example.RealEstate.Models.Users;
 import com.example.RealEstate.Repos.UsersRepository;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -18,21 +20,20 @@ public class UserServices {
         this.usersRepository = usersRepository;
     }
 
-    public List<Users> getUsers(){
-        return usersRepository.findAll();
+    public Users verifiUser(Users user) {
+
+        Users existingUser=usersRepository.findByEmail(user.getEmail());
+
+        if(existingUser!=null && encoder.matches(user.getPassword(),existingUser.getPassword())){
+            return existingUser;
+        }
+    return null;
+
     }
 
-    public void addUsers(Users users){
-        users.setPassword(encoder.encode(users.getPassword()));
-        usersRepository.save(users);
-    }
-
-    public void deleteUser(int id) {
-    if(usersRepository.existsById(id)){
-        usersRepository.deleteById(id);
-    }else {
-        System.out.println("User not found");
-    }
+    public void addUsers(Users user) {
+        user.setPassword(encoder.encode(user.getPassword()));
+        usersRepository.save(user);
     }
 
 }
