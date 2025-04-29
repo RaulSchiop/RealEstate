@@ -14,7 +14,8 @@ import java.util.List;
 public class UserServices {
 
     private final UsersRepository usersRepository;
-    private BCryptPasswordEncoder encoder=new BCryptPasswordEncoder(12);
+    private final BCryptPasswordEncoder encoder=new BCryptPasswordEncoder(12);
+
     @Autowired
     public UserServices(UsersRepository usersRepository) {
         this.usersRepository = usersRepository;

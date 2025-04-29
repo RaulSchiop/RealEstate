@@ -1,7 +1,7 @@
 package com.example.RealEstate.Controllers;
 
+import com.example.RealEstate.Models.LoginResponse;
 import com.example.RealEstate.Models.Users;
-import com.example.RealEstate.Repos.UsersRepository;
 import com.example.RealEstate.Services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,15 +20,14 @@ public class LogInController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody Users user) {
-
+    public LoginResponse login(@RequestBody Users user) {
         Users verifUser= userServices.verifiUser(user);
 
         if(verifUser!=null){
-            return String.valueOf(verifUser.getId());
+            return new LoginResponse(user.getId(),user.getRole(),"login succesful");
         }
 
-        return "Wrong Credentials";
+        return new LoginResponse(null,null,"wrong credentials");
     }
 
     @PostMapping("/Register")
