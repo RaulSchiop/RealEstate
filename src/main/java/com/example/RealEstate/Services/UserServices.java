@@ -1,5 +1,7 @@
-package com.example.RealEstate.Users;
+package com.example.RealEstate.Services;
 
+import com.example.RealEstate.Models.Users;
+import com.example.RealEstate.Repos.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;

@@ -1,5 +1,6 @@
-package com.example.RealEstate.Anunturi;
+package com.example.RealEstate.Repos;
 
+import com.example.RealEstate.Models.Anunturi;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

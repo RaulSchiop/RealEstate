@@ -1,5 +1,7 @@
-package com.example.RealEstate.Users;
+package com.example.RealEstate.Controllers;
 
+import com.example.RealEstate.Models.Users;
+import com.example.RealEstate.Services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

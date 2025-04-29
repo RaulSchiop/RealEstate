@@ -1,7 +1,5 @@
-package com.example.RealEstate.Anunturi;
+package com.example.RealEstate.Models;
 
-import com.example.RealEstate.Poze.Poze;
-import com.example.RealEstate.Users.Users;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;

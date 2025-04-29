@@ -1,5 +1,6 @@
-package com.example.RealEstate.Poze;
+package com.example.RealEstate.Repos;
 
+import com.example.RealEstate.Models.Poze;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

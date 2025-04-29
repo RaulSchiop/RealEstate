@@ -1,6 +1,7 @@
-package com.example.RealEstate.Poze;
+package com.example.RealEstate.Controllers;
 
 
+import com.example.RealEstate.Services.PozeServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 

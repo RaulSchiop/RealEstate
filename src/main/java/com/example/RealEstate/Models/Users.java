@@ -1,6 +1,5 @@
-package com.example.RealEstate.Users;
+package com.example.RealEstate.Models;
 
-import com.example.RealEstate.Anunturi.Anunturi;
 import com.example.RealEstate.utils.Role;
 import jakarta.persistence.*;
 

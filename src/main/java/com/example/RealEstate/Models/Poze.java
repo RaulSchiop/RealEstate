@@ -1,7 +1,5 @@
-package com.example.RealEstate.Poze;
+package com.example.RealEstate.Models;
 
-import com.example.RealEstate.Anunturi.Anunturi;
-import com.example.RealEstate.Users.Users;
 import jakarta.persistence.*;
 
 @Entity

@@ -1,6 +1,7 @@
-package com.example.RealEstate.Anunturi;
+package com.example.RealEstate.Services;
 
 
+import com.example.RealEstate.Repos.AnunturiRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

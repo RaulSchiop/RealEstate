@@ -1,5 +1,6 @@
-package com.example.RealEstate.Poze;
+package com.example.RealEstate.Services;
 
+import com.example.RealEstate.Repos.PozeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

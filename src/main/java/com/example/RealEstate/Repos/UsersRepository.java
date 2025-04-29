@@ -1,5 +1,6 @@
-package com.example.RealEstate.Users;
+package com.example.RealEstate.Repos;
 
+import com.example.RealEstate.Models.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
