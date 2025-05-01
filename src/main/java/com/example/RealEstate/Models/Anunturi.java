@@ -16,8 +16,8 @@ public class Anunturi {
     private String titlu;
     @Column(nullable = false)
     private String descriere;
-    private int etaj;
-    private int nrEtaje;
+    private Integer etaj;
+    private Integer nrEtaje;
     private LocalDate anConstructie;
     @Column(nullable = false)
     private Float pret;
@@ -39,7 +39,7 @@ public class Anunturi {
     public Anunturi() {
     }
 
-    public Anunturi(int id, String titlu, String descriere, int etaj, int nrEtaje, LocalDate anConstructie, Float pret, Integer camere, Float suprafataUtila, float suprafataCurte, Users user, List<Poze> pozes) {
+    public Anunturi(int id, String titlu, String descriere, Integer etaj, Integer nrEtaje, LocalDate anConstructie, Float pret, Integer camere, Float suprafataUtila, float suprafataCurte, Users user, List<Poze> pozes) {
         this.id = id;
         this.titlu = titlu;
         this.descriere = descriere;
@@ -54,7 +54,7 @@ public class Anunturi {
         this.pozes = pozes;
     }
 
-    public Anunturi(String titlu, String descriere, int etaj, int nrEtaje, LocalDate anConstructie, Float pret, Integer camere, Float suprafataUtila, float suprafataCurte, Users user, List<Poze> pozes) {
+    public Anunturi(String titlu, String descriere, Integer etaj, Integer nrEtaje, LocalDate anConstructie, Float pret, Integer camere, Float suprafataUtila, float suprafataCurte, Users user, List<Poze> pozes) {
         this.titlu = titlu;
         this.descriere = descriere;
         this.etaj = etaj;
@@ -92,19 +92,19 @@ public class Anunturi {
         this.descriere = descriere;
     }
 
-    public int getEtaj() {
+    public Integer getEtaj() {
         return etaj;
     }
 
-    public void setEtaj(int etaj) {
+    public void setEtaj(Integer etaj) {
         this.etaj = etaj;
     }
 
-    public int getNrEtaje() {
+    public Integer getNrEtaje() {
         return nrEtaje;
     }
 
-    public void setNrEtaje(int nrEtaje) {
+    public void setNrEtaje(Integer nrEtaje) {
         this.nrEtaje = nrEtaje;
     }
 
@@ -163,7 +163,6 @@ public class Anunturi {
     public void setPozes(List<Poze> pozes) {
         this.pozes = pozes;
     }
-
 
     @Override
     public String toString() {
