@@ -13,6 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +29,7 @@ public class AnunturiServices {
         this.usersRepository = usersRepository;
     }
 
-    public String addAnunt(AnunturiResponse anunturiResponse, MultipartFile[] poze) throws IOException {
+    public String addAnunt(AnunturiResponse anunturiResponse, MultipartFile[] poze) {
 
         Users user=usersRepository.findById(anunturiResponse.getUserId()).orElse(null);
 
@@ -38,7 +40,10 @@ public class AnunturiServices {
             anunt.setDescriere(anunturiResponse.getDescriere());
             anunt.setEtaj(anunturiResponse.getEtaj());
             anunt.setNrEtaje(anunturiResponse.getNrEtaje());
-            anunt.setAnConstructie(anunturiResponse.getAnConstructie());
+
+          anunt.setAnConstructie(anunturiResponse.getAnConstructie());
+
+
             anunt.setPret(anunturiResponse.getPret());
             anunt.setCamere(anunturiResponse.getCamere());
             anunt.setSuprafataUtila(anunturiResponse.getSuprafataUtila());
@@ -46,8 +51,9 @@ public class AnunturiServices {
             anunt.setUser(user);
             anunt.setNrTel(anunturiResponse.getNrTel());
 
+
             List<Poze> pozeList = new ArrayList<>();
-            String uploadDir = "uploads";
+            String uploadDir = "/Users/raulschiop/Downloads/project/RealEstate/uploads";
             File uploadDirectory = new File(uploadDir);
             if (!uploadDirectory.exists()) {
                 uploadDirectory.mkdirs();

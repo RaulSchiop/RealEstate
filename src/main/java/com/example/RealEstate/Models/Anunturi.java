@@ -17,8 +17,13 @@ public class Anunturi {
     @Column(nullable = false)
     private String descriere;
     private Integer etaj;
+    @Column(name = "nr_etaje")
     private Integer nrEtaje;
+
+
+    @Column(name = "an_constructie" , nullable = false)
     private LocalDate anConstructie;
+
     @Column(nullable = false)
     private Float pret;
     @Column(nullable = false)
@@ -27,8 +32,10 @@ public class Anunturi {
     private Float suprafataUtila;
 
     private float suprafataCurte;
-    @Column(nullable = false)
-    private Integer nrTel;
+
+    @Column(name = "nrTel")
+    private String nrTel;
+
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -40,7 +47,7 @@ public class Anunturi {
     public Anunturi() {
     }
 
-    public Anunturi(int id, String titlu, String descriere, Integer etaj, Integer nrEtaje, LocalDate anConstructie, Float pret, Integer camere, Float suprafataUtila, float suprafataCurte, Integer nrTel, Users user, List<Poze> pozes) {
+    public Anunturi(int id, String titlu, String descriere, Integer etaj, Integer nrEtaje, LocalDate anConstructie, Float pret, Integer camere, Float suprafataUtila, float suprafataCurte, String nrTel, Users user, List<Poze> pozes) {
         this.id = id;
         this.titlu = titlu;
         this.descriere = descriere;
@@ -56,7 +63,7 @@ public class Anunturi {
         this.pozes = pozes;
     }
 
-    public Anunturi(String titlu, String descriere, Integer etaj, Integer nrEtaje, LocalDate anConstructie, Float pret, Integer camere, Float suprafataUtila, float suprafataCurte, Integer nrTel, Users user, List<Poze> pozes) {
+    public Anunturi(String titlu, String descriere, Integer etaj, Integer nrEtaje, LocalDate anConstructie, Float pret, Integer camere, Float suprafataUtila, float suprafataCurte, String nrTel, Users user, List<Poze> pozes) {
         this.titlu = titlu;
         this.descriere = descriere;
         this.etaj = etaj;
@@ -152,11 +159,11 @@ public class Anunturi {
         this.suprafataCurte = suprafataCurte;
     }
 
-    public Integer getNrTel() {
+    public String getNrTel() {
         return nrTel;
     }
 
-    public void setNrTel(Integer nrTel) {
+    public void setNrTel(String nrTel) {
         this.nrTel = nrTel;
     }
 
@@ -169,8 +176,12 @@ public class Anunturi {
     }
 
     public List<Poze> getPozes() {
+        if (pozes == null) {
+            pozes = new ArrayList<>();
+        }
         return pozes;
     }
+
 
     public void setPozes(List<Poze> pozes) {
         this.pozes = pozes;

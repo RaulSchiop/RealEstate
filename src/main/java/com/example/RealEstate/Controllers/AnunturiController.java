@@ -34,12 +34,12 @@ public class AnunturiController {
                                 @RequestParam("camere") Integer camere,
                                 @RequestParam("suprafataUtila") Float suprafataUtila,
                                 @RequestParam("suprafataCurte") Float suprafataCurte,
-                                @RequestParam("nrTel") Integer nrTel,
+                                @RequestParam("nrTel") String nrTel,
                                 @RequestParam("userId") int userId,
                                 @RequestParam("poze") MultipartFile[] poze) throws IOException {
 
         AnunturiResponse anunturiResponse = new AnunturiResponse(
-                titlu, descriere, etaj, nrEtaje, anConstructie, pret, camere, suprafataUtila, suprafataCurte,nrTel, userId
+                titlu, descriere, etaj, nrEtaje, anConstructie, pret, camere, suprafataUtila, suprafataCurte, nrTel, userId
         );
 
         return anunturiServices.addAnunt(anunturiResponse, poze);
