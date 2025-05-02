@@ -27,7 +27,8 @@ public class Anunturi {
     private Float suprafataUtila;
 
     private float suprafataCurte;
-
+    @Column(nullable = false)
+    private Integer nrTel;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -39,7 +40,7 @@ public class Anunturi {
     public Anunturi() {
     }
 
-    public Anunturi(int id, String titlu, String descriere, Integer etaj, Integer nrEtaje, LocalDate anConstructie, Float pret, Integer camere, Float suprafataUtila, float suprafataCurte, Users user, List<Poze> pozes) {
+    public Anunturi(int id, String titlu, String descriere, Integer etaj, Integer nrEtaje, LocalDate anConstructie, Float pret, Integer camere, Float suprafataUtila, float suprafataCurte, Integer nrTel, Users user, List<Poze> pozes) {
         this.id = id;
         this.titlu = titlu;
         this.descriere = descriere;
@@ -50,11 +51,12 @@ public class Anunturi {
         this.camere = camere;
         this.suprafataUtila = suprafataUtila;
         this.suprafataCurte = suprafataCurte;
+        this.nrTel = nrTel;
         this.user = user;
         this.pozes = pozes;
     }
 
-    public Anunturi(String titlu, String descriere, Integer etaj, Integer nrEtaje, LocalDate anConstructie, Float pret, Integer camere, Float suprafataUtila, float suprafataCurte, Users user, List<Poze> pozes) {
+    public Anunturi(String titlu, String descriere, Integer etaj, Integer nrEtaje, LocalDate anConstructie, Float pret, Integer camere, Float suprafataUtila, float suprafataCurte, Integer nrTel, Users user, List<Poze> pozes) {
         this.titlu = titlu;
         this.descriere = descriere;
         this.etaj = etaj;
@@ -64,9 +66,11 @@ public class Anunturi {
         this.camere = camere;
         this.suprafataUtila = suprafataUtila;
         this.suprafataCurte = suprafataCurte;
+        this.nrTel = nrTel;
         this.user = user;
         this.pozes = pozes;
     }
+
 
     public int getId() {
         return id;
@@ -148,6 +152,14 @@ public class Anunturi {
         this.suprafataCurte = suprafataCurte;
     }
 
+    public Integer getNrTel() {
+        return nrTel;
+    }
+
+    public void setNrTel(Integer nrTel) {
+        this.nrTel = nrTel;
+    }
+
     public Users getUser() {
         return user;
     }
@@ -177,6 +189,7 @@ public class Anunturi {
                 ", camere=" + camere +
                 ", suprafataUtila=" + suprafataUtila +
                 ", suprafataCurte=" + suprafataCurte +
+                ", nrTel=" + nrTel +
                 ", user=" + user +
                 ", pozes=" + pozes +
                 '}';

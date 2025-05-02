@@ -16,10 +16,10 @@ public class AnunturiResponse {
     private Integer camere;
     private Float suprafataUtila;
     private Float suprafataCurte;
-
+    private Integer nrTel;
     private int userId;
 
-    public AnunturiResponse(String titlu, String descriere, Integer etaj, Integer nrEtaje, LocalDate anConstructie, Float pret, Integer camere, Float suprafataUtila, Float suprafataCurte, int userId) {
+    public AnunturiResponse(String titlu, String descriere, Integer etaj, Integer nrEtaje, LocalDate anConstructie, Float pret, Integer camere, Float suprafataUtila, Float suprafataCurte, Integer nrTel, int userId) {
         this.titlu = titlu;
         this.descriere = descriere;
         this.etaj = etaj;
@@ -29,6 +29,7 @@ public class AnunturiResponse {
         this.camere = camere;
         this.suprafataUtila = suprafataUtila;
         this.suprafataCurte = suprafataCurte;
+        this.nrTel = nrTel;
         this.userId = userId;
     }
 
@@ -104,7 +105,13 @@ public class AnunturiResponse {
         this.suprafataCurte = suprafataCurte;
     }
 
+    public Integer getNrTel() {
+        return nrTel;
+    }
 
+    public void setNrTel(Integer nrTel) {
+        this.nrTel = nrTel;
+    }
 
     public int getUserId() {
         return userId;

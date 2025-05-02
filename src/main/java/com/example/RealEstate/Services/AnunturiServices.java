@@ -44,6 +44,7 @@ public class AnunturiServices {
             anunt.setSuprafataUtila(anunturiResponse.getSuprafataUtila());
             anunt.setSuprafataCurte(anunturiResponse.getSuprafataCurte());
             anunt.setUser(user);
+            anunt.setNrTel(anunturiResponse.getNrTel());
 
             List<Poze> pozeList = new ArrayList<>();
             String uploadDir = "uploads";
@@ -55,12 +56,17 @@ public class AnunturiServices {
             for (MultipartFile file : poze) {
                 String filePath = uploadDir + File.separator + file.getOriginalFilename();
                 File destination = new File(filePath);
-                file.transferTo(destination);
+                try {
+                    file.transferTo(destination);
 
-                Poze poza = new Poze();
-                poza.setPath(filePath);
-                poza.setAnunturi(anunt);
-                pozeList.add(poza);
+                    Poze poza = new Poze();
+                    poza.setPath(filePath);
+                    poza.setAnunturi(anunt);
+                    pozeList.add(poza);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return "Failed to upload file: " + file.getOriginalFilename();
+                }
             }
 
             anunt.setPozes(pozeList);
