@@ -17,6 +17,7 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class AnunturiServices {
@@ -60,7 +61,7 @@ public class AnunturiServices {
             }
 
             for (MultipartFile file : poze) {
-                String filePath = uploadDir + File.separator + file.getOriginalFilename();
+                String filePath = uploadDir + File.separator +  UUID.randomUUID().toString() + "_"+file.getOriginalFilename();
                 File destination = new File(filePath);
                 try {
                     file.transferTo(destination);
