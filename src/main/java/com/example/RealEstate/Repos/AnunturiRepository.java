@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AnunturiRepository extends JpaRepository<Anunturi,Integer> {
+    Anunturi findByUserId(int id);
 }
