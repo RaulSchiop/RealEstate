@@ -46,12 +46,16 @@ public class AnunturiServices {
             anunt.setUser(user);
 
             List<Poze> pozeList = new ArrayList<>();
+            String uploadDir = "uploads";
+            File uploadDirectory = new File(uploadDir);
+            if (!uploadDirectory.exists()) {
+                uploadDirectory.mkdirs();
+            }
+
             for (MultipartFile file : poze) {
-
-                String filePath = "/uploads/" + file.getOriginalFilename();
+                String filePath = uploadDir + File.separator + file.getOriginalFilename();
                 File destination = new File(filePath);
-                file.transferTo(destination); // Save file to disk
-
+                file.transferTo(destination);
 
                 Poze poza = new Poze();
                 poza.setPath(filePath);
