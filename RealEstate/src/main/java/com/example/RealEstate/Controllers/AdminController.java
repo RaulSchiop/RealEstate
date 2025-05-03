@@ -12,6 +12,7 @@ import java.util.List;
 
 
 @RestController
+@RequestMapping("/Admin")
 public class AdminController {
 
     private final AdminServices adminServices;
@@ -21,37 +22,37 @@ public class AdminController {
         this.adminServices = adminServices;
     }
 
-    @GetMapping("/Admin/users")
+    @GetMapping("/users")
     List<Users> getUsers() {
         return adminServices.getUsers();
     }
 
 
-    @PostMapping("/Admin/addUsers")
+    @PostMapping("/addUsers")
     public void addUsers(@RequestBody Users user) {
 
         adminServices.addUsers(user);
     }
 
-    @DeleteMapping("/Admin/deleteUser/{id}")
+    @DeleteMapping("/deleteUser/{id}")
     public String deleteUsers(@PathVariable int id) {
 
         return adminServices.deleteUsers(id);
 
     }
 
-    @GetMapping("/Admin/getAnunturi")
+    @GetMapping("/getAnunturi")
     public List<Anunturi> getAnunturi() {
         return adminServices.getAnunturi();
     }
 
-    @DeleteMapping("/Admin/deleteAnunt/{id}")
+    @DeleteMapping("/deleteAnunt/{id}")
     public String deleteAnunturi(@PathVariable int id) {
 
         return adminServices.deleteAnunturi(id);
     }
 
-    @PostMapping("/Admin/modificareUtilizator")
+    @PostMapping("/modificareUtilizator")
     public String modificareUtilizator(@RequestBody UserRequest userUpdateRequest) {
         return adminServices.modificareUtilizator(userUpdateRequest);
     }

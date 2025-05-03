@@ -5,16 +5,15 @@ import com.example.RealEstate.Models.Anunturi;
 import com.example.RealEstate.Models.AnunturiResponse;
 import com.example.RealEstate.Services.AnunturiServices;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.List;
 
 @RestController
+@RequestMapping("/anunturi")
 public class AnunturiController {
 
  private final AnunturiServices anunturiServices;
@@ -22,6 +21,11 @@ public class AnunturiController {
     @Autowired
     public AnunturiController(AnunturiServices anunturiServices) {
         this.anunturiServices = anunturiServices;
+    }
+
+    @GetMapping
+    public List<Anunturi> getAllAnunturi(){
+        return anunturiServices.getAllAnunturi();
     }
 
     @PostMapping("/adaugareAnunt")
