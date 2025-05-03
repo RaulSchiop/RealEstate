@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
-
-
 @RestController
 public class AdminController {
 
@@ -50,12 +48,12 @@ public class AdminController {
     @DeleteMapping("/Admin/deleteAnunt/{id}")
     public String deleteAnunturi(@PathVariable int id) {
 
-      return  adminServices.deleteAnunturi(id);
+        return adminServices.deleteAnunturi(id);
     }
 
     @PostMapping("/Admin/modificareUtilizator")
     public String modificareUtilizator(@RequestBody UserRequest userUpdateRequest) {
-    return adminServices.modificareUtilizator(userUpdateRequest);
+        return adminServices.modificareUtilizator(userUpdateRequest);
     }
 
 

@@ -53,10 +53,10 @@ public class AdminServices {
             List<Anunturi> foundAnunturi = usersRepository.findById(id).get().getAnunturi();
             for (Anunturi anunturi : foundAnunturi) {
                 List<Poze> pozas = anunturi.getPozes();
-                for(Poze poza : pozas){
-                    File file =new File(poza.getPath());
-                    if(file.exists()){
-                        if(file.delete()){
+                for (Poze poza : pozas) {
+                    File file = new File(poza.getPath());
+                    if (file.exists()) {
+                        if (file.delete()) {
                             System.out.println("Deleted file: " + poza.getPath());
                         } else {
                             System.out.println("Failed to delete file: " + poza.getPath());
