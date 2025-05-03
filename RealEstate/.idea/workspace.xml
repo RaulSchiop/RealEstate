@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0210a0b8-7556-4810-88a0-0ad0ad265ffe" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/RealEstate/Repos/AnunturiRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/RealEstate/Repos/AnunturiRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/RealEstate/Services/AdminServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/RealEstate/Services/AdminServices.java" afterDir="false" />
-    </list>
+    <list default="true" id="0210a0b8-7556-4810-88a0-0ad0ad265ffe" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -23,7 +20,7 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
@@ -88,7 +85,7 @@
       <updated>1745918085376</updated>
       <workItem from="1745918086486" duration="15833000" />
       <workItem from="1745995105401" duration="6686000" />
-      <workItem from="1746175509162" duration="9011000" />
+      <workItem from="1746175509162" duration="11018000" />
     </task>
     <servers />
   </component>
