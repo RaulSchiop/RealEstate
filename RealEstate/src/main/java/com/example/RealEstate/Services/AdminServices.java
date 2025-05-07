@@ -10,6 +10,8 @@ import com.example.RealEstate.Repos.UsersRepository;
 import com.example.RealEstate.utils.Role;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -45,7 +47,7 @@ public class AdminServices {
 
     }
 
-    public String deleteUsers(int id) {
+    public ResponseEntity<?> deleteUsers(int id) {
 
         Optional<Users> foundUser = usersRepository.findById(id);
 
@@ -66,9 +68,9 @@ public class AdminServices {
 
             }
             usersRepository.deleteById(id);
-            return "User deleted";
+            return ResponseEntity.ok().build();
         } else {
-            return "User not found";
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
     }
@@ -77,7 +79,7 @@ public class AdminServices {
         return anunturiRepository.findAll();
     }
 
-    public String deleteAnunturi(int id) {
+    public ResponseEntity<?> deleteAnunturi(int id) {
         Optional<Anunturi> foundAnunturi = anunturiRepository.findById(id);
         if (foundAnunturi.isPresent()) {
             Anunturi anunturi = foundAnunturi.get();
@@ -95,19 +97,19 @@ public class AdminServices {
             }
 
             anunturiRepository.deleteById(id);
-            return "Anunturi deleted";
+       return ResponseEntity.ok().build(); //"Anunturi deleted";
         } else {
-            return "Anunturi not found";
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); //"Anunturi not found";
         }
 
     }
 
-    public String modificareUtilizator(UserRequest userUpdateRequest) {
+    public ResponseEntity<?> modificareUtilizator(UserRequest userUpdateRequest) {
 
         Users foundUser = usersRepository.findByEmail(userUpdateRequest.getOldEmail());
 
         if (foundUser == null) {
-            return "User not found";
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         } else {
 
 
@@ -117,7 +119,7 @@ public class AdminServices {
             foundUser.setRole(userUpdateRequest.getRole());
 
             usersRepository.save(foundUser);
-            return "User modified";
+            return ResponseEntity.ok().build();
         }
     }
 

@@ -4,8 +4,8 @@ import com.example.RealEstate.Models.Anunturi;
 import com.example.RealEstate.Models.UserRequest;
 import com.example.RealEstate.Models.Users;
 import com.example.RealEstate.Services.AdminServices;
-import com.example.RealEstate.utils.Role;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,7 +35,7 @@ public class AdminController {
     }
 
     @DeleteMapping("/deleteUser/{id}")
-    public String deleteUsers(@PathVariable int id) {
+    public ResponseEntity<?> deleteUsers(@PathVariable int id) {
 
         return adminServices.deleteUsers(id);
 
@@ -47,13 +47,13 @@ public class AdminController {
     }
 
     @DeleteMapping("/deleteAnunt/{id}")
-    public String deleteAnunturi(@PathVariable int id) {
+    public ResponseEntity<?> deleteAnunturi(@PathVariable int id) {
 
         return adminServices.deleteAnunturi(id);
     }
 
     @PostMapping("/modificareUtilizator")
-    public String modificareUtilizator(@RequestBody UserRequest userUpdateRequest) {
+    public ResponseEntity<?> modificareUtilizator(@RequestBody UserRequest userUpdateRequest) {
         return adminServices.modificareUtilizator(userUpdateRequest);
     }
 

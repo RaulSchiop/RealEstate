@@ -5,6 +5,7 @@ import com.example.RealEstate.Models.Anunturi;
 import com.example.RealEstate.Models.AnunturiResponse;
 import com.example.RealEstate.Services.AnunturiServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -29,18 +30,18 @@ public class AnunturiController {
     }
 
     @PostMapping("/adaugareAnunt")
-    public String adaugareAnunt(@RequestParam("titlu") String titlu,
-                                @RequestParam("descriere") String descriere,
-                                @RequestParam("etaj") Integer etaj,
-                                @RequestParam("nrEtaje") Integer nrEtaje,
-                                @RequestParam("anConstructie") LocalDate anConstructie,
-                                @RequestParam("pret") Float pret,
-                                @RequestParam("camere") Integer camere,
-                                @RequestParam("suprafataUtila") Float suprafataUtila,
-                                @RequestParam("suprafataCurte") Float suprafataCurte,
-                                @RequestParam("nrTel") String nrTel,
-                                @RequestParam("userId") int userId,
-                                @RequestParam("poze") MultipartFile[] poze) throws IOException {
+    public ResponseEntity<?> adaugareAnunt(@RequestParam("titlu") String titlu,
+                                        @RequestParam("descriere") String descriere,
+                                        @RequestParam("etaj") Integer etaj,
+                                        @RequestParam("nrEtaje") Integer nrEtaje,
+                                        @RequestParam("anConstructie") LocalDate anConstructie,
+                                        @RequestParam("pret") Float pret,
+                                        @RequestParam("camere") Integer camere,
+                                        @RequestParam("suprafataUtila") Float suprafataUtila,
+                                        @RequestParam("suprafataCurte") Float suprafataCurte,
+                                        @RequestParam("nrTel") String nrTel,
+                                        @RequestParam("userId") int userId,
+                                        @RequestParam("poze") MultipartFile[] poze) throws IOException {
 
         AnunturiResponse anunturiResponse = new AnunturiResponse(
                 titlu, descriere, etaj, nrEtaje, anConstructie, pret, camere, suprafataUtila, suprafataCurte, nrTel, userId

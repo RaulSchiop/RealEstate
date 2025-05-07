@@ -8,6 +8,9 @@ import com.example.RealEstate.Models.Users;
 import com.example.RealEstate.Repos.AnunturiRepository;
 import com.example.RealEstate.Repos.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.RequestEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -40,7 +43,7 @@ public class AnunturiServices {
     }
 
 
-    public String addAnunt(AnunturiResponse anunturiResponse, MultipartFile[] poze) {
+    public ResponseEntity<?> addAnunt(AnunturiResponse anunturiResponse, MultipartFile[] poze) {
 
         Users user=usersRepository.findById(anunturiResponse.getUserId()).orElse(null);
 
@@ -82,7 +85,7 @@ public class AnunturiServices {
                     pozeList.add(poza);
                 } catch (IOException e) {
                     e.printStackTrace();
-                    return "Failed to upload file: " + file.getOriginalFilename();
+                    return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); //"Failed to upload file: " + file.getOriginalFilename();
                 }
             }
 
@@ -90,10 +93,10 @@ public class AnunturiServices {
 
             anunturiRepository.save(anunt);
 
-            return "Anunt added successfully";
+            return ResponseEntity.status(HttpStatus.CREATED).build();
         }
 
-        return "Anunt not added";
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 
 
     }
