@@ -24,7 +24,7 @@ export default function Header() {
             className="w-full mt-10 flex justify-center"
          >
             <div className="flex justify-center gap-80 rounded-[60px] items-center w-[1189px] bg-accent/40 py-2 px-4 shadow-inner">
-               <h1 className="font-bold text-2xl text-text">HOMYO</h1>
+               <h1 className="font-bold text-2xl text-text">HOMEYO</h1>
                <div className="flex justify-center gap-[90px] items-center">
                   <Link href={"/"} className="text-[16px] text-text ">
                      <motion.p
