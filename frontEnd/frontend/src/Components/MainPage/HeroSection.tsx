@@ -9,7 +9,7 @@ import { motion } from "motion/react";
 export default function HeroSection() {
    return (
       <>
-         <div className=" lg:pt-[100px] w-full h-[700px] lg:h-[1000px]  flex flex-col justify-center items-center px-34  bg-gradient-to-b from-bg to-accent/80">
+         <div className=" lg:pt-[100px] w-full h-[700px] lg:h-[900px]  flex flex-col justify-center items-center px-34  bg-gradient-to-b from-bg to-accent/60">
            
             <motion.h1
                initial={{
