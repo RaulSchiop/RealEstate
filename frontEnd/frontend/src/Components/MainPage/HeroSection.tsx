@@ -65,9 +65,11 @@ export default function HeroSection() {
                <motion.div
                   initial={{
                      y: 1000,
+                     opacity:0
                   }}
                   animate={{
                      y: 0,
+                     opacity:1
                   }}
                   transition={{
                      duration: 2,
