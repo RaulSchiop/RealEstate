@@ -9,14 +9,8 @@ import { motion } from "motion/react";
 export default function HeroSection() {
    return (
       <>
-         <div className="w-[100%] z-0 h-[850px]  flex flex-col justify-center items-center px-34">
-            <Image
-               src={bgHouse}
-               alt="background"
-               fill
-               priority
-               className="object-cover z-[-1] max-h-[900px]"
-            />
+         <div className=" lg:pt-[100px] w-full h-[700px] lg:h-[1000px]  flex flex-col justify-center items-center px-34  bg-gradient-to-b from-bg to-accent/80">
+           
             <motion.h1
                initial={{
                   x: -1000,
@@ -30,12 +24,12 @@ export default function HeroSection() {
                   duration: 1,
                   type: "spring",
                }}
-               className="font-bold text-[190px] text-secondary tracking-[25%] h-30"
+               className="font-bold text-[50px] sm:text-[100px] xl:text-[190px] text-secondary tracking-[25%] lg:mt-0 xl: h-20"
             >
                HOMEYO
             </motion.h1>
 
-            <div className="flex items-center justify-between w-full ">
+            <div className="flex  lg:flex-row flex-col lg:justify-start  md:flex-row md:mt-10 justify-between w-full ">
                <motion.div
                   initial={{
                      x: -1000,
@@ -49,7 +43,7 @@ export default function HeroSection() {
                      duration: 2,
                      type: "spring",
                   }}
-                  className="w-[250px]"
+                  className="w-[250px] lg:h-full lg:mt-[200px] mt-10"
                >
                   <p>Start your journey towards your perfect home!</p>
                   <Link href={"/anunturi"}>
@@ -62,7 +56,7 @@ export default function HeroSection() {
                            scale: 0.9,
                            transition: { type: "spring", duration: 0.4 },
                         }}
-                        className="w-[140px] h-[40px] bg-primary/90 rounded-[40px] mt-5 text-lightText"
+                        className="w-[140px] h-[40px] bg-primary/90 rounded-[40px] mt-5 mb-10 lg:mb-0 text-lightText"
                      >
                         Get started
                      </motion.button>
@@ -79,14 +73,17 @@ export default function HeroSection() {
                      duration: 2,
                      type: "spring",
                   }}
+                  className="hidden lg:block "
                >
                   <Image
                      src={HouseImage}
-                     height={1000}
-                     width={1000}
-                     alt="home iamge"
+                     height={900}
+                     width={900}
+                     alt="home iamge"  
+                      className="w-[300px] sm:w-[500px] md:w-[700px] "
                   ></Image>
                </motion.div>
+               
                <motion.div
                   initial={{
                      x: 1000,
@@ -100,9 +97,9 @@ export default function HeroSection() {
                      duration: 2,
                      type: "spring",
                   }}
-                  className="flex flex-col items-center gap-1 justify-center"
+                  className="flex  flex-col items-center gap-1  mt-10 lg:h-full lg:mt-[200px]"
                >
-                  <div className="flex items-center justify-center gap-1">
+                  <div className="flex items-center  justify-center gap-1">
                      <motion.div
                         whileHover={{
                            scale: 1.1,

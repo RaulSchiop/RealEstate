@@ -21,11 +21,11 @@ export default function Header() {
             initial={{ y: -1000 }}
             animate={{ y: 0 }}
             transition={{ type: "spring", duration: 1 }}
-            className="w-full mt-10 flex justify-center"
+              className="absolute top-0 left-0 w-full  flex justify-center mt-10"
          >
-            <div className="flex justify-center gap-80 rounded-[60px] items-center w-[1189px] bg-accent/40 py-2 px-4 shadow-inner">
-               <h1 className="font-bold text-2xl text-text">HOMEYO</h1>
-               <div className="flex justify-center gap-[90px] items-center">
+            <div className="flex justify-center gap-2 sm:gap-20   xl:gap-80 rounded-[60px] items-center lg:w-[1000px] xl:w-[1189px] w-full bg-accent/40 py-2 px-4 shadow-inner">
+               <h1 className="font-bold text-[14px]  sm:text-2xl text-text">HOMEYO</h1>
+               <div className="flex justify-center gap-5 lg:gap-[90px] items-center">
                   <Link href={"/"} className="text-[16px] text-text ">
                      <motion.p
                         whileHover={{
@@ -73,7 +73,7 @@ export default function Header() {
                {logged === false ? (
                      <motion.button 
                      onClick={handleRedirect}
-                        className="text-lightText bg-primary/90 h-10 w-36 rounded-[40px]"
+                        className="text-lightText bg-primary/90 lg:text-[16px] lg:p-0 text-[14px] p-1  lg:h-10 lg:w-36 rounded-[40px]"
                         whileHover={{
                            scale: 1.1,
                            transition: { type: "spring", duration: 0.4 },
