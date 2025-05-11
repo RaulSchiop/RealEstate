@@ -1,3 +1,4 @@
+import Footer from "@/Components/Footer/Footer";
 import Header from "@/Components/Header/Header";
 import ConnectWithUsSection from "@/Components/MainPage/ConnectWithUsSection";
 import HeroSection from "@/Components/MainPage/HeroSection";
@@ -13,6 +14,7 @@ export default function Home() {
          <PoluparListings></PoluparListings>
          <ConnectWithUsSection></ConnectWithUsSection>
          <SubscribeToNewsLetter></SubscribeToNewsLetter>
+         <Footer></Footer>
       </>
    );
 }
