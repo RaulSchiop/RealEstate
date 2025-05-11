@@ -99,9 +99,9 @@ export default function HeroSection() {
                      duration: 2,
                      type: "spring",
                   }}
-                  className="flex  flex-col items-center gap-1  mt-10 lg:h-full lg:mt-[200px]"
+                  className="flex  flex-col items-center mt-10 lg:h-full lg:mt-[200px] gap-2"
                >
-                  <div className="flex items-center  justify-center gap-1">
+                  <div className="flex items-center  justify-center gap-2">
                      <motion.div
                         whileHover={{
                            scale: 1.1,
@@ -126,7 +126,7 @@ export default function HeroSection() {
                         }}
                         className="h-[35px] w-[136px] text-center border-1 rounded-4xl"
                      >
-                        3 camere
+                        3 rooms
                      </motion.button>
                   </div>
                   <div className="flex gap-1">
@@ -141,7 +141,7 @@ export default function HeroSection() {
                         }}
                         className="h-[35px] w-[73px] text-center border-1 rounded-4xl"
                      >
-                        etaj 1
+                         1 floor
                      </motion.button>
                      <motion.button
                         whileHover={{
@@ -154,7 +154,7 @@ export default function HeroSection() {
                         }}
                         className="h-[35px] w-[93px] text-center border-1 rounded-4xl"
                      >
-                        etaj 2
+                        2 floor
                      </motion.button>
                   </div>
                </motion.div>

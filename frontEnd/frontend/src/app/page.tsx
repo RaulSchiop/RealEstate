@@ -1,4 +1,5 @@
 import Header from "@/Components/Header/Header";
+import ConnectWithUsSection from "@/Components/MainPage/ConnectWithUsSection";
 import HeroSection from "@/Components/MainPage/HeroSection";
 import PoluparListings from "@/Components/MainPage/PopularListings";
 import Image from "next/image";
@@ -9,6 +10,7 @@ export default function Home() {
          <Header></Header>
          <HeroSection></HeroSection>
          <PoluparListings></PoluparListings>
+         <ConnectWithUsSection></ConnectWithUsSection>
       </>
    );
 }

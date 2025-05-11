@@ -4,7 +4,7 @@ import m2Logo from "../../../public/GIS Square PT.png";
 import consIcon from "../../../public/Arcticons Price Converter.png";
 
 type ListType = {
-   photo: StaticImageData;
+   photo: StaticImageData | string;
    camere: number;
    suprafata: number;
    pret: number;
@@ -25,7 +25,7 @@ export default function List({ photo, camere, suprafata, pret }: ListType) {
          <div className="flex justify-between items-center w-full ">
             <div className="flex items-center justify-center gap-2">
                <Image width={24} height={24} src={camereImage} alt="camera logo"></Image>
-               <p className="text-lightText text-[12px]">{camere} camere</p>
+               <p className="text-lightText text-[12px]">{camere} Rooms</p>
             </div>
             <div className="flex items-center justify-center gap-2">
                <Image width={13} height={13} src={m2Logo} alt="m2 logo"></Image>

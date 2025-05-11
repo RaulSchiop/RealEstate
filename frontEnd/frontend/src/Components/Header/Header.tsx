@@ -51,7 +51,7 @@ export default function Header() {
                            transition: { type: "spring", duration: 0.4 },
                         }}
                      >
-                        Anunturi
+                        Listings
                      </motion.p>
                   </Link>
                   <Link href={"/contact"} className="text-[16px] text-text ">
