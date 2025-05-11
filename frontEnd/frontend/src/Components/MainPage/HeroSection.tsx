@@ -9,7 +9,7 @@ import { motion } from "motion/react";
 export default function HeroSection() {
    return (
       <>
-         <div className=" lg:pt-[100px] w-full h-[700px] lg:h-[900px]  flex flex-col justify-center items-center px-34  bg-gradient-to-b from-bg to-accent/60">
+         <div className=" lg:pt-[100px] w-full h-[700px] lg:h-[900px]  flex flex-col justify-center items-center px-20 md:px-34  lg:px-34  bg-gradient-to-b from-bg to-accent/60">
            
             <motion.h1
                initial={{
@@ -29,7 +29,7 @@ export default function HeroSection() {
                HOMEYO
             </motion.h1>
 
-            <div className="flex  lg:flex-row flex-col lg:justify-start  md:flex-row md:mt-10 justify-between w-full ">
+            <div className="flex lg:flex-row flex-col lg:justify-start  gap-20 lg:gap-0 md:flex-row md:mt-10 justify-ce w-full ">
                <motion.div
                   initial={{
                      x: -1000,

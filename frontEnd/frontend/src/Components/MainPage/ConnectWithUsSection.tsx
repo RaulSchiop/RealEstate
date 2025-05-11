@@ -14,13 +14,13 @@ export default function ConnectWithUsSection() {
    }
 
    return (
-      <div className="mt-20 px-20 lg:px-30 flex flex-col justify-center lg:gap-40 gap-20 items-center lg:flex-row">
+      <div className="mt-20  lg:px-30 flex flex-col w-full justify-center lg:gap-40 gap-20 items-center lg:flex-row">
          <div className="flex flex-col  w-[360px]">
             <h1 className="text-[38px] w-[360px] text-text font-bold mb-10">
                Get in touch with one of our{" "}
                <a className="text-secondary">AGENTS</a>
             </h1>
-            <Image src={shapes} alt="" width={300} height={80}></Image>
+            <Image src={shapes} alt="" className="ml-10 md:ml-0" width={300} height={80}></Image>
             <div className="flex pl-10 gap-10">
                <div className="flex flex-col justify-center ">
                   <h1 className="text-text font-bold text-[21px]">20k</h1>
@@ -37,9 +37,9 @@ export default function ConnectWithUsSection() {
             </div>
          </div>
          <div>
-            <div className="relative  flex justify-center items-center ">
+            <div className="relative  flex justify-center items-center  ">
                <Image src={shape2} alt="Shape" />
-               <div className="absolute inset-0 flex justify-center ml-30 flex-col ">
+               <div className="absolute inset-0 flex justify-center ml-20 md:ml-30 flex-col ">
                   <h1 className="text-lightText text-[28px]">Let Us Help</h1>
                   <p className="text-lightText w-[300px]">
                      Let’s find the perfect home together. From first visits to
