@@ -45,7 +45,7 @@ export default function ConnectWithUsSection() {
                      Let’s find the perfect home together. From first visits to
                      final contracts.
                   </p>
-                  <MainBtnLight onClick={handleRedirect}>Contact Us</MainBtnLight>
+                  <MainBtnLight type="button" onClick={handleRedirect}>Contact Us</MainBtnLight>
                </div>
             </div>
          </div>

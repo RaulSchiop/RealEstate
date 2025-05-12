@@ -1,13 +1,15 @@
 'use client'
 import {motion} from 'motion/react'
+import { button } from 'motion/react-client';
 import { ReactNode } from 'react';
 type Props = {
   children: ReactNode;
  onClick?: () => void;
+  type:"button" | "submit" | "reset"
 };
-export default function MainBtn({children,onClick}:Props) {
+export default function MainBtn({children,onClick,type="button" }:Props) {
    return (
-      <motion.button onClick={onClick}
+      <motion.button onClick={onClick} type={type}
          whileHover={{
             scale: 1.1,
             transition: { type: "spring", duration: 0.4 },

@@ -4,10 +4,11 @@ import { ReactNode } from 'react';
 type Props = {
   children: ReactNode;
  onClick?: () => void;
+   type:"button" | "submit" | "reset"
 };
-export default function MainBtnLight({children,onClick}:Props) {
+export default function MainBtnLight({children,onClick,type="button"}:Props) {
    return (
-      <motion.button onClick={onClick}
+      <motion.button onClick={onClick} type={type}
          whileHover={{
             scale: 1.1,
             transition: { type: "spring", duration: 0.4 },

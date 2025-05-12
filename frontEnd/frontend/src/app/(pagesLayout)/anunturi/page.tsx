@@ -38,7 +38,7 @@ export default function Anunturi() {
       formData.append("sizeFilter", valueS);
       formData.append("priceFilter", valueP);
 
-      console.log(Object.fromEntries(formData));
+      console.log(formData);
    }
 
    return (
@@ -156,5 +156,6 @@ export default function Anunturi() {
          </motion.div>
          <Footer></Footer>
       </>
+      
    );
 }

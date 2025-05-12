@@ -6,7 +6,7 @@ type Props = {
  onClick?: () => void;
  type:"button" | "submit" | "reset"
 };
-export default function MainBtnG({children,onClick,type}:Props) {
+export default function MainBtnG({children,onClick,type="button"}:Props) {
    return (
       <motion.button onClick={onClick} type={type}
          whileHover={{
