@@ -1,9 +1,7 @@
-"use client";
+
 import List from "../Utils/List";
 import dummyphoto from "../../../public/Bed Outline Icon from Real Estate.png";
 import Link from "next/link";
-import { useInView, motion } from "motion/react";
-import { useRef } from "react";
 
 export default function PoluparListings() {
    return (

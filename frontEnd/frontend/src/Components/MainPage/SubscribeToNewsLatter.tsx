@@ -4,7 +4,7 @@ import imageNews from "../../../public/Real Estate Image 2.png";
 export default function SubscribeToNewsLetter() {
    return (
       <div className="flex items-center justify-center w-full mt-30 ">
-         <div className="flex flex-col mx-5 md:mx-10 md:flex-row items-center justify-center bg-accent/80  rounded-[20px] gap-10 ">
+         <div className="flex flex-col mx-5 md:mx-10 md:flex-row items-center justify-center bg-accent/80  rounded-[20px] gap-10  ">
             <div className="object-cover  relative">
                <Image src={imageNews} className="rounded-[20px]" alt="house iamge"></Image>
             </div>
