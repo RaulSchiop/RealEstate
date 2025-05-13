@@ -4,42 +4,71 @@ import dummyphoto from "../../../../public/Bed Outline Icon from Real Estate.png
 import Link from "next/link";
 import MainBtnB from "../../../Components/buttons/MainBtnG";
 import Footer from "@/Components/Footer/Footer";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 
 export default function Anunturi() {
-   const [valueS, setValueS] = useState("");
-   const [valueP, setValueP] = useState("");
+   const [valueS, setValueS] = useState<number>(0);
+   const [valueP, setValueP] = useState<number>(0);
    const [valueLoc, setValueLoc] = useState("");
+   const [listings, setListings] = useState<
+      Array<{
+         id: number;
+         titlu: string;
+         descriere: string;
+         anConstructie: Date;
+         pozes: { path: string }[];
+         camere: number;
+         etaj: number;
+         locatie: string;
+         nrEtaje: number;
+         nrTel: number;
+         suprafataCurte: string;
+         suprafataUtila: number;
+         pret: number;
+      }>
+   >([]);
 
    function handleChangeSize(e: React.ChangeEvent<HTMLInputElement>) {
       const val = e.target.value;
 
       if (val === "" || /^[0-9]+$/.test(val)) {
-         setValueS(val);
+         setValueS(val === "" ? 0 : Number(val));
       }
    }
+
    function handleChangePrice(e: React.ChangeEvent<HTMLInputElement>) {
       const val = e.target.value;
 
       if (val === "" || /^[0-9]+$/.test(val)) {
-         setValueP(val);
+         setValueP(val === "" ? 0 : Number(val));
       }
    }
+
    function handleChangeLoc(e: React.ChangeEvent<HTMLInputElement>) {
       setValueLoc(e.target.value);
    }
 
-   function handleSubbmit(e: React.FormEvent<HTMLFormElement>) {
+   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
       e.preventDefault();
 
       const formData = new FormData();
       formData.append("locFilter", valueLoc);
-      formData.append("sizeFilter", valueS);
-      formData.append("priceFilter", valueP);
+      formData.append("sizeFilter", valueS.toString());
+      formData.append("priceFilter", valueP.toString());
 
       console.log(formData);
    }
+
+   useEffect(() => {
+      async function fechAllAnunturi() {
+         const response = await fetch("http://localhost:8080/anunturi");
+         const data = await response.json();
+         console.log(data);
+         setListings(data);
+      }
+      fechAllAnunturi();
+   }, []);
 
    return (
       <>
@@ -50,7 +79,7 @@ export default function Anunturi() {
             className="pt-[120px] flex items-center justify-center flex-col"
          >
             <form
-               onSubmit={handleSubbmit}
+               onSubmit={handleSubmit}
                className="flex lg:w-[90%] flex-col md:flex-row justify-between  items-center p-5 "
             >
                <div>
@@ -80,82 +109,43 @@ export default function Anunturi() {
                      placeholder="Enter Max Price"
                   ></input>
                </div>
-               <div className="flex items-center justify-center">
-                  <MainBtnB type="submit">Search</MainBtnB>
-               </div>
+            
             </form>
             <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 mt-5 gap-10">
-               <List
-                  photo={dummyphoto}
-                  camere={2}
-                  suprafata={50}
-                  pret={20000}
-               ></List>
-               <List
-                  photo={dummyphoto}
-                  camere={2}
-                  suprafata={50}
-                  pret={20000}
-               ></List>
-               <List
-                  photo={dummyphoto}
-                  camere={2}
-                  suprafata={50}
-                  pret={20000}
-               ></List>
-               <List
-                  photo={dummyphoto}
-                  camere={2}
-                  suprafata={50}
-                  pret={20000}
-               ></List>
-               <List
-                  photo={dummyphoto}
-                  camere={2}
-                  suprafata={50}
-                  pret={20000}
-               ></List>
+               {listings.length > 0 ? (
+                  listings
+                     .filter((data) => {
+                        return (
+                           data.locatie
+                              .toLowerCase()
+                              .includes(valueLoc.toLowerCase()) &&
+                           (valueS ? data.suprafataUtila >= valueS : true) && 
+                           (valueP ? data.pret <= valueP : true)
+                        );
+                     })
+                     .map((data, index) => {
+                        const firstPhoto = data.pozes?.[0]?.path;
 
-               <List
-                  photo={dummyphoto}
-                  camere={2}
-                  suprafata={50}
-                  pret={20000}
-               ></List>
-               <List
-                  photo={dummyphoto}
-                  camere={2}
-                  suprafata={50}
-                  pret={20000}
-               ></List>
-               <List
-                  photo={dummyphoto}
-                  camere={2}
-                  suprafata={50}
-                  pret={20000}
-               ></List>
-               <List
-                  photo={dummyphoto}
-                  camere={2}
-                  suprafata={50}
-                  pret={20000}
-               ></List>
-               <List
-                  photo={dummyphoto}
-                  camere={2}
-                  suprafata={50}
-                  pret={20000}
-               ></List>
-               <List
-                  photo={dummyphoto}
-                  camere={2}
-                  suprafata={50}
-                  pret={20000}
-               ></List>
+                        return (
+                           <List
+                              key={index}
+                              photo={
+                                 firstPhoto
+                                    ? `http://localhost:8080/images/${firstPhoto}`
+                                    : dummyphoto.src
+                              }
+                              camere={data.camere}
+                              suprafata={data.suprafataUtila}
+                              pret={data.pret}
+                           />
+                        );
+                     })
+               ) : (
+                  <p>No listings available</p>
+               )}
             </ul>
          </motion.div>
-         <Footer></Footer>
+        
       </>
-      
    );
 }

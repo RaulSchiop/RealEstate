@@ -43,7 +43,7 @@ export default function PoluparListings() {
             {polpularListings.length > 0 ? (
                polpularListings.map((data, index) => {
                   const firstPhoto = data.pozes?.[0]?.path; 
-                  console.log("Image path:", firstPhoto);
+                 
 
                   return (
                      <List
