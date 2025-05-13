@@ -4,11 +4,12 @@ import m2Logo from "../../../public/GIS Square PT.png";
 import consIcon from "../../../public/Arcticons Price Converter.png";
 
 type ListType = {
-   photo: StaticImageData | string;
-   camere: number;
-   suprafata: number;
-   pret: number;
+  photo: string | StaticImageData;
+  camere: number;
+  suprafata: number;
+  pret: number;
 };
+
 
 export default function List({ photo, camere, suprafata, pret }: ListType) {
    return (
