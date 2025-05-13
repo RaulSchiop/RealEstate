@@ -3,19 +3,19 @@
 @theme {
 
   /* colors */
-  --color--accent:#8C6340;
+  --color-accent:#8C6340;
 
-  --color--primary:#4E2E18;
+  --color-primary:#4E2E18;
 
-  --color--secondary:#41553B;
+  --color-secondary:#41553B;
 
-  --color--text:#03110C;
+  --color-text:#03110C;
 
-  --color--lightText:#FFF7EC;
+  --color-lightText:#FFF7EC;
 
-  --color--subText:#484848;
+  --color-subText:#484848;
   
-  --color--bg:#FFFFFF;
+  --color-bg:#FFFFFF;
 
 }
 
