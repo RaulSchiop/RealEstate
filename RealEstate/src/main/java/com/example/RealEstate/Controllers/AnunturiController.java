@@ -17,7 +17,7 @@ import java.util.List;
 @RequestMapping("/anunturi")
 public class AnunturiController {
 
- private final AnunturiServices anunturiServices;
+    private final AnunturiServices anunturiServices;
 
     @Autowired
     public AnunturiController(AnunturiServices anunturiServices) {
@@ -25,27 +25,34 @@ public class AnunturiController {
     }
 
     @GetMapping
-    public List<Anunturi> getAllAnunturi(){
+    public List<Anunturi> getAllAnunturi() {
         return anunturiServices.getAllAnunturi();
     }
 
+    @GetMapping("/anunturi4")
+    public List<Anunturi> get4Anunturi(){
+
+    return anunturiServices.get4Anunturi();
+
+    }
+
+
     @PostMapping("/adaugareAnunt")
     public ResponseEntity<?> adaugareAnunt(@RequestParam("titlu") String titlu,
-                                        @RequestParam("descriere") String descriere,
-                                        @RequestParam("etaj") Integer etaj,
-                                        @RequestParam("nrEtaje") Integer nrEtaje,
-                                        @RequestParam("anConstructie") LocalDate anConstructie,
-                                        @RequestParam("pret") Float pret,
-                                        @RequestParam("camere") Integer camere,
-                                        @RequestParam("suprafataUtila") Float suprafataUtila,
-                                        @RequestParam("suprafataCurte") Float suprafataCurte,
-                                        @RequestParam("nrTel") String nrTel,
-                                        @RequestParam("userId") int userId,
-                                        @RequestParam("poze") MultipartFile[] poze) throws IOException {
+                                           @RequestParam("descriere") String descriere,
+                                           @RequestParam("etaj") Integer etaj,
+                                           @RequestParam("nrEtaje") Integer nrEtaje,
+                                           @RequestParam("anConstructie") LocalDate anConstructie,
+                                           @RequestParam("pret") Float pret,
+                                           @RequestParam("camere") Integer camere,
+                                           @RequestParam("suprafataUtila") Float suprafataUtila,
+                                           @RequestParam("suprafataCurte") Float suprafataCurte,
+                                           @RequestParam("nrTel") String nrTel,
+                                           @RequestParam("userId") int userId,
+                                           @RequestParam("locatie") String locatie,
+                                           @RequestParam("poze") MultipartFile[] poze) throws IOException {
 
-        AnunturiResponse anunturiResponse = new AnunturiResponse(
-                titlu, descriere, etaj, nrEtaje, anConstructie, pret, camere, suprafataUtila, suprafataCurte, nrTel, userId
-        );
+        AnunturiResponse anunturiResponse = new AnunturiResponse(titlu, descriere, etaj, nrEtaje, anConstructie, pret, camere, suprafataUtila, suprafataCurte, nrTel, locatie, userId);
 
         return anunturiServices.addAnunt(anunturiResponse, poze);
     }

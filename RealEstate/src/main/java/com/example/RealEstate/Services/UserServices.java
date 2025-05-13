@@ -1,5 +1,6 @@
 package com.example.RealEstate.Services;
 
+import com.example.RealEstate.Models.LogInModel;
 import com.example.RealEstate.Models.Users;
 import com.example.RealEstate.Repos.UsersRepository;
 import org.apache.catalina.User;
@@ -21,11 +22,11 @@ public class UserServices {
         this.usersRepository = usersRepository;
     }
 
-    public Users verifiUser(Users user) {
+    public Users verifiUser(LogInModel logInModel) {
 
-        Users existingUser=usersRepository.findByEmail(user.getEmail());
+        Users existingUser=usersRepository.findByEmail(logInModel.getEmail());
 
-        if(existingUser!=null && encoder.matches(user.getPassword(),existingUser.getPassword())){
+        if(existingUser!=null && encoder.matches(logInModel.getPassword(),existingUser.getPassword())){
             return existingUser;
         }
     return null;

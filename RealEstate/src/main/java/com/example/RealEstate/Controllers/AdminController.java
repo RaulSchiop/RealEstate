@@ -12,7 +12,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/Admin")
+@RequestMapping("/admin")
 public class AdminController {
 
     private final AdminServices adminServices;

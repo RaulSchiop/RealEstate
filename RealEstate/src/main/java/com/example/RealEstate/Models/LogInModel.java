@@ -1,16 +1,16 @@
 package com.example.RealEstate.Models;
 
-import com.example.RealEstate.utils.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class LoginResponse {
-    private Integer id;
-    private Role role;
-    private String message;
+public class LogInModel {
+
+   private String email;
+   private String password;
+
+
 }

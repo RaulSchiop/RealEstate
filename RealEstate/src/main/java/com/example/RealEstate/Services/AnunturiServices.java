@@ -42,6 +42,9 @@ public class AnunturiServices {
 
     }
 
+    public List<Anunturi> get4Anunturi(){
+        return anunturiRepository.get4Anunturi();
+    }
 
     public ResponseEntity<?> addAnunt(AnunturiResponse anunturiResponse, MultipartFile[] poze) {
 
@@ -68,13 +71,15 @@ public class AnunturiServices {
 
             List<Poze> pozeList = new ArrayList<>();
             String uploadDir = "/Users/raulschiop/Downloads/project/RealEstate/uploads";
+
             File uploadDirectory = new File(uploadDir);
             if (!uploadDirectory.exists()) {
                 uploadDirectory.mkdirs();
             }
 
+
             for (MultipartFile file : poze) {
-                String filePath = uploadDir + File.separator +  UUID.randomUUID().toString() + "_"+file.getOriginalFilename();
+                String filePath =  UUID.randomUUID().toString() + "_"+file.getOriginalFilename();
                 File destination = new File(filePath);
                 try {
                     file.transferTo(destination);
@@ -85,7 +90,7 @@ public class AnunturiServices {
                     pozeList.add(poza);
                 } catch (IOException e) {
                     e.printStackTrace();
-                    return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); //"Failed to upload file: " + file.getOriginalFilename();
+                    return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
                 }
             }
 
