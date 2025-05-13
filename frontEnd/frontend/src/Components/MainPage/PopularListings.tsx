@@ -39,7 +39,7 @@ export default function PoluparListings() {
                See all
             </Link>
          </div>
-         <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 mt-5 gap-10">
+         <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2   lg:grid-cols-4 mt-5 gap-5">
             {polpularListings.length > 0 ? (
                polpularListings.map((data, index) => {
                   const firstPhoto = data.pozes?.[0]?.path; 

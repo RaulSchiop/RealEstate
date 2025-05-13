@@ -4,16 +4,22 @@ import m2Logo from "../../../public/GIS Square PT.png";
 import consIcon from "../../../public/Arcticons Price Converter.png";
 
 type ListType = {
-  photo: string | StaticImageData;
-  camere: number;
-  suprafata: number;
-  pret: number;
+   photo: string | StaticImageData;
+   camere: number;
+   suprafata: number;
+   pret: number;
+   locatie?: string;
 };
 
-
-export default function List({ photo, camere, suprafata, pret }: ListType) {
+export default function List({
+   photo,
+   camere,
+   suprafata,
+   pret,
+   locatie,
+}: ListType) {
    return (
-      <li className="bg-secondary h-[300px] w-[300px] flex items-center gap-6 flex-col justify-center rounded-[20px] p-4 transition-transform duration-300 hover:scale-110">
+      <li className="bg-secondary h-[300px] w-[350px] flex items-center gap-6 flex-col justify-center rounded-[20px] p-4 transition-transform duration-300 hover:scale-110">
          <div className="w-full h-64 relative">
             <Image
                src={photo}
@@ -23,9 +29,14 @@ export default function List({ photo, camere, suprafata, pret }: ListType) {
                className="object-cover"
             ></Image>
          </div>
-         <div className="flex justify-between items-center w-full ">
+         <div className="flex justify-between items-center w-full">
             <div className="flex items-center justify-center gap-2">
-               <Image width={24} height={24} src={camereImage} alt="camera logo"></Image>
+               <Image
+                  width={24}
+                  height={24}
+                  src={camereImage}
+                  alt="camera logo"
+               ></Image>
                <p className="text-lightText text-[12px]">{camere} Rooms</p>
             </div>
             <div className="flex items-center justify-center gap-2">
@@ -33,9 +44,20 @@ export default function List({ photo, camere, suprafata, pret }: ListType) {
                <p className="text-lightText text-[12px]">{suprafata} m2</p>
             </div>
             <div className="flex items-center justify-center gap-2">
-               <Image width={17} height={17} src={consIcon} alt="bani logo"></Image>
+               <Image
+                  width={17}
+                  height={17}
+                  src={consIcon}
+                  alt="bani logo"
+               ></Image>
                <p className="text-lightText text-[12px]">{pret} €</p>
             </div>
+            {locatie && (
+               <div className="flex items-center justify-center gap-2">
+               
+                  <p className="text-lightText text-[12px]">{locatie}</p>
+               </div>
+            )}
          </div>
       </li>
    );
