@@ -67,6 +67,7 @@ public class AnunturiServices {
             anunt.setSuprafataCurte(anunturiResponse.getSuprafataCurte());
             anunt.setUser(user);
             anunt.setNrTel(anunturiResponse.getNrTel());
+            anunt.setLocatie(anunturiResponse.getLocatie());
 
 
             List<Poze> pozeList = new ArrayList<>();
@@ -79,8 +80,10 @@ public class AnunturiServices {
 
 
             for (MultipartFile file : poze) {
-                String filePath =  UUID.randomUUID().toString() + "_"+file.getOriginalFilename();
-                File destination = new File(filePath);
+                String originalFileName = file.getOriginalFilename().replaceAll("[^a-zA-Z0-9\\.\\-]", "_");
+                String filePath = UUID.randomUUID().toString() + "_" + originalFileName;
+                String absoluteFilePath = uploadDirectory.getAbsolutePath() + File.separator + filePath;
+                File destination = new File(absoluteFilePath);
                 try {
                     file.transferTo(destination);
 
