@@ -1,33 +1,44 @@
 "use client";
 import List from "../../../Components/Utils/List";
 import dummyphoto from "../../../../public/Bed Outline Icon from Real Estate.png";
-import Link from "next/link";
-import MainBtnB from "../../../Components/buttons/MainBtnG";
-import Footer from "@/Components/Footer/Footer";
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
+import Modal from "@/Components/Modal/Modal";
+import Image from "next/image";
 
+type RealEstateItem = {
+   id: number;
+   pozes: { path: string }[];
+   camere: number;
+   suprafataUtila: number;
+   pret: number;
+   titlu: string;
+   descriere: string;
+   etaj: number;
+   nrEtaje: number;
+   anConstructie: number;
+   suprafataCurte: number;
+   nrTel: number;
+   locatie: string;
+};
+
+type RealEstateList = RealEstateItem[];
 export default function Anunturi() {
    const [valueS, setValueS] = useState<number>(0);
    const [valueP, setValueP] = useState<number>(0);
    const [valueLoc, setValueLoc] = useState("");
-   const [listings, setListings] = useState<
-      Array<{
-         id: number;
-         titlu: string;
-         descriere: string;
-         anConstructie: Date;
-         pozes: { path: string }[];
-         camere: number;
-         etaj: number;
-         locatie: string;
-         nrEtaje: number;
-         nrTel: number;
-         suprafataCurte: string;
-         suprafataUtila: number;
-         pret: number;
-      }>
-   >([]);
+   const [listings, setListings] = useState<RealEstateList>([]);
+   const [modalOpen, setModalOpen] = useState(false);
+   const [selectedProduct, setSelectedProduct] = useState<RealEstateItem>();
+
+   function handleModalClose() {
+      setModalOpen(false);
+   }
+
+   function handleModalOpen(product: RealEstateItem) {
+      setModalOpen(true);
+      setSelectedProduct(product);
+   }
 
    function handleChangeSize(e: React.ChangeEvent<HTMLInputElement>) {
       const val = e.target.value;
@@ -109,7 +120,6 @@ export default function Anunturi() {
                      placeholder="Enter Max Price"
                   ></input>
                </div>
-            
             </form>
             <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 mt-5 gap-5">
                {listings.length > 0 ? (
@@ -119,7 +129,7 @@ export default function Anunturi() {
                            data.locatie
                               .toLowerCase()
                               .includes(valueLoc.toLowerCase()) &&
-                           (valueS ? data.suprafataUtila >= valueS : true) && 
+                           (valueS ? data.suprafataUtila >= valueS : true) &&
                            (valueP ? data.pret <= valueP : true)
                         );
                      })
@@ -127,18 +137,103 @@ export default function Anunturi() {
                         const firstPhoto = data.pozes?.[0]?.path;
 
                         return (
-                           <List
-                              key={index}
-                              photo={
-                                 firstPhoto
-                                    ? `http://localhost:8080/images/${firstPhoto}`
-                                    : dummyphoto.src
-                              }
-                              camere={data.camere}
-                              suprafata={data.suprafataUtila}
-                              pret={data.pret}
-                              locatie={data.locatie}
-                           />
+                           <div
+                              key={data.id}
+                              onClick={() => handleModalOpen(data)}
+                           >
+                              <List
+                                 key={index}
+                                 photo={
+                                    firstPhoto
+                                       ? `http://localhost:8080/images/${firstPhoto}`
+                                       : dummyphoto.src
+                                 }
+                                 camere={data.camere}
+                                 suprafata={data.suprafataUtila}
+                                 pret={data.pret}
+                                 locatie={data.locatie}
+                              />
+                              {modalOpen && selectedProduct === data && (
+                                 <Modal
+                                    show={modalOpen}
+                                    onClose={handleModalClose}
+                                 >
+                                    <div className="bg-secondary h-[700px] flex items-center gap-2 flex-col justify-center rounded-[20px] p-4 ">
+                                       <div className="flex items-center justify-between w-full">
+                                          <h1 className="text-[30px] font-bold text-lightText">
+                                             {data.titlu}
+                                          </h1>
+                                          <h1 className="text-[20px] text-lightText">
+                                             {data.pret} €
+                                          </h1>
+                                       </div>
+                                       <div className="relative w-full h-[700px] rounded-xl overflow-hidden">
+                                          <Image
+                                             src={`http://localhost:8080/images/${firstPhoto}`}
+                                             alt="listing image"
+                                             layout="fill"
+                                             objectFit="cover"
+                                             className="rounded-xl"
+                                          />
+                                       </div>
+
+                                       <div className="grid lg:grid-cols-5 lg:grid-rows-2 md:grid-cols-2 md:grid-rows-2 gap-4 mt-6 w-full">
+                                          <div className="bg-accent p-1 rounded-xl flex items-center justify-center">
+                                             <p className="text-[20px] text-lightText">
+                                                {data.camere} rooms
+                                             </p>
+                                          </div>
+                                          {data.etaj > 0 && (
+                                             <div className="bg-accent p-1 rounded-xl flex items-center justify-center">
+                                                <p className="text-[20px] text-lightText">
+                                                   at floor {data.etaj}
+                                                </p>
+                                             </div>
+                                          )}
+                                          {data.nrEtaje > 0 && (
+                                             <div className="bg-accent p-1 rounded-xl flex items-center justify-center">
+                                                <p className="text-[15px] text-lightText">
+                                                   {data.nrEtaje} building
+                                                   floors
+                                                </p>
+                                             </div>
+                                          )}
+                                          <div className="bg-accent p-1 rounded-xl flex items-center justify-center">
+                                             <p className="text-[20px] text-lightText">
+                                                 {data.suprafataUtila} m2
+                                             </p>
+                                          </div>
+                                          {data.suprafataCurte > 0 && (
+                                             <div className="bg-accent p- rounded-xl flex items-center justify-center">
+                                                <p className="text-[20px] text-lightText">
+                                                  Outside {data.suprafataCurte} m2
+                                                </p>
+                                             </div>
+                                          )}
+
+                                          {data.etaj > 0 && (
+                                             <div className="bg-accent p-1 rounded-xl flex items-center justify-center">
+                                                <p className="text-[20px] text-lightText">
+                                                   {data.etaj} flors
+                                                </p>
+                                             </div>
+                                          )}
+                                       </div>
+                                       <h1 className="text-2xl text-lightText ">
+                                          Description{" "}
+                                       </h1>
+                                       <p className="text-lightText">
+                                          {data.descriere}
+                                       </p>
+                                       <div className="bg-accent p-2 rounded-xl">
+                                          <p className="text-[20px] text-lightText">
+                                             Phone number: {data.nrTel}
+                                          </p>
+                                       </div>
+                                    </div>
+                                 </Modal>
+                              )}
+                           </div>
                         );
                      })
                ) : (
@@ -146,7 +241,6 @@ export default function Anunturi() {
                )}
             </ul>
          </motion.div>
-        
       </>
    );
 }
