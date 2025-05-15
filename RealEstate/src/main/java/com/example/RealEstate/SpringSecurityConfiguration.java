@@ -25,7 +25,7 @@ public class SpringSecurityConfiguration {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
 
-        http.cors(Customizer.withDefaults())  // Enable Spring Security CORS support
+        http.cors(Customizer.withDefaults())
                 .csrf(csrf -> csrf.ignoringRequestMatchers("/auth/**", "/newsLetter", "/admin/**", "/anunturi/**", "/contact")).authorizeHttpRequests(auth ->
                 auth .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/anunturi").permitAll()
@@ -43,9 +43,6 @@ public class SpringSecurityConfiguration {
                         .anyRequest().authenticated()
         ).addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         ;
-
-        http.csrf(csrf -> csrf.ignoringRequestMatchers("/auth/**", "/newsLetter", "/admin/**", "/anunturi/**",  "/contact"));
-
 
 
         return http.build();
