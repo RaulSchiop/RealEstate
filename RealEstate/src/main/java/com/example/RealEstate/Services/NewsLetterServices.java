@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
+import java.util.List;
 @Service
 public class NewsLetterServices {
 
@@ -20,14 +20,22 @@ public class NewsLetterServices {
     }
 
 
-    public ResponseEntity<?> addNewsLetter( NewsLetter newsLetter) {
 
-      NewsLetter foundUSer =  newsLetterRepository.findByEmail(newsLetter.getEmail());
-        if(foundUSer != null){
-            newsLetterRepository.save(newsLetter);
-            return ResponseEntity.ok().build();
+    public ResponseEntity<?> addNewsLetter(NewsLetter newsLetter) {
+        String email = newsLetter.getEmail().trim();
+        System.out.println("Attempting to add email: " + email);
+
+        List<NewsLetter> existingEntries = newsLetterRepository.findByEmail(email);
+
+        if (!existingEntries.isEmpty()) {
+            System.out.println("Email already exists in the database.");
+            return ResponseEntity.status(409).body("Email already subscribed to the newsletter.");
         }
-        return ResponseEntity.notFound().build();
+
+        newsLetter.setEmail(email);
+        newsLetterRepository.save(newsLetter);
+        System.out.println("Email saved successfully: " + email);
+        return ResponseEntity.ok().build();
     }
 
 

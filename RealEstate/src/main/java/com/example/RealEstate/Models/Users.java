@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
-@AllArgsConstructor
+
 @Data
 @Entity
 @Table(name="Users")
@@ -36,4 +36,11 @@ public class Users {
         this.role = Role.CLIENT;
     }
 
+    public Users(String name, String email, String password) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.role = Role.CLIENT;
+        anunturi = new ArrayList<>();
+    }
 }
