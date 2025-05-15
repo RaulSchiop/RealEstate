@@ -18,7 +18,7 @@ export default function MainBtn({children,onClick,type="button" }:Props) {
             scale: 0.9,
             transition: { type: "spring", duration: 0.4 },
          }}
-         className="w-[140px] h-[40px] bg-primary/90 rounded-[40px] mt-5 mb-10 lg:mb-0 text-lightText"
+         className="w-[140px] h-[40px] bg-primary/90 rounded-[40px]  mb-10 lg:mb-0 text-lightText"
       >
          {children}
       </motion.button>

@@ -2,12 +2,15 @@
 import Footer from "@/Components/Footer/Footer";
 import MainBtn from "../../../Components/buttons/Mainbtn";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Contact() {
    const [valueE, setValueE] = useState("");
    const [valueN, setvalueN] = useState("");
    const [valueD, setvalueD] = useState("");
    const [valueP, setVlaueP] = useState("");
+
+   const router = useRouter();
 
    function handleChangeNrPhone(e: React.ChangeEvent<HTMLInputElement>) {
       const val = e.target.value;
@@ -29,15 +32,26 @@ export default function Contact() {
       setvalueN(e.target.value);
    }
 
-   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
       e.preventDefault();
-      const formData = new FormData();
-      formData.append("email", valueE);
-      formData.append("nume", valueN);
-      formData.append("descriere", valueD);
-      formData.append("nrPhone", valueP);
+      const data = {
+         email: valueE,
+         name: valueN,
+         problem: valueD,
+         phoneNumber: Number(valueP),
+      };
 
-      console.log(formData);
+      const response = await fetch("http://localhost:8080/contact", {
+         method: "POST",
+         headers: {
+            "Content-Type": "application/json",
+         },
+         body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+         router.push("/");
+      }
    }
 
    return (
