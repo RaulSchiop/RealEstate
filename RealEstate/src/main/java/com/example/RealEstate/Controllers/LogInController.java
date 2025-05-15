@@ -5,10 +5,7 @@ import com.example.RealEstate.Models.LoginResponse;
 import com.example.RealEstate.Models.Users;
 import com.example.RealEstate.Services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
@@ -24,22 +21,23 @@ public class LogInController {
 
     @PostMapping("/login")
     public LoginResponse login(@RequestBody LogInModel logInModel) {
-        Users verifUser= userServices.verifiUser(logInModel);
+        Users verifUser = userServices.verifiUser(logInModel);
 
-        if(verifUser!=null){
-            return new LoginResponse(verifUser.getId(),verifUser.getRole(),"login succesful");
+        if (verifUser != null) {
+            return new LoginResponse(verifUser.getId(), verifUser.getRole(), "login succesful");
         }
 
-        return new LoginResponse(null,null,"wrong credentials");
+        return new LoginResponse(null, null, "wrong credentials");
     }
 
     @PostMapping("/Register")
-    public void register(@RequestBody Users user) {
+    public void register(@RequestParam("name") String name,
+                         @RequestParam("password") String password,
+                         @RequestParam("email") String email) {
 
-        userServices.addUsers(user);
+        userServices.addUsers(new Users(name,email,password));
 
     }
-
 
 
 }
