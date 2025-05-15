@@ -2,6 +2,7 @@ package com.example.RealEstate.Services;
 
 import com.example.RealEstate.Models.LogInModel;
 import com.example.RealEstate.Models.Users;
+import com.example.RealEstate.Models.UsersReqest;
 import com.example.RealEstate.Repos.UsersRepository;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,20 +24,34 @@ public class UserServices {
     }
 
     public Users verifiUser(LogInModel logInModel) {
+        Users existingUser = usersRepository.findByEmail(logInModel.getEmail());
+        System.out.println("User found: " + (existingUser != null));
 
-        Users existingUser=usersRepository.findByEmail(logInModel.getEmail());
-
-        if(existingUser!=null && encoder.matches(logInModel.getPassword(),existingUser.getPassword())){
-            return existingUser;
+        if (existingUser != null) {
+            boolean matches = encoder.matches(logInModel.getPassword(), existingUser.getPassword());
+            System.out.println("Password matches: " + matches);
+            if (matches) {
+                return existingUser;
+            }
         }
-    return null;
-
+        return null;
     }
 
-    public void addUsers(Users user) {
-        user.setPassword(encoder.encode(user.getPassword()));
-        usersRepository.save(user);
+
+    public void addUsers(UsersReqest user) {
+        Users existingUser = usersRepository.findByEmail(user.getEmail());
+        if (existingUser != null) {
+            // Existing user found - probably you want to reject registration here
+            throw new RuntimeException("User already exists");
+        }
+        // Encode password before saving
+        String encodedPassword = encoder.encode(user.getPassword());
+
+        Users newUser = new Users(user.getName(), user.getEmail(), encodedPassword);
+        usersRepository.save(newUser);
     }
+
+
 
 
 }

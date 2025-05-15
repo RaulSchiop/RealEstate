@@ -4,13 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
-public class LogInModel {
+public class UsersReqest {
 
-   private String email;
-   private String password;
+    String name;
+    String email;
+    String password;
 
-   
 }

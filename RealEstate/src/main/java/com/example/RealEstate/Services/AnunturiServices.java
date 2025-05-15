@@ -110,6 +110,14 @@ public class AnunturiServices {
     }
 
 
+    public List<Anunturi> getByIdAnunturi(int userId){
+
+        return anunturiRepository.findByUserId(userId);
+
+    }
+
+
+
 
 
 }

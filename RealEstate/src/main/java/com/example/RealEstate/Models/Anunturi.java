@@ -45,6 +45,7 @@ public class Anunturi {
 
     private String locatie;
 
+
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     @JsonBackReference
