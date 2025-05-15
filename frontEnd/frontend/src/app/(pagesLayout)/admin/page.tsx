@@ -25,10 +25,22 @@ type ListingsType = ListingType[];
 export default function Admin() {
    const [users, setUsers] = useState<UsersType>([]);
    const [listings, setListings] = useState<ListingsType>([]);
+    const [modal,setModal]=useState(false)
+
 
    useEffect(() => {
+      const localS = localStorage.getItem("logged");
+      if (!localS) return;
+
+      const parsed = JSON.parse(localS);
+      const token = parsed.message;
+      const id = parsed.id;
       async function fechUsers() {
-         const response = await fetch("http://localhost:8080/admin/users");
+         const response = await fetch("http://localhost:8080/admin/users", {
+            headers: {
+               Authorization: `Bearer ${token}`,
+            },
+         });
 
          const data = await response.json();
          setUsers(data);
@@ -37,7 +49,12 @@ export default function Admin() {
 
       async function fechListings() {
          const response = await fetch(
-            "http://localhost:8080/admin/getAnunturi"
+            "http://localhost:8080/admin/getAnunturi",
+            {
+               headers: {
+                  Authorization: `Bearer ${token}`,
+               },
+            }
          );
          const data = await response.json();
          setListings(data);
@@ -46,6 +63,45 @@ export default function Admin() {
       fechUsers();
       fechListings();
    }, []);
+
+   async function deleteAnunt(id: number) {
+      const localS = localStorage.getItem("logged");
+      if (!localS) return;
+      const parsed = JSON.parse(localS);
+      const token = parsed.message;
+
+      const response = await fetch(
+         `http://localhost:8080/admin/deleteAnunt/${id}`,
+         {
+            method: "DELETE",
+            headers:{
+               Authorization: `Bearer ${token}`,
+            }
+         }
+      );
+      window.location.reload();
+   }
+
+
+   async function deleteUser(id: number) {
+      const localS = localStorage.getItem("logged");
+      if (!localS) return;
+      const parsed = JSON.parse(localS);
+      const token = parsed.message;
+
+      const response = await fetch(
+         `http://localhost:8080/admin/deleteUser/${id}`,
+         {
+            method: "DELETE",
+            headers:{
+               Authorization: `Bearer ${token}`,
+            }
+         }
+      );
+      window.location.reload();
+   }
+
+
 
    return (
       <>
@@ -65,7 +121,7 @@ export default function Admin() {
                                  email={user.email}
                               >
                                  <MainBtn type="submit">Modify</MainBtn>
-                                 <MainBtn type="submit">Delete</MainBtn>
+                                 <MainBtn type="button" onClick={()=>deleteUser(user.id)}>Delete</MainBtn>
                               </ListUsers>
                            </div>
                         ))
@@ -86,7 +142,7 @@ export default function Admin() {
                                  titlu={listing.titlu}
                                  locatie={listing.locatie}
                               >
-                                 <MainBtn type="submit">Delete</MainBtn>
+                                 <MainBtn type="button" onClick={()=>deleteAnunt(listing.id)}>Delete</MainBtn>
                               </ListListings>
                            </div>
                         ))
