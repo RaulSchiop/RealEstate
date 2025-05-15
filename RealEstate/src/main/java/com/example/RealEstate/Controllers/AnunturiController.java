@@ -37,6 +37,13 @@ public class AnunturiController {
     }
 
 
+    @GetMapping("/{userId}")
+    public List<Anunturi> getAnunturiByUserId(@PathVariable int userId){
+        return anunturiServices.getByIdAnunturi(userId);
+    }
+
+
+
     @PostMapping("/adaugareAnunt")
     public ResponseEntity<?> adaugareAnunt(@RequestParam("titlu") String titlu,
                                            @RequestParam("descriere") String descriere,

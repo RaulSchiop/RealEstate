@@ -9,8 +9,12 @@ import java.util.List;
 
 @Repository
 public interface AnunturiRepository extends JpaRepository<Anunturi,Integer> {
-    Anunturi findByUserId(int id);
+    List<Anunturi> findByUserId(int userId);
 
     @Query(value = "SELECT * FROM anunturi LIMIT 4", nativeQuery = true)
     List<Anunturi> get4Anunturi();
+
+
+
+
 }

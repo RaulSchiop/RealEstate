@@ -26,6 +26,6 @@ public class ContactUs {
     private String problem;
 
     @Column(nullable = false)
-    private int phoneNumber;
+    private Long phoneNumber;
 
 }
