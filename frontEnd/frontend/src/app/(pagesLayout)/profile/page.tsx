@@ -2,7 +2,7 @@
 import MainBtn from "@/Components/buttons/Mainbtn";
 import List from "@/Components/Utils/List";
 import pozaD from "../../../../public/Arcticons Price Converter.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "@/Components/Modal/Modal";
 import { image } from "motion/react-client";
 
@@ -43,6 +43,45 @@ export default function Profile() {
 
    const [images, setImages] = useState<FileList | null>(null);
 
+   const [token, setToken] = useState("");
+   const [id, setId] = useState<number | null>(null);
+   const [listings, setListings] = useState([]);
+
+  useEffect(() => {
+   const localS = localStorage.getItem("logged");
+   if (!localS) return;
+
+   const parsed = JSON.parse(localS);
+   const token = parsed.message;
+   const id = parsed.id;
+   console.log("Using token:", token);
+
+   async function getAnunturi() {
+      try {
+         const res = await fetch(`http://localhost:8080/anunturi/${id}`, {
+            headers: {
+               Authorization: `Bearer ${token}`,
+            },
+         });
+
+         if (!res.ok) {
+            const errorText = await res.text(); 
+            console.error("Server returned error:", res.status, errorText);
+            return; 
+         }
+
+         const data = await res.json(); 
+         setListings(data);
+      } catch (err) {
+         console.error("Error fetching listings", err);
+      }
+   }
+
+   getAnunturi();
+}, []);
+
+
+
    function handleInputChange(
       e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
    ) {
@@ -65,7 +104,6 @@ export default function Profile() {
    function handleModalClose() {
       setModalAdd(false);
    }
-
 
    function handleOpenModalListings() {
       setModalListings(true);
@@ -191,48 +229,6 @@ export default function Profile() {
                </Modal>
             </div>
             <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2   lg:grid-cols-4 mt-5 gap-5">
-               <List
-                  photo={pozaD}
-                  camere={3}
-                  suprafata={70}
-                  pret={110000}
-                  locatie={"timisoara"}
-               ></List>
-               <List
-                  photo={pozaD}
-                  camere={3}
-                  suprafata={70}
-                  pret={110000}
-                  locatie={"timisoara"}
-               ></List>
-               <List
-                  photo={pozaD}
-                  camere={3}
-                  suprafata={70}
-                  pret={110000}
-                  locatie={"timisoara"}
-               ></List>
-               <List
-                  photo={pozaD}
-                  camere={3}
-                  suprafata={70}
-                  pret={110000}
-                  locatie={"timisoara"}
-               ></List>
-               <List
-                  photo={pozaD}
-                  camere={3}
-                  suprafata={70}
-                  pret={110000}
-                  locatie={"timisoara"}
-               ></List>
-               <List
-                  photo={pozaD}
-                  camere={3}
-                  suprafata={70}
-                  pret={110000}
-                  locatie={"timisoara"}
-               ></List>
                <List
                   photo={pozaD}
                   camere={3}

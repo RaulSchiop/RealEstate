@@ -49,67 +49,50 @@ export default function Admin() {
 
    return (
       <>
-         <div className="mt-40 px-20">
+         <div className="mt-40 px-20 mb-20">
             <h1 className="text-[40px] text-bold">Admin Page</h1>
-            <div className="flex items-center gap-10">
+            <div className="flex  gap-10">
                <div>
                   <h1 className="text-[20px]">Users</h1>
                   <ul>
-                     <ListUsers id={1} name="da" role="ADMIN" email="asdasd">
-                        <MainBtn type="submit">Modify</MainBtn>
-                        <MainBtn type="submit">Delete</MainBtn>
-                     </ListUsers>
-                     <ListUsers id={2} name="da" role="ADMIN" email="asdasd">
-                        <MainBtn type="submit">Delete</MainBtn>{" "}
-                     </ListUsers>
-                     <ListUsers id={3} name="da" role="ADMIN" email="asdasd">
-                        <MainBtn type="submit">Delete</MainBtn>
-                     </ListUsers>
-                     <ListUsers id={4} name="da" role="ADMIN" email="asdasd">
-                        <MainBtn type="submit">Delete</MainBtn>
-                     </ListUsers>
+                     {users.length > 0 ? (
+                        users.map((user, index) => (
+                           <div key={user.id}>
+                              <ListUsers
+                                 id={user.id}
+                                 name={user.name}
+                                 role={user.role}
+                                 email={user.email}
+                              >
+                                 <MainBtn type="submit">Modify</MainBtn>
+                                 <MainBtn type="submit">Delete</MainBtn>
+                              </ListUsers>
+                           </div>
+                        ))
+                     ) : (
+                        <p>no users</p>
+                     )}
                   </ul>
                </div>
 
                <div>
-                  <h1>Listings</h1>
+                  <h1 className="text-[20px]">Listings</h1>
                   <ul>
-                     <ListListings
-                        id={10}
-                        titlu="asdasd"
-                        user_id={2}
-                        locatie="timisora"
-                     >
-                        {" "}
-                        <MainBtn type="submit">Delete</MainBtn>
-                     </ListListings>
-                     <ListListings
-                        id={10}
-                        titlu="asdasd"
-                        user_id={2}
-                        locatie="timisora"
-                     >
-                        {" "}
-                        <MainBtn type="submit">Delete</MainBtn>
-                     </ListListings>
-                     <ListListings
-                        id={10}
-                        titlu="asdasd"
-                        user_id={2}
-                        locatie="timisora"
-                     >
-                        {" "}
-                        <MainBtn type="submit">Delete</MainBtn>
-                     </ListListings>
-                     <ListListings
-                        id={10}
-                        titlu="asdasd"
-                        user_id={2}
-                        locatie="timisora"
-                     >
-                        {" "}
-                        <MainBtn type="submit">Delete</MainBtn>
-                     </ListListings>
+                     {listings.length > 0 ? (
+                        listings.map((listing, index) => (
+                           <div key={listing.id}>
+                              <ListListings
+                                 id={listing.id}
+                                 titlu={listing.titlu}
+                                 locatie={listing.locatie}
+                              >
+                                 <MainBtn type="submit">Delete</MainBtn>
+                              </ListListings>
+                           </div>
+                        ))
+                     ) : (
+                        <p>no listings</p>
+                     )}
                   </ul>
                </div>
             </div>
