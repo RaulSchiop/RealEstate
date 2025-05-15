@@ -25,10 +25,22 @@ type ListingsType = ListingType[];
 export default function Admin() {
    const [users, setUsers] = useState<UsersType>([]);
    const [listings, setListings] = useState<ListingsType>([]);
+    const [modal,setModal]=useState(false)
+
 
    useEffect(() => {
+      const localS = localStorage.getItem("logged");
+      if (!localS) return;
+
+      const parsed = JSON.parse(localS);
+      const token = parsed.message;
+      const id = parsed.id;
       async function fechUsers() {
-         const response = await fetch("http://localhost:8080/admin/users");
+         const response = await fetch("http://localhost:8080/admin/users", {
+            headers: {
+               Authorization: `Bearer ${token}`,
+            },
+         });
 
          const data = await response.json();
          setUsers(data);
@@ -37,7 +49,12 @@ export default function Admin() {
 
       async function fechListings() {
          const response = await fetch(
-            "http://localhost:8080/admin/getAnunturi"
+            "http://localhost:8080/admin/getAnunturi",
+            {
+               headers: {
+                  Authorization: `Bearer ${token}`,
+               },
+            }
          );
          const data = await response.json();
          setListings(data);
@@ -47,69 +64,91 @@ export default function Admin() {
       fechListings();
    }, []);
 
+   async function deleteAnunt(id: number) {
+      const localS = localStorage.getItem("logged");
+      if (!localS) return;
+      const parsed = JSON.parse(localS);
+      const token = parsed.message;
+
+      const response = await fetch(
+         `http://localhost:8080/admin/deleteAnunt/${id}`,
+         {
+            method: "DELETE",
+            headers:{
+               Authorization: `Bearer ${token}`,
+            }
+         }
+      );
+      window.location.reload();
+   }
+
+
+   async function deleteUser(id: number) {
+      const localS = localStorage.getItem("logged");
+      if (!localS) return;
+      const parsed = JSON.parse(localS);
+      const token = parsed.message;
+
+      const response = await fetch(
+         `http://localhost:8080/admin/deleteUser/${id}`,
+         {
+            method: "DELETE",
+            headers:{
+               Authorization: `Bearer ${token}`,
+            }
+         }
+      );
+      window.location.reload();
+   }
+
+
+
    return (
       <>
-         <div className="mt-40 px-20">
+         <div className="mt-40 px-20 mb-20">
             <h1 className="text-[40px] text-bold">Admin Page</h1>
-            <div className="flex items-center gap-10">
+            <div className="flex  gap-10">
                <div>
                   <h1 className="text-[20px]">Users</h1>
                   <ul>
-                     <ListUsers id={1} name="da" role="ADMIN" email="asdasd">
-                        <MainBtn type="submit">Modify</MainBtn>
-                        <MainBtn type="submit">Delete</MainBtn>
-                     </ListUsers>
-                     <ListUsers id={2} name="da" role="ADMIN" email="asdasd">
-                        <MainBtn type="submit">Delete</MainBtn>{" "}
-                     </ListUsers>
-                     <ListUsers id={3} name="da" role="ADMIN" email="asdasd">
-                        <MainBtn type="submit">Delete</MainBtn>
-                     </ListUsers>
-                     <ListUsers id={4} name="da" role="ADMIN" email="asdasd">
-                        <MainBtn type="submit">Delete</MainBtn>
-                     </ListUsers>
+                     {users.length > 0 ? (
+                        users.map((user, index) => (
+                           <div key={user.id}>
+                              <ListUsers
+                                 id={user.id}
+                                 name={user.name}
+                                 role={user.role}
+                                 email={user.email}
+                              >
+                                 <MainBtn type="submit">Modify</MainBtn>
+                                 <MainBtn type="button" onClick={()=>deleteUser(user.id)}>Delete</MainBtn>
+                              </ListUsers>
+                           </div>
+                        ))
+                     ) : (
+                        <p>no users</p>
+                     )}
                   </ul>
                </div>
 
                <div>
-                  <h1>Listings</h1>
+                  <h1 className="text-[20px]">Listings</h1>
                   <ul>
-                     <ListListings
-                        id={10}
-                        titlu="asdasd"
-                        user_id={2}
-                        locatie="timisora"
-                     >
-                        {" "}
-                        <MainBtn type="submit">Delete</MainBtn>
-                     </ListListings>
-                     <ListListings
-                        id={10}
-                        titlu="asdasd"
-                        user_id={2}
-                        locatie="timisora"
-                     >
-                        {" "}
-                        <MainBtn type="submit">Delete</MainBtn>
-                     </ListListings>
-                     <ListListings
-                        id={10}
-                        titlu="asdasd"
-                        user_id={2}
-                        locatie="timisora"
-                     >
-                        {" "}
-                        <MainBtn type="submit">Delete</MainBtn>
-                     </ListListings>
-                     <ListListings
-                        id={10}
-                        titlu="asdasd"
-                        user_id={2}
-                        locatie="timisora"
-                     >
-                        {" "}
-                        <MainBtn type="submit">Delete</MainBtn>
-                     </ListListings>
+                     {listings.length > 0 ? (
+                        listings.map((listing, index) => (
+                           <div key={listing.id}>
+                              <ListListings
+                                 id={listing.id}
+                                 titlu={listing.titlu}
+                                 locatie={listing.locatie}
+                              >
+                                 <MainBtn type="button" onClick={()=>deleteAnunt(listing.id)}>Delete</MainBtn>
+                              </ListListings>
+                           </div>
+                        ))
+                     ) : (
+                        <p>no listings</p>
+                     )}
                   </ul>
                </div>
             </div>

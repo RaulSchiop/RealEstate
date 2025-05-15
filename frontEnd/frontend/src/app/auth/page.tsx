@@ -5,13 +5,96 @@ import { useState } from "react";
 
 import { useRouter } from "next/navigation";
 
+type logInType = {
+   email: string;
+   password: string;
+};
+
+type register = {
+   email: string;
+   password: string;
+   name: string;
+};
+
 export default function Auth() {
    const [change, setChange] = useState(true);
    const router = useRouter();
+   const [logIn, setLogIn] = useState<logInType>({
+      email: "",
+      password: "",
+   });
+   const [register, setRegister] = useState<register>({
+      name: "",
+      email: "",
+      password: "",
+   });
 
    function handleLayoutChange() {
       setChange(!change);
+   }
+
+   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+      const { name, value } = e.target;
+      setLogIn((prev) => ({
+         ...prev,
+         [name]: value,
+      }));
+   }
+
+   function handleRegisterChange(e: React.ChangeEvent<HTMLInputElement>) {
+      const { name, value } = e.target;
+      setRegister((prev) => ({
+         ...prev,
+         [name]: value,
+      }));
+   }
+
+   async function handleSubbmitR(e: React.FormEvent) {
+      e.preventDefault();
+      console.log(logIn);
+
+      const response = await fetch("http://localhost:8080/auth/Register", {
+         method: "POST",
+         headers: {
+            "Content-Type": "application/json",
+         },
+         body: JSON.stringify({
+            name: register.name,
+            email: register.email,
+            password: register.password,
+         }),
+      });
+
+      if (!response.ok) {
+         throw new Error("Login failed: " + response.status);
+      }
+
+       setChange(true);
      
+   }
+
+   async function handleSubbmit(e: React.FormEvent) {
+      e.preventDefault();
+      console.log(logIn);
+
+      const response = await fetch("http://localhost:8080/auth/login", {
+         method: "POST",
+         headers: {
+            "Content-Type": "application/json",
+         },
+         body: JSON.stringify({
+            email: logIn.email,
+            password: logIn.password,
+         }),
+      });
+
+      if (!response.ok) {
+         throw new Error("Login failed: " + response.status);
+      }
+      const data = await response.json();
+
+      localStorage.setItem("logged", JSON.stringify(data));
+      router.push("/");
    }
 
    return (
@@ -34,21 +117,25 @@ export default function Auth() {
                      transition={{ duration: 0.5 }}
                   >
                      <form
-                        onSubmit={() => console.log("ads")}
+                        onSubmit={handleSubbmit}
                         className="flex flex-col gap-3"
                      >
                         <h1 className="text-Text text-3xl">Log in</h1>
                         <input
                            placeholder="Email"
-                           name="Email"
+                           name="email"
                            type="email"
+                           onChange={handleInputChange}
+                           value={logIn.email}
                            required
                            className="text-Text  placeholder-Text border  rounded px-4 py-2 focus:outline-none"
                         />
                         <input
                            placeholder="Password"
-                           name="Password"
+                           name="password"
                            type="password"
+                           onChange={handleInputChange}
+                           value={logIn.password}
                            required
                            className="text-Text  placeholder-Text border  rounded px-4 py-2 focus:outline-none"
                         />
@@ -114,27 +201,33 @@ export default function Auth() {
                   >
                      <form
                         className="flex flex-col gap-3"
-                        onSubmit={() => console.log("sda")}
+                        onSubmit={handleSubbmitR}
                      >
                         <h1 className="text-Text text-3xl">Register</h1>
                         <input
                            placeholder="Name"
                            name="name"
                            type="text"
+                           onChange={handleRegisterChange}
+                           value={register.name}
                            required
                            className="text-Text  placeholder-Text border  rounded px-4 py-2 focus:outline-none"
                         />
                         <input
                            placeholder="Email"
-                           name="Email"
+                           name="email"
                            type="email"
+                           onChange={handleRegisterChange}
+                           value={register.email}
                            required
                            className="text-Text  placeholder-Text border  rounded px-4 py-2 focus:outline-none"
                         />
                         <input
                            placeholder="Password"
-                           name="Password"
+                           name="password"
                            type="password"
+                           onChange={handleRegisterChange}
+                           value={register.password}
                            required
                            className="text-Text placeholder-Text border  rounded px-4 py-2 focus:outline-none"
                         />
