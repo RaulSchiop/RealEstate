@@ -5,7 +5,9 @@ import jakarta.servlet.Filter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -14,6 +16,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
+@EnableMethodSecurity
 public class SpringSecurityConfiguration {
     @Autowired
     private JwtAuthenticationFilter jwtAuthenticationFilter;
@@ -28,13 +31,18 @@ public class SpringSecurityConfiguration {
                         .requestMatchers("/anunturi/anunturi4").permitAll()
                         .requestMatchers("/newsLetter").permitAll()
                         .requestMatchers("/contact").permitAll()
+                        .requestMatchers("/anunturi/anunturi4").permitAll()
+                        .requestMatchers("/images/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/anunturi/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/admin/deleteAnunt/{id}").hasRole("ADMIN")
+                        .requestMatchers("/anunturi/adaugareAnunt").hasAnyRole("CLIENT", "ADMIN")
+                        .requestMatchers("/anunturi/**").hasAnyRole("CLIENT", "ADMIN")
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .anyRequest().authenticated()
         ).addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         ;
 
-        http.csrf(csrf -> csrf.ignoringRequestMatchers("/auth/**", "/newsLetter", "/contact"));
+        http.csrf(csrf -> csrf.ignoringRequestMatchers("/auth/**", "/newsLetter", "/admin/**", "/anunturi/**",  "/contact"));
 
 
 

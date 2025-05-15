@@ -6,6 +6,7 @@ import com.example.RealEstate.Models.AnunturiResponse;
 import com.example.RealEstate.Services.AnunturiServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -38,13 +39,15 @@ public class AnunturiController {
 
 
     @GetMapping("/{userId}")
+    @PreAuthorize("hasRole('CLIENT') or hasRole('ADMIN')")
     public List<Anunturi> getAnunturiByUserId(@PathVariable int userId){
         return anunturiServices.getByIdAnunturi(userId);
     }
 
 
-
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/adaugareAnunt")
+    @PreAuthorize("hasRole('CLIENT') or hasRole('ADMIN')")
     public ResponseEntity<?> adaugareAnunt(@RequestParam("titlu") String titlu,
                                            @RequestParam("descriere") String descriere,
                                            @RequestParam("etaj") Integer etaj,

@@ -33,12 +33,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             jwtToken = authHeader.substring(7);
+            logger.info("Authorization header received: " + authHeader);
+            logger.info("JWT token extracted: " + jwtToken);
             try {
                 username = jwtUtil.extractUsername(jwtToken);
             } catch (Exception e) {
                 logger.error("JWT token parsing error", e);
             }
         }
+
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
@@ -47,10 +50,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                         new UsernamePasswordAuthenticationToken(
                                 userDetails, null, userDetails.getAuthorities());
 
+                // Add these lines for logging
+                logger.info("Authenticated user: " + userDetails.getUsername());
+                logger.info("User authorities: " + userDetails.getAuthorities());
+
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }
+
         }
 
         filterChain.doFilter(request, response);
