@@ -58,7 +58,7 @@ export default function SubscribeToNewsLetter() {
                   type="email"
                   value={email}
                   onChange={handleChange}
-                  className="bg-bg text-accent text-center px-4 py-1 w-full mt-2 outline-0 rounded-[10px] border-1"
+                  className="bg-bg text-accent text-center px-4 py-1 w-full mt-2 outline-0 rounded-[10px] border-1 mb-5"
                   placeholder="enter your email address"
                ></input>
 

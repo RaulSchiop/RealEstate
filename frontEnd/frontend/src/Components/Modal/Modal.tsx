@@ -26,7 +26,7 @@ const Modal = ({ show, onClose, children }:PropsType) => {
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ type: "spring", duration: 0.5 }}
                   exit={{ y: 500, opacity: 0 }}
-                  className=" relative bg-secondary w-2/3 h-2/3 rounded-xl p-20 overflow-y-auto"
+                  className=" relative bg-secondary w-[90%] h-[90%] rounded-xl p-20 overflow-y-auto"
                   onClick={(e) => e.stopPropagation()}
                >
                   <motion.button
