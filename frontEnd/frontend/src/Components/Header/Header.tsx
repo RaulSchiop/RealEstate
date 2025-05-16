@@ -27,7 +27,7 @@ export default function Header() {
 
    function logOut(){
       localStorage.removeItem("logged")
-      router.push("/")
+     window.location.reload()
    }
 
    return (

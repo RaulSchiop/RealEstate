@@ -66,11 +66,10 @@ export default function Auth() {
       });
 
       if (!response.ok) {
-         throw new Error("Login failed: " + response.status);
+         alert("wrong credentials");
       }
 
-       setChange(true);
-     
+      setChange(true);
    }
 
    async function handleSubbmit(e: React.FormEvent) {
@@ -89,12 +88,13 @@ export default function Auth() {
       });
 
       if (!response.ok) {
-         throw new Error("Login failed: " + response.status);
-      }
-      const data = await response.json();
+         alert("wrong credentials");
+      } else {
+         const data = await response.json();
 
-      localStorage.setItem("logged", JSON.stringify(data));
-      router.push("/");
+         localStorage.setItem("logged", JSON.stringify(data));
+         router.push("/");
+      }
    }
 
    return (
