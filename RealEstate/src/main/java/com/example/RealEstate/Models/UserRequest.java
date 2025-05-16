@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 public class UserRequest {
         private String oldEmail;
         private int id;
-        private String nume;
+        private String name;
         private String email;
         private String password;
         private Role role;

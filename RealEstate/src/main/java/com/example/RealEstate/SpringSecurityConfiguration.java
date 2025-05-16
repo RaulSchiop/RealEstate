@@ -25,7 +25,8 @@ public class SpringSecurityConfiguration {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
 
-        http.authorizeHttpRequests(auth ->
+        http.cors(Customizer.withDefaults())
+                .csrf(csrf -> csrf.ignoringRequestMatchers("/auth/**", "/newsLetter", "/admin/**", "/anunturi/**", "/contact")).authorizeHttpRequests(auth ->
                 auth .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/anunturi").permitAll()
                         .requestMatchers("/anunturi/anunturi4").permitAll()
@@ -35,15 +36,13 @@ public class SpringSecurityConfiguration {
                         .requestMatchers("/images/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/admin/deleteAnunt/{id}").hasRole("ADMIN")
+                        .requestMatchers("/admin/modificareUtilizator").hasRole("ADMIN")
                         .requestMatchers("/anunturi/adaugareAnunt").hasAnyRole("CLIENT", "ADMIN")
                         .requestMatchers("/anunturi/**").hasAnyRole("CLIENT", "ADMIN")
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .anyRequest().authenticated()
         ).addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         ;
-
-        http.csrf(csrf -> csrf.ignoringRequestMatchers("/auth/**", "/newsLetter", "/admin/**", "/anunturi/**",  "/contact"));
-
 
 
         return http.build();

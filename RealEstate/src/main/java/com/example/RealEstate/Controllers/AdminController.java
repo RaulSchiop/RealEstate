@@ -1,5 +1,4 @@
 package com.example.RealEstate.Controllers;
-
 import com.example.RealEstate.Models.Anunturi;
 import com.example.RealEstate.Models.UserRequest;
 import com.example.RealEstate.Models.Users;
@@ -7,7 +6,6 @@ import com.example.RealEstate.Services.AdminServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 

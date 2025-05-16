@@ -50,7 +50,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                         new UsernamePasswordAuthenticationToken(
                                 userDetails, null, userDetails.getAuthorities());
 
-                // Add these lines for logging
                 logger.info("Authenticated user: " + userDetails.getUsername());
                 logger.info("User authorities: " + userDetails.getAuthorities());
 

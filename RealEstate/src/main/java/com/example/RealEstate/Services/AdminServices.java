@@ -115,7 +115,7 @@ public class AdminServices {
 
             foundUser.setPassword(userUpdateRequest.getPassword());
             foundUser.setEmail(userUpdateRequest.getEmail());
-            foundUser.setName(userUpdateRequest.getNume());
+            foundUser.setName(userUpdateRequest.getName());
             foundUser.setRole(userUpdateRequest.getRole());
 
             usersRepository.save(foundUser);
