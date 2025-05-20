@@ -38,9 +38,12 @@ export default function Admin() {
       oldEmail: "",
       password: "",
    });
+   
+    
 
    function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
       const { name, value } = e.target;
+      
 
       setModifyUser((prev) => ({
          ...prev,

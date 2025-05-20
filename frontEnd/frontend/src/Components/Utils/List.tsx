@@ -1,7 +1,9 @@
+'use client'
 import Image, { StaticImageData } from "next/image";
 import camereImage from "../../../public/Bed Outline Icon from Real Estate.png";
 import m2Logo from "../../../public/GIS Square PT.png";
 import consIcon from "../../../public/Arcticons Price Converter.png";
+import { useState } from "react";
 
 type ListType = {
    photo: string | StaticImageData;
@@ -9,6 +11,8 @@ type ListType = {
    suprafata: number;
    pret: number;
    locatie?: string;
+  onToggle?: () => void;
+  clicked?:boolean
 };
 
 export default function List({
@@ -17,10 +21,15 @@ export default function List({
    suprafata,
    pret,
    locatie,
+   clicked,
+   onToggle
 }: ListType) {
+   
    return (
-      <li className="bg-secondary h-[300px] w-[350px] flex items-center gap-6 flex-col justify-center rounded-[20px] p-4 transition-transform duration-300 hover:scale-110">
-         <div className="w-full h-64 relative">
+      <li      onClick={onToggle}
+         className={`h-[300px] w-[350px] flex items-center gap-6 flex-col justify-center rounded-[20px] p-4 transition-transform duration-300 hover:scale-110 cursor-pointer ${
+            clicked ? "bg-primary" : "bg-secondary"
+         }`}>  <div className="w-full h-64 relative">
             <Image
                src={photo}
                alt="listing iamge"

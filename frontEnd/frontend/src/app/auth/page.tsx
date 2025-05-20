@@ -23,14 +23,19 @@ export default function Auth() {
       email: "",
       password: "",
    });
+   const [error, setError] = useState(false);
    const [register, setRegister] = useState<register>({
       name: "",
       email: "",
       password: "",
    });
+   const [emailTouched, setEmailTouched] = useState(false);
+   const [emailValid, setEmailValid] = useState(true);
 
    function handleLayoutChange() {
       setChange(!change);
+      setError(false);
+      setEmailTouched(false);
    }
 
    function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -39,14 +44,20 @@ export default function Auth() {
          ...prev,
          [name]: value,
       }));
+      setError(false);
    }
 
    function handleRegisterChange(e: React.ChangeEvent<HTMLInputElement>) {
       const { name, value } = e.target;
+
       setRegister((prev) => ({
          ...prev,
          [name]: value,
       }));
+
+      if (name === "email") {
+         setEmailValid(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value));
+      }
    }
 
    async function handleSubbmitR(e: React.FormEvent) {
@@ -66,7 +77,7 @@ export default function Auth() {
       });
 
       if (!response.ok) {
-         alert("wrong credentials");
+         setError(true);
       }
 
       setChange(true);
@@ -88,7 +99,7 @@ export default function Auth() {
       });
 
       if (!response.ok) {
-         alert("wrong credentials");
+         setError(true);
       } else {
          const data = await response.json();
 
@@ -122,22 +133,26 @@ export default function Auth() {
                      >
                         <h1 className="text-Text text-3xl">Log in</h1>
                         <input
-                           placeholder="Email"
+                           placeholder={`${error === true ? "Enter a valid Email" : "Email"}`} 
                            name="email"
                            type="email"
                            onChange={handleInputChange}
                            value={logIn.email}
                            required
-                           className="text-Text  placeholder-Text border  rounded px-4 py-2 focus:outline-none"
+                           className={`  placeholder-Text border  rounded px-4 py-2 focus:outline-none  ${
+                              error && "text-red-500 border-red-500"
+                           } `}
                         />
                         <input
-                           placeholder="Password"
+                           placeholder={`${error === true ? "Enter a valid password" : "Password"}`}  
                            name="password"
                            type="password"
                            onChange={handleInputChange}
                            value={logIn.password}
                            required
-                           className="text-Text  placeholder-Text border  rounded px-4 py-2 focus:outline-none"
+                           className={`  placeholder-Text border  rounded px-4 py-2 focus:outline-none ${
+                              error && " text-red-500 border-red-500"
+                           } `}
                         />
                         <motion.button
                            whileHover={{
@@ -214,13 +229,18 @@ export default function Auth() {
                            className="text-Text  placeholder-Text border  rounded px-4 py-2 focus:outline-none"
                         />
                         <input
-                           placeholder="Email"
+                           placeholder={`${emailTouched && !emailValid ? "Enter a valid Email":"Email"}`}
                            name="email"
                            type="email"
                            onChange={handleRegisterChange}
+                           onBlur={() => setEmailTouched(true)}
                            value={register.email}
                            required
-                           className="text-Text  placeholder-Text border  rounded px-4 py-2 focus:outline-none"
+                           className={`placeholder-Text border rounded px-4 py-2 focus:outline-none ${
+                              emailTouched && !emailValid
+                                 ? "text-red-500 border-red-500"
+                                 : ""
+                           }`}
                         />
                         <input
                            placeholder="Password"

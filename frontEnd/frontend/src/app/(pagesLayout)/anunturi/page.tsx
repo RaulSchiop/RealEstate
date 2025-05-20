@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import Modal from "@/Components/Modal/Modal";
 import Image from "next/image";
+import MainBtn from "@/Components/buttons/Mainbtn";
 
 type RealEstateItem = {
    id: number;
@@ -30,6 +31,11 @@ export default function Anunturi() {
    const [listings, setListings] = useState<RealEstateList>([]);
    const [modalOpen, setModalOpen] = useState(false);
    const [selectedProduct, setSelectedProduct] = useState<RealEstateItem>();
+   const [clicked, setClicked] = useState(false);
+
+   function toggleClicked() {
+      setClicked(!clicked);
+   }
 
    function handleModalClose() {
       setModalOpen(false);
@@ -102,6 +108,7 @@ export default function Anunturi() {
                      placeholder="Enter a City"
                   ></input>
                </div>
+
                <div>
                   <h1 className="text-text">Apartament Size</h1>
                   <input
@@ -120,6 +127,9 @@ export default function Anunturi() {
                      placeholder="Enter Max Price"
                   ></input>
                </div>
+                 <div>
+                     <MainBtn type="button" onClick={toggleClicked}>Change theme</MainBtn>
+                  </div>
             </form>
             <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 mt-5 gap-5">
                {listings.length > 0 ? (
@@ -142,6 +152,8 @@ export default function Anunturi() {
                               onClick={() => handleModalOpen(data)}
                            >
                               <List
+                                
+                                 clicked={clicked}
                                  key={index}
                                  photo={
                                     firstPhoto
@@ -200,13 +212,14 @@ export default function Anunturi() {
                                           )}
                                           <div className="bg-accent p-1 rounded-xl flex items-center justify-center">
                                              <p className="text-[20px] text-lightText">
-                                                 {data.suprafataUtila} m2
+                                                {data.suprafataUtila} m2
                                              </p>
                                           </div>
                                           {data.suprafataCurte > 0 && (
                                              <div className="bg-accent p- rounded-xl flex items-center justify-center">
                                                 <p className="text-[20px] text-lightText">
-                                                  Outside {data.suprafataCurte} m2
+                                                   Outside {data.suprafataCurte}{" "}
+                                                   m2
                                                 </p>
                                              </div>
                                           )}
