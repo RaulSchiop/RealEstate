@@ -63,12 +63,17 @@ Animation library used for smooth transitions between login/register, page chang
 ### 🏠 Main Page
 
 -  Hero section
-   ![Main page](/frontEnd/frontend/public/hero%20section.png)
+  
+![Main page](/frontEnd/frontend/public/hero%20section.png)
+
 -  Popular listings
 -  Contact section
-   ![pupular listings](/frontEnd/frontend/public/popular%20listings.png)
+  
+ ![pupular listings](/frontEnd/frontend/public/popular%20listings.png)
+ 
 -  Newsletter subscription
-   ![News letter](/frontEnd/frontend/public/News%20letter.png)
+  
+ ![News letter](/frontEnd/frontend/public/News%20letter.png)
 
 ---
 
@@ -111,8 +116,9 @@ Animation library used for smooth transitions between login/register, page chang
 
 -  **Log In**
    -  Email + password form
+     
+ ![Log in page](/frontEnd/frontend/public/logIn.png)  
 -  **Register**
    -  Email, password, name form
-
-![Log in page](/frontEnd/frontend/public/logIn.png)  
+     
 ![Register page](/frontEnd/frontend/public/register.png)
