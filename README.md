@@ -16,39 +16,44 @@ A full-stack real estate web application with authentication, admin control, lis
 
 ## 🧰 Technologies Used
 
-- **Backend**: Java, Spring Boot, Spring Security (with JWT), Spring Data JPA  
-- **Frontend**: TypeScript, Next.js (App Router)  
-- **Database**: MySQL  
-- **Styling**: Tailwind CSS  
-- **Animations**: Framer Motion  
+-  **Backend**: Java, Spring Boot, Spring Security (with JWT), Spring Data JPA
+-  **Frontend**: TypeScript, Next.js (App Router)
+-  **Database**: MySQL
+-  **Styling**: Tailwind CSS
+-  **Animations**: Framer Motion
 
 ---
 
 ## 🔐 Features & Functionality
 
-- User registration and login (JWT-based auth)
-- Role-based routing (User / Admin)
-- Listing creation (with image support)
-- Newsletter subscription
-- Contact form for user feedback
+-  User registration and login (JWT-based auth)
+-  Role-based routing (User / Admin)
+-  Listing creation (with image support)
+-  Newsletter subscription
+-  Contact form for user feedback
 
 ---
 
 ## 📚 Technology Breakdown
 
 ### 1. **Next.js**
+
 Used for file-based routing and dynamic page rendering using the new App Router. Simplifies routing structure and improves navigation performance.
 
 ### 2. **MySQL**
+
 Primary database with three tables:
-- `users`
-- `listings`
-- `images` (with a foreign key referencing `listings`)
+
+-  `users`
+-  `listings`
+-  `images` (with a foreign key referencing `listings`)
 
 ### 3. **Tailwind CSS**
+
 Utility-first CSS framework for rapid UI development and consistent styling across the app.
 
 ### 4. **Framer Motion**
+
 Animation library used for smooth transitions between login/register, page changes, and UI interactions.
 
 ---
@@ -56,54 +61,58 @@ Animation library used for smooth transitions between login/register, page chang
 ## 🗺 App Structure
 
 ### 🏠 Main Page
-- Hero section
-- Popular listings
-- Newsletter subscription
-- Contact section
 
-![Main page]()
+-  Hero section
+   ![Main page](/frontEnd/frontend/public/hero%20section.png)
+-  Popular listings
+-  Contact section
+   ![pupular listings](/frontEnd/frontend/public/popular%20listings.png)
+-  Newsletter subscription
+   ![News letter](/frontEnd/frontend/public/News%20letter.png)
 
 ---
 
 ### 📄 Listings Page
-- Interactive listings
-- Clickable for detailed view
-- Stackable filters (can use all at once)
 
-![Listings page]()
+-  Interactive listings
+-  Clickable for detailed view
+-  Stackable filters (can use all at once)
+
+![Listings page](/frontEnd/frontend/public/listings%20page.png)
 
 ---
 
 ### 👤 Profile Page
-- Accessible only when logged in
-- View your listings
-- Add new listings (modify/delete coming soon)
 
-![Profile page]()
+-  Accessible only when logged in
+-  View your listings
+-  Add new listings (modify/delete coming soon)
+
+![Profile page](/frontEnd/frontend/public/profile%20page.png)
 
 ---
 
 ### 📬 Contact Us Page
-- Users can send feedback or report issues
 
-![Contact Us Page]()
+-  Users can send feedback or report issues
+
+![Contact Us Page](/frontEnd/frontend/public/contact%20us.png)
 
 ---
 
 ### 🛠 Admin Page
-- View and manage all users and listings
-- Admin actions: delete, modify
 
-![Admin page]()
+-  View and manage all users and listings
+-  Admin actions: delete, modify
 
 ---
 
 ### 🔐 Authentication
-- **Log In**
-  - Email + password form
-- **Register**
-  - Email, password, name form
 
-![Log in page]()  
-![Register page]()
+-  **Log In**
+   -  Email + password form
+-  **Register**
+   -  Email, password, name form
 
+![Log in page](/frontEnd/frontend/public/logIn.png)  
+![Register page](/frontEnd/frontend/public/register.png)
