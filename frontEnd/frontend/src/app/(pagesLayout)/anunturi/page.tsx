@@ -127,9 +127,9 @@ export default function Anunturi() {
                      placeholder="Enter Max Price"
                   ></input>
                </div>
-                 <div>
+                 {/* <div>
                      <MainBtn type="button" onClick={toggleClicked}>Change theme</MainBtn>
-                  </div>
+                  </div> */}
             </form>
             <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 mt-5 gap-5">
                {listings.length > 0 ? (
