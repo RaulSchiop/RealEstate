@@ -36,11 +36,15 @@ A full-stack real estate web application with authentication, admin control, lis
 
 ## 📚 Technology Breakdown
 
-### 1. **Next.js**
+### 1. **Spring boot**
+
+Used for backend.
+
+### 2. **Next.js**
 
 Used for file-based routing and dynamic page rendering using the new App Router. Simplifies routing structure and improves navigation performance.
 
-### 2. **MySQL**
+### 3. **MySQL**
 
 Primary database with three tables:
 
@@ -48,11 +52,11 @@ Primary database with three tables:
 -  `listings`
 -  `images` (with a foreign key referencing `listings`)
 
-### 3. **Tailwind CSS**
+### 4. **Tailwind CSS**
 
 Utility-first CSS framework for rapid UI development and consistent styling across the app.
 
-### 4. **Framer Motion**
+### 5. **Framer Motion**
 
 Animation library used for smooth transitions between login/register, page changes, and UI interactions.
 
