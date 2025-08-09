@@ -26,23 +26,25 @@ public class SpringSecurityConfiguration {
 
 
         http.cors(Customizer.withDefaults())
-                .csrf(csrf -> csrf.ignoringRequestMatchers("/auth/**", "/newsLetter", "/admin/**", "/anunturi/**", "/contact")).authorizeHttpRequests(auth ->
-                auth .requestMatchers("/auth/**").permitAll()
+                .csrf(csrf -> csrf.ignoringRequestMatchers("/auth/**", "/newsLetter", "/admin/**", "/anunturi/**", "/contact","/chat/**"))
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/anunturi").permitAll()
                         .requestMatchers("/anunturi/anunturi4").permitAll()
                         .requestMatchers("/newsLetter").permitAll()
                         .requestMatchers("/contact").permitAll()
-                        .requestMatchers("/anunturi/anunturi4").permitAll()
                         .requestMatchers("/images/**").permitAll()
+                        .requestMatchers("/error").permitAll()    // <-- Add this line
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/admin/deleteAnunt/{id}").hasRole("ADMIN")
                         .requestMatchers("/admin/modificareUtilizator").hasRole("ADMIN")
                         .requestMatchers("/anunturi/adaugareAnunt").hasAnyRole("CLIENT", "ADMIN")
                         .requestMatchers("/anunturi/**").hasAnyRole("CLIENT", "ADMIN")
+                        .requestMatchers("/chat/Prompt").permitAll()
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .anyRequest().authenticated()
-        ).addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-        ;
+                )
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
 
         return http.build();

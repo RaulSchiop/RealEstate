@@ -38,6 +38,7 @@ public class AnunturiController {
     }
 
 
+
     @GetMapping("/{userId}")
     @PreAuthorize("hasRole('CLIENT') or hasRole('ADMIN')")
     public List<Anunturi> getAnunturiByUserId(@PathVariable int userId){

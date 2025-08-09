@@ -2,6 +2,7 @@ package com.example.RealEstate.Models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -49,6 +50,7 @@ public class Anunturi {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     @JsonBackReference
+    @JsonIgnoreProperties({"anunturi"})
     private Users user;
 
     @OneToMany(mappedBy = "anunturi", cascade = CascadeType.ALL, orphanRemoval = true)

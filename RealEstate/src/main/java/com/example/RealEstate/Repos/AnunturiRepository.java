@@ -17,4 +17,5 @@ public interface AnunturiRepository extends JpaRepository<Anunturi,Integer> {
 
 
 
+
 }

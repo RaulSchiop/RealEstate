@@ -2,6 +2,7 @@ package com.example.RealEstate.Models;
 
 import com.example.RealEstate.utils.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -30,6 +31,7 @@ public class Users {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 
     @JsonManagedReference
+    @JsonIgnoreProperties({"user"}) // Prevents circular JSON serialization
     private List<Anunturi> anunturi = new ArrayList<>();
 
     public Users() {

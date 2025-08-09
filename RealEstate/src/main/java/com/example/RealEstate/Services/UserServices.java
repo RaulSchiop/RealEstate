@@ -41,10 +41,9 @@ public class UserServices {
     public void addUsers(UsersReqest user) {
         Users existingUser = usersRepository.findByEmail(user.getEmail());
         if (existingUser != null) {
-            // Existing user found - probably you want to reject registration here
+
             throw new RuntimeException("User already exists");
         }
-        // Encode password before saving
         String encodedPassword = encoder.encode(user.getPassword());
 
         Users newUser = new Users(user.getName(), user.getEmail(), encodedPassword);
