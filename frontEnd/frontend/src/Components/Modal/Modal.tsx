@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { AnimatePresence, delay, motion } from "framer-motion";
+import { AnimatePresence, delay, motion } from "motion/react";
 import { ReactNode } from "react";
 
 type PropsType ={

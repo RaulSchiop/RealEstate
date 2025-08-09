@@ -59,7 +59,7 @@ export default function PoluparListings() {
             <h1 className="lg:text-text lg:text-[28px]  ">Polpular listings</h1>
             <Link
                href={"/anunturi"}
-               className="lg:text-secondary text-[16px] transition delay-150 duration-300 ease-in-out hover:scale-110"
+               className="lg:text-secondary text-[28px] transition delay-150 duration-300 ease-in-out hover:scale-110"
             >
                See all
             </Link>

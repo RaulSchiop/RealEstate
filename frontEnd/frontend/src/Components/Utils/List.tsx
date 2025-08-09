@@ -4,6 +4,7 @@ import camereImage from "../../../public/Bed Outline Icon from Real Estate.png";
 import m2Logo from "../../../public/GIS Square PT.png";
 import consIcon from "../../../public/Arcticons Price Converter.png";
 import { useState } from "react";
+import MainBtn from "../buttons/Mainbtn";
 
 type ListType = {
    photo: string | StaticImageData;
@@ -67,6 +68,7 @@ export default function List({
                   <p className="text-lightText text-[12px]">{locatie}</p>
                </div>
             )}
+            
          </div>
       </li>
    );
