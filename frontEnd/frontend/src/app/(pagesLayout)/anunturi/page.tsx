@@ -152,7 +152,6 @@ export default function Anunturi() {
                               onClick={() => handleModalOpen(data)}
                            >
                               <List
-                                
                                  clicked={clicked}
                                  key={index}
                                  photo={

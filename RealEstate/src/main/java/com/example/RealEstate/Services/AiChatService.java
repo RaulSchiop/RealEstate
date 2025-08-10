@@ -99,7 +99,6 @@ public class AiChatService {
         return chatClient.prompt(prompt).call().content();
     }
 
-
     public String chatComparePropriety(){
 return "asd";
     }
