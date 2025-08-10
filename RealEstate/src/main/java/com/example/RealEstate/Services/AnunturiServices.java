@@ -42,6 +42,11 @@ public class AnunturiServices {
 
     }
 
+    public Anunturi getAnunturiById(int id) {
+        return anunturiRepository.findById(id).orElse(null);
+    }
+
+
     public List<Anunturi> get4Anunturi(){
         return anunturiRepository.get4Anunturi();
     }

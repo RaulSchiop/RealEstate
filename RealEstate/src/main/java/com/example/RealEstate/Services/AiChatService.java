@@ -70,7 +70,9 @@ public class AiChatService {
                     "rooms", a.getCamere(),
                     "floor", a.getEtaj(),
                     "numbers of floors", a.getNrEtaje(),
-                    "apartament size", a.getSuprafataUtila()
+                    "apartament size", a.getSuprafataUtila(),
+                    "link","http://localhost:3000/anunturi/anunt/"+a.getId()
+
             );
             return new Document(contend, metadata);
         }).toList();;
@@ -93,6 +95,7 @@ public class AiChatService {
                 - Only use information from the property details provided above.
                 - If the answer is not in the provided information, respond with: "I don’t have that information right now. Please contact our real estate agent for assistance."
                 - Be concise and professional in your response.
+                - If you have to provide informations about the page proivede a hyperlink to the link of the metadata
                 """.formatted(result,userPrompt);
 
 

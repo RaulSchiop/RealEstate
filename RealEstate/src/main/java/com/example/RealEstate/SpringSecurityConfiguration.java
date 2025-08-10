@@ -30,6 +30,7 @@ public class SpringSecurityConfiguration {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/anunturi").permitAll()
+                        .requestMatchers("/anunturi/anunt/{id}").permitAll()
                         .requestMatchers("/anunturi/anunturi4").permitAll()
                         .requestMatchers("/newsLetter").permitAll()
                         .requestMatchers("/contact").permitAll()
@@ -39,7 +40,6 @@ public class SpringSecurityConfiguration {
                         .requestMatchers("/admin/deleteAnunt/{id}").hasRole("ADMIN")
                         .requestMatchers("/admin/modificareUtilizator").hasRole("ADMIN")
                         .requestMatchers("/anunturi/adaugareAnunt").hasAnyRole("CLIENT", "ADMIN")
-                        .requestMatchers("/anunturi/**").hasAnyRole("CLIENT", "ADMIN")
                         .requestMatchers("/chat/Prompt").permitAll()
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .anyRequest().authenticated()

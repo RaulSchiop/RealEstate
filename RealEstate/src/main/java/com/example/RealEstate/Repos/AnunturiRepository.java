@@ -14,7 +14,7 @@ public interface AnunturiRepository extends JpaRepository<Anunturi,Integer> {
     @Query(value = "SELECT * FROM anunturi LIMIT 4", nativeQuery = true)
     List<Anunturi> get4Anunturi();
 
-
+    Anunturi getAnunturiById(int id);
 
 
 

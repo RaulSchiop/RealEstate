@@ -3,13 +3,13 @@ import React from "react";
 import { AnimatePresence, delay, motion } from "motion/react";
 import { ReactNode } from "react";
 
-type PropsType ={
-    show:boolean;
-    onClose:()=>void;
-    children: ReactNode;
-}
+type PropsType = {
+   show: boolean;
+   onClose: () => void;
+   children: ReactNode;
+};
 
-const Modal = ({ show, onClose, children }:PropsType) => {
+const Modal = ({ show, onClose, children }: PropsType) => {
    return (
       <AnimatePresence>
          {show && (
@@ -33,7 +33,7 @@ const Modal = ({ show, onClose, children }:PropsType) => {
                      initial={{ x: 500, opacity: 0 }}
                      animate={{ x: 0, opacity: 1 }}
                      transition={{ type: "spring", duration: 1 }}
-                     className="absolute w-10 h-10 top-2 right-5 text-4xl text-white p-2 rounded-full hover:text-red-600 "
+                     className="absolute w-10 h-10 top-2 right-5 text-4xl text-white p-2 rounded-full hover:text-red-600 z-100 "
                      onClick={onClose}
                   >
                      &times;

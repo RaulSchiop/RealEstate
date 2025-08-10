@@ -68,4 +68,13 @@ public class AnunturiController {
         return anunturiServices.addAnunt(anunturiResponse, poze);
     }
 
+
+    @GetMapping("/anunt/{id}")
+    public Anunturi getAnunturiById(@PathVariable int id) {
+
+        return anunturiServices.getAnunturiById(id);
+
+    }
+
+
 }

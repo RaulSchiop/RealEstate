@@ -6,6 +6,7 @@ import { motion } from "motion/react";
 import Modal from "@/Components/Modal/Modal";
 import Image from "next/image";
 import MainBtn from "@/Components/buttons/Mainbtn";
+import { useRouter } from "next/navigation";
 
 type RealEstateItem = {
    id: number;
@@ -29,21 +30,13 @@ export default function Anunturi() {
    const [valueP, setValueP] = useState<number>(0);
    const [valueLoc, setValueLoc] = useState("");
    const [listings, setListings] = useState<RealEstateList>([]);
-   const [modalOpen, setModalOpen] = useState(false);
+
    const [selectedProduct, setSelectedProduct] = useState<RealEstateItem>();
    const [clicked, setClicked] = useState(false);
+   const router = useRouter();
 
    function toggleClicked() {
       setClicked(!clicked);
-   }
-
-   function handleModalClose() {
-      setModalOpen(false);
-   }
-
-   function handleModalOpen(product: RealEstateItem) {
-      setModalOpen(true);
-      setSelectedProduct(product);
    }
 
    function handleChangeSize(e: React.ChangeEvent<HTMLInputElement>) {
@@ -127,7 +120,7 @@ export default function Anunturi() {
                      placeholder="Enter Max Price"
                   ></input>
                </div>
-                 {/* <div>
+               {/* <div>
                      <MainBtn type="button" onClick={toggleClicked}>Change theme</MainBtn>
                   </div> */}
             </form>
@@ -149,7 +142,9 @@ export default function Anunturi() {
                         return (
                            <div
                               key={data.id}
-                              onClick={() => handleModalOpen(data)}
+                              onClick={() => {
+                                 router.push(`/anunturi/${data.id}`);
+                              }}
                            >
                               <List
                                  clicked={clicked}
@@ -164,87 +159,6 @@ export default function Anunturi() {
                                  pret={data.pret}
                                  locatie={data.locatie}
                               />
-                              {modalOpen && selectedProduct === data && (
-                                 <Modal
-                                    show={modalOpen}
-                                    onClose={handleModalClose}
-                                 >
-                                    <div className="bg-secondary h-[700px] flex items-center gap-2 flex-col justify-center rounded-[20px] p-4 ">
-                                       <div className="flex items-center justify-between w-full">
-                                          <h1 className="text-[30px] font-bold text-lightText">
-                                             {data.titlu}
-                                          </h1>
-                                          <h1 className="text-[20px] text-lightText">
-                                             {data.pret} €
-                                          </h1>
-                                       </div>
-                                       <div className="relative w-full h-[700px] rounded-xl overflow-hidden">
-                                          <Image
-                                             src={`http://localhost:8080/images/${firstPhoto}`}
-                                             alt="listing image"
-                                             layout="fill"
-                                             objectFit="cover"
-                                             className="rounded-xl"
-                                          />
-                                       </div>
-
-                                       <div className="grid lg:grid-cols-5 lg:grid-rows-2 md:grid-cols-2 md:grid-rows-2 gap-4 mt-6 w-full">
-                                          <div className="bg-accent p-1 rounded-xl flex items-center justify-center">
-                                             <p className="text-[20px] text-lightText">
-                                                {data.camere} rooms
-                                             </p>
-                                          </div>
-                                          {data.etaj > 0 && (
-                                             <div className="bg-accent p-1 rounded-xl flex items-center justify-center">
-                                                <p className="text-[20px] text-lightText">
-                                                   at floor {data.etaj}
-                                                </p>
-                                             </div>
-                                          )}
-                                          {data.nrEtaje > 0 && (
-                                             <div className="bg-accent p-1 rounded-xl flex items-center justify-center">
-                                                <p className="text-[15px] text-lightText">
-                                                   {data.nrEtaje} building
-                                                   floors
-                                                </p>
-                                             </div>
-                                          )}
-                                          <div className="bg-accent p-1 rounded-xl flex items-center justify-center">
-                                             <p className="text-[20px] text-lightText">
-                                                {data.suprafataUtila} m2
-                                             </p>
-                                          </div>
-                                          {data.suprafataCurte > 0 && (
-                                             <div className="bg-accent p- rounded-xl flex items-center justify-center">
-                                                <p className="text-[20px] text-lightText">
-                                                   Outside {data.suprafataCurte}{" "}
-                                                   m2
-                                                </p>
-                                             </div>
-                                          )}
-
-                                          {data.etaj > 0 && (
-                                             <div className="bg-accent p-1 rounded-xl flex items-center justify-center">
-                                                <p className="text-[20px] text-lightText">
-                                                   {data.etaj} flors
-                                                </p>
-                                             </div>
-                                          )}
-                                       </div>
-                                       <h1 className="text-2xl text-lightText ">
-                                          Description{" "}
-                                       </h1>
-                                       <p className="text-lightText">
-                                          {data.descriere}
-                                       </p>
-                                       <div className="bg-accent p-2 rounded-xl">
-                                          <p className="text-[20px] text-lightText">
-                                             Phone number: {data.nrTel}
-                                          </p>
-                                       </div>
-                                    </div>
-                                 </Modal>
-                              )}
                            </div>
                         );
                      })
