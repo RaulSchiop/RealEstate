@@ -3,8 +3,8 @@ import List from "../Utils/List";
 import dummyphoto from "../../../public/Bed Outline Icon from Real Estate.png";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import Modal from "../Modal/Modal";
-import Image from "next/image";
+
+import { useRouter } from "next/navigation";
 
 type RealEstateItem = {
    id: number;
@@ -26,18 +26,9 @@ type RealEstateList = RealEstateItem[];
 
 export default function PoluparListings() {
    const [polpularListings, setPopularListings] = useState<RealEstateList>([]);
+   const router = useRouter();
 
-   const [modalOpen, setModalOpen] = useState(false);
    const [selectedProduct, setSelectedProduct] = useState<RealEstateItem>();
-
-   function handleModalClose() {
-      setModalOpen(false);
-   }
-
-   function handleModalOpen(product: RealEstateItem) {
-      setModalOpen(true);
-      setSelectedProduct(product);
-   }
 
    useEffect(() => {
       async function getPupularListings() {
@@ -72,7 +63,7 @@ export default function PoluparListings() {
                   return (
                      <div
                         key={index || data.id}
-                        onClick={() => handleModalOpen(data)}
+                        onClick={() => router.push(`/anunturi/${data.id}`)}
                      >
                         <List
                            key={data.id || index}
@@ -86,82 +77,6 @@ export default function PoluparListings() {
                            pret={data.pret}
                            locatie={data.locatie}
                         />
-                        {modalOpen && selectedProduct === data && (
-                           <Modal show={modalOpen} onClose={handleModalClose}>
-                              <div className="bg-secondary h-[700px] flex items-center gap-2 flex-col justify-center rounded-[20px] p-4 ">
-                                 <div className="flex items-center justify-between w-full">
-                                    <h1 className="text-[30px] font-bold text-lightText">
-                                       {data.titlu}
-                                    </h1>
-                                    <h1 className="text-[20px] text-lightText">
-                                       {data.pret} €
-                                    </h1>
-                                 </div>
-                                 <div className="relative w-full h-[700px] rounded-xl overflow-hidden">
-                                    <Image
-                                       src={`http://localhost:8080/images/${firstPhoto}`}
-                                       alt="listing image"
-                                       layout="fill"
-                                       objectFit="cover"
-                                       className="rounded-xl"
-                                    />
-                                 </div>
-
-                                 <div className="grid lg:grid-cols-5 lg:grid-rows-2 md:grid-cols-2 md:grid-rows-2 gap-4 mt-6 w-full">
-                                    <div className="bg-accent p-1 rounded-xl flex items-center justify-center">
-                                       <p className="text-[20px] text-lightText">
-                                          {data.camere} rooms
-                                       </p>
-                                    </div>
-                                    {data.etaj > 0 && (
-                                       <div className="bg-accent p-1 rounded-xl flex items-center justify-center">
-                                          <p className="text-[20px] text-lightText">
-                                             at floor {data.etaj}
-                                          </p>
-                                       </div>
-                                    )}
-                                    {data.nrEtaje > 0 && (
-                                       <div className="bg-accent p-1 rounded-xl flex items-center justify-center">
-                                          <p className="text-[15px] text-lightText">
-                                             {data.nrEtaje} building floors
-                                          </p>
-                                       </div>
-                                    )}
-                                    <div className="bg-accent p-1 rounded-xl flex items-center justify-center">
-                                       <p className="text-[20px] text-lightText">
-                                          {data.suprafataUtila} m2
-                                       </p>
-                                    </div>
-                                    {data.suprafataCurte > 0 && (
-                                       <div className="bg-accent p- rounded-xl flex items-center justify-center">
-                                          <p className="text-[20px] text-lightText">
-                                             Outside {data.suprafataCurte} m2
-                                          </p>
-                                       </div>
-                                    )}
-
-                                    {data.etaj > 0 && (
-                                       <div className="bg-accent p-1 rounded-xl flex items-center justify-center">
-                                          <p className="text-[20px] text-lightText">
-                                             {data.etaj} flors
-                                          </p>
-                                       </div>
-                                    )}
-                                 </div>
-                                 <h1 className="text-2xl text-lightText ">
-                                    Description{" "}
-                                 </h1>
-                                 <p className="text-lightText">
-                                    {data.descriere}
-                                 </p>
-                                 <div className="bg-accent p-2 rounded-xl">
-                                    <p className="text-[20px] text-lightText">
-                                       Phone number: {data.nrTel}
-                                    </p>
-                                 </div>
-                              </div>
-                           </Modal>
-                        )}
                      </div>
                   );
                })

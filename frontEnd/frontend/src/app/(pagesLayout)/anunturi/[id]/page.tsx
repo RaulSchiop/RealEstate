@@ -112,7 +112,6 @@ export default function AnuntPage({ params }: { params: Promise<ParamsType> }) {
             </div>
          </div>
 
-         {/* Features Bar */}
          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4 mb-8 px-8">
             <div className="bg-[#EDE6DD] p-4 rounded-xl flex flex-col items-center shadow-sm">
                <span className="text-lg text-[#4B2E05] font-semibold">

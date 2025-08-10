@@ -1,11 +1,14 @@
 "use client";
 
+import { body } from "motion/react-client";
 import { useState } from "react";
+import ReactMarkdown from "react-markdown";
 
 export default function AiPopup() {
    const [open, setOpen] = useState(false);
    const [aiRes, setAiRes] = useState("");
    const [prompt, setPrompt] = useState("");
+   const [loading, setLoading] = useState(false);
 
    function handleOnChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
       e.preventDefault();
@@ -15,6 +18,26 @@ export default function AiPopup() {
       "Ai compare",
       "Mortgage & Affordability Calculator",
    ];
+
+   async function submmitPrompt(e: React.FormEvent<HTMLFormElement>) {
+      e.preventDefault();
+      setLoading(true);
+      const response = await fetch("http://localhost:8080/chat/Prompt", {
+         method: "POST",
+         headers: {
+            "Content-Type": "application/json",
+         },
+         body: JSON.stringify({ prompt }),
+      });
+
+      if (response.ok) {
+         const data = await response.json();
+         setLoading(false);
+         setAiRes(data.response);
+      } else {
+         setAiRes("Failed to get AI response.");
+      }
+   }
 
    return (
       <div className="fixed bottom-6 right-6 z-50">
@@ -49,25 +72,45 @@ export default function AiPopup() {
                      </div>
                   ))}
                </div>
-               <textarea
-                  onChange={handleOnChange}
-                  value={prompt}
-                  placeholder="Type your question..."
-                  className="w-full border border-gray-300 bg-white text-black rounded-md p-2 mb-3 focus:outline-none focus:ring-2 focus:ring-accent"
-                  rows={3}
-               ></textarea>
-               <button className="w-full bg-accent text-white py-2 rounded-md hover:bg-accent-dark transition-colors">
-                  Send
-               </button>
+               <form onSubmit={submmitPrompt}>
+                  =
+                  <textarea
+                     onChange={handleOnChange}
+                     value={prompt}
+                     placeholder="Type your question..."
+                     className="w-full border border-gray-300 bg-white text-black rounded-md p-2 mb-3 focus:outline-none focus:ring-2 focus:ring-accent"
+                     rows={3}
+                  ></textarea>
+                  <button
+                     type="submit"
+                     className="w-full bg-accent text-white py-2 rounded-md hover:scale-95 active:scale-90 transition-transform transform duration-200 "
+                  >
+                     Send
+                  </button>
+               </form>
+               {loading && (
+                  <h1 className="text-white animate-pulse">Waiting for Ai to respond</h1>
+               )}
                {aiRes && (
                   <div className="w-full p-10 mt-5 rounded-md">
                      <h2 className="text-lg font-semibold mb-4 text-white">
                         AI Response
                      </h2>
-                     <div className="max-h-40 overflow-y-auto overflow-x-hidden pr-2">
-                        <p className="whitespace-pre-wrap text-white">
+                     <div className="max-h-40 overflow-y-auto overflow-x-hidden pr-2 whitespace-pre-wrap text-white">
+                        <ReactMarkdown
+                           components={{
+                              a: ({ node, ...props }) => (
+                                 <a
+                                    {...props}
+                                    className="text-blue-400  font-bold text-lg hover:text-blue-600"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                 />
+                              ),
+                           }}
+                        >
                            {aiRes}
-                        </p>
+                        </ReactMarkdown>
                      </div>
                   </div>
                )}
