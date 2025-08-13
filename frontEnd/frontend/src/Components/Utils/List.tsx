@@ -63,7 +63,9 @@ export default function List({
                      {pret} €
                   </p>
                </div>
-               {locatie && <p className="text-lightText text-xs">{locatie}</p>}
+               {locatie && (
+                  <p className="text-lightText text-xs w-[50px] truncate" title={locatie}>{locatie}</p>
+               )}
             </div>
          </div>
       </li>

@@ -53,62 +53,62 @@ public class AiChatService {
             string.append(("Price: ")).append(a.getPret()).append("\n");
             string.append("Apartament size: ").append(a.getSuprafataUtila()).append("\n");
             string.append("Rooms: ").append(a.getCamere()).append("\n");
+            string.append("location: ").append((a.getLocatie())).append("\n");
+            string.append("Link: ").append("http://localhost:3000/anunturi/").append(a.getId()).append("\n");
 
 
             return string.toString();
 
         }).toList();
 
+//
+//        List<Document> documents=anunturis.stream().map(a->
+//        {
+//            String contend="Title "+a.getTitlu()+"\n"+" Desctiption"+a.getDescriere()+"\n"+" Price: "+a.getPret()+"\n"+" Rooms: "+a.getCamere()+"\n"+" Floor: "+a.getEtaj()+"\n"+" Apartament Size: "+a.getSuprafataUtila()+"\n" +"Location: "+a.getLocatie()+"\n";
+//
+//
+//            Map<String, Object> metadata = Map.of(
+//                    "id", a.getId(),
+//
+//
+//
+//                    "numbers of floors", a.getNrEtaje(),
+//
+//                    "link","http://localhost:3000/anunturi/"+a.getId()
+//
+//
+//
+//            );
+//            return new Document(contend, metadata);
+//        }).toList();
+//
+//        System.out.println(documents);
 
-        List<Document> documents=anunturis.stream().map(a->
-        {
-            String contend="Title "+a.getTitlu()+" Desctiption"+a.getDescriere();
-
-
-            Map<String, Object> metadata = Map.of(
-                    "id", a.getId(),
-                    "price", a.getPret(),
-                    "rooms", a.getCamere(),
-                    "floor", a.getEtaj(),
-                    "numbers of floors", a.getNrEtaje(),
-                    "apartament size", a.getSuprafataUtila(),
-                    "link","http://localhost:3000/anunturi/"+a.getId(),
-                    "location",a.getLocatie()
-
-
-            );
-            return new Document(contend, metadata);
-        }).toList();
-
-        System.out.println(documents);
-
-        vectorStore.add(documents);
-
-        List<Document> result = vectorStore.similaritySearch(SearchRequest.builder().query(userPrompt).build());
-        System.out.println(result);
+//        vectorStore.add(documents);
+//
+//        List<Document> result = vectorStore.similaritySearch(SearchRequest.builder().query(userPrompt).build());
+//        System.out.println(result);
 
         String prompt = """
-                You are a real estate AI assistant. Always respond in English, even if the property data is in other languages. Use the provided property details below to answer the user’s question.
+               You are a professional real estate AI assistant. Always respond in English, even if the property data is in another language. Use only the provided property details to answer the user’s question.
+               
+               Property details:
+               %s
                 
-                Property details:
-                %s
+               User question:
+               %s
                 
-                User question:
-                %s
+                  
+               Instructions:
                 
-                Instructions:
-                - Only use information from the property details provided above.
-                - Always respond with up to 5 relevant properties.
-                - If the user explicitly asks for multiple properties, include multiple relevant properties.
-                - If the answer is not in the provided information, respond with: "I don’t have that information right now. Please contact our real estate agent for assistance."
-                - Be concise and professional in your response.
-                - If you need to provide information about a listing page, include a visible hyperlink to the metadata link. Format the link clearly, for example, by making it bold or otherwise noticeable.
-                - The user can`t get access for the id, for example if the user wants the property with id you have to give him a message that you can`t provide that
-                 When providing links to property listings, use the exact format: http://localhost:3000/anunturi/{id} (replace {id} with the actual property ID).
-                    - Do NOT add any additional path segments like "/anunt/" in the link.
-                    - Make the link visible and clearly formatted.
-                
-                """.formatted(result,userPrompt);
+               - Use the property details as much as possible to answer listing-related questions, but you can use general knowledge to answer other types of questions.
+               - For questions about neighborhoods, city areas, or general real estate advice, answer using your own knowledge and reasoning.
+               - Avoid returning duplicate listings. Each property should appear only once.
+               - When referencing a listing page, provide a hyperlink: http://localhost:3000/anunturi/{id}
+               - If no property matches the user’s criteria, respond exactly, and provide a hyperlink to http://localhost:3000/contact
+               “I don’t have that information right now. Please contact our real estate agent for assistance.”
+               - Be concise and professional.
+                """.formatted(anunturiFormat,userPrompt);
 
 
         return chatClient.prompt(prompt).call().content();
@@ -118,7 +118,7 @@ public class AiChatService {
 return "asd";
     }
 
-    public String chatGetProprietiesByPrompt(){
+    public String chatMorgageCalculator(){
 return "asd";
     }
 

@@ -3,6 +3,7 @@
 import { body } from "motion/react-client";
 import { useState } from "react";
 import ReactMarkdown from "react-markdown";
+import Link from "next/link";
 
 export default function AiPopup() {
    const [open, setOpen] = useState(false);
@@ -16,7 +17,7 @@ export default function AiPopup() {
    }
    const AIFunctionalities = [
       "Ai compare",
-      "Mortgage & Affordability Calculator",
+      "Mortgage & Affordability Calculator Ai",
    ];
 
    async function submmitPrompt(e: React.FormEvent<HTMLFormElement>) {
@@ -58,6 +59,18 @@ export default function AiPopup() {
                   properties, answer your real estate questions, and give you
                   insights tailored to your needs.
                </p>
+               <p className="text-white mb-5">
+                  The AI will not provide comparisons or numerical calculations.
+                  If you want to do that, you can visit the AI Tools page by
+                  clicking{" "}
+                  <Link href="/aiTools" passHref>
+                     <span className="text-white font-bold  cursor-pointer">
+                        here
+                     </span>
+                  </Link>
+                  .
+               </p>
+
                <p className="text-white  font-bold">
                   You can see more functionalities on the ai functionalities
                   page like:
@@ -89,7 +102,9 @@ export default function AiPopup() {
                   </button>
                </form>
                {loading && (
-                  <h1 className="text-white animate-pulse">Waiting for Ai to respond</h1>
+                  <h1 className="text-white animate-pulse">
+                     Waiting for Ai to respond
+                  </h1>
                )}
                {aiRes && (
                   <div className="w-full p-10 mt-5 rounded-md">

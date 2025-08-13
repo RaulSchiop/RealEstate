@@ -1,6 +1,6 @@
 "use client";
 import List from "../Utils/List";
-import dummyphoto from "../../../public/Bed Outline Icon from Real Estate.png";
+import dummyphoto from "../../../public/Real Estate Image 2.png";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 

@@ -38,7 +38,7 @@ export default function Header() {
             transition={{ type: "spring", duration: 1 }}
             className="absolute top-0 left-0 w-full  flex justify-center mt-10"
          >
-            <div className="flex justify-center gap-2 sm:gap-20   xl:gap-80 rounded-[60px] items-center lg:w-[1000px] xl:w-[1289px] w-full bg-accent/40 py-2 px-4 shadow-inner">
+            <div className="flex justify-center gap-2 sm:gap-20   xl:gap-80 rounded-[60px] items-center lg:w-[1000px] xl:w-[1389px] w-full bg-accent/40 py-2 px-4 shadow-inner">
                <h1 className="font-bold text-[14px]  sm:text-2xl text-text">
                   HOMEYO
                </h1>
@@ -83,6 +83,20 @@ export default function Header() {
                         }}
                      >
                         Contact
+                     </motion.p>
+                  </Link>
+                  <Link href={"/aiTools"} className="text-[16px] text-text w-[50px]">
+                     <motion.p
+                        whileHover={{
+                           scale: 1.1,
+                           transition: { type: "spring", duration: 0.4 },
+                        }}
+                        whileTap={{
+                           scale: 0.9,
+                           transition: { type: "spring", duration: 0.4 },
+                        }}
+                     >
+                        Ai tool
                      </motion.p>
                   </Link>
                </div>

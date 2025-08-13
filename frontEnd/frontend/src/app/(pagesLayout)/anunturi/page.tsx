@@ -1,6 +1,6 @@
 "use client";
 import List from "../../../Components/Utils/List";
-import dummyphoto from "../../../../public/Bed Outline Icon from Real Estate.png";
+import dummyphoto from "../../../../public/Real Estate Image 2.png";
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import Modal from "@/Components/Modal/Modal";
