@@ -115,7 +115,7 @@ public class AiChatService {
     }
 
     public String chatComparePropriety(){
-return "asd";
+       return "asd";
     }
 
     public String chatMorgageCalculator(){
