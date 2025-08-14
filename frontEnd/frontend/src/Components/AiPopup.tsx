@@ -10,6 +10,11 @@ export default function AiPopup() {
    const [aiRes, setAiRes] = useState("");
    const [prompt, setPrompt] = useState("");
    const [loading, setLoading] = useState(false);
+   const [resize, setResize] = useState(false);
+
+   function handleResize() {
+      setResize(!resize);
+   }
 
    function handleOnChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
       e.preventDefault();
@@ -50,7 +55,28 @@ export default function AiPopup() {
          </button>
 
          {open && (
-            <div className="absolute bottom-16 right-0 w-150 max-h-500  bg-primary rounded-lg shadow-xl p-4">
+            <div
+               className={`absolute bottom-16 right-0
+                     ${resize ? "w-300 h-180" : "w-150 max-h-500"}
+                        bg-primary rounded-lg shadow-xl p-4 transition-all duration-300`}
+            >
+               <div
+                  onClick={handleResize}
+                  className="absolute right-3 top-3 hover:scale-95 active:scale-90 trnasition-transform duration-200"
+               >
+                  <svg
+                     xmlns="http://www.w3.org/2000/svg"
+                     width="24"
+                     height="24"
+                     fill="none"
+                     stroke="white"
+                     strokeWidth="2"
+                     strokeLinecap="round"
+                     strokeLinejoin="round"
+                  >
+                     <path d="M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5" />
+                  </svg>
+               </div>
                <h2 className="text-lg font-semibold mb-2 text-white">
                   🔍 Search smarter with AI
                </h2>
