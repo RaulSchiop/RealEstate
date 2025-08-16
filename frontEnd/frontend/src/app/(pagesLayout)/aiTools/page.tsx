@@ -1,7 +1,26 @@
 "use client";
 import { motion, scale } from "motion/react";
+import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
 
 export default function aiTools() {
+   const [logged, setLogged] = useState(false);
+
+   const router = useRouter();
+   useEffect(() => {
+      const localS = localStorage.getItem("logged");
+      if (localS) {
+         const parsed = JSON.parse(localS);
+         setLogged(true);
+      } else {
+         router.push("/");
+      }
+   }, []);
+
+   if (!logged) {
+      return;
+   }
+
    return (
       <div className="mt-30 px-20 mb-20 w-full h-screen ">
          <h1 className="text-2xl">

@@ -132,7 +132,7 @@ export default function Anunturi() {
                            data.locatie
                               .toLowerCase()
                               .includes(valueLoc.toLowerCase()) &&
-                           (valueS ? data.suprafataUtila >= valueS : true) &&
+                           (valueS ? data.suprafataUtila <= valueS : true) &&
                            (valueP ? data.pret <= valueP : true)
                         );
                      })

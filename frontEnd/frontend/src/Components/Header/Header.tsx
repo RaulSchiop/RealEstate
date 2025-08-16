@@ -10,7 +10,7 @@ import MainBtn from "../buttons/Mainbtn";
 
 export default function Header() {
    const [logged, isLogged] = useState(false);
-   const [role,setRole]=useState("");
+   const [role, setRole] = useState("");
    const router = useRouter();
    function handleRedirect() {
       router.push("/auth");
@@ -19,15 +19,16 @@ export default function Header() {
    useEffect(() => {
       const localS = localStorage.getItem("logged");
       if (localS) {
-          const parsed = JSON.parse(localS);
+         const parsed = JSON.parse(localS);
          isLogged(true);
-         setRole(parsed.role)
+         setRole(parsed.role);
       }
    }, []);
 
-   function logOut(){
-      localStorage.removeItem("logged")
-     window.location.reload()
+   function logOut() {
+      localStorage.removeItem("logged");
+      router.push("/");
+      window.location.reload();
    }
 
    return (
@@ -85,20 +86,27 @@ export default function Header() {
                         Contact
                      </motion.p>
                   </Link>
-                  <Link href={"/aiTools"} className="text-[16px] text-text w-[50px]">
-                     <motion.p
-                        whileHover={{
-                           scale: 1.1,
-                           transition: { type: "spring", duration: 0.4 },
-                        }}
-                        whileTap={{
-                           scale: 0.9,
-                           transition: { type: "spring", duration: 0.4 },
-                        }}
+                  {logged === true ? (
+                     <Link
+                        href={"/aiTools"}
+                        className="text-[16px] text-text w-[50px]"
                      >
-                        Ai tool
-                     </motion.p>
-                  </Link>
+                        <motion.p
+                           whileHover={{
+                              scale: 1.1,
+                              transition: { type: "spring", duration: 0.4 },
+                           }}
+                           whileTap={{
+                              scale: 0.9,
+                              transition: { type: "spring", duration: 0.4 },
+                           }}
+                        >
+                           Ai tool
+                        </motion.p>
+                     </Link>
+                  ) : (
+                     <></>
+                  )}
                </div>
 
                {logged === false ? (
@@ -118,26 +126,29 @@ export default function Header() {
                   </motion.button>
                ) : (
                   <div className="flex items-center">
-                  <Link href={role==="ADMIN" ? "/admin":"/profile"}>
-                     <motion.div
-                        whileHover={{
-                           scale: 1.1,
-                           transition: { type: "spring", duration: 0.4 },
-                        }}
-                        whileTap={{
-                           scale: 0.9,
-                           transition: { type: "spring", duration: 0.4 },
-                        }}
-                     >
-                        <Image
-                           src={profileIcon}
-                           width={34}
-                           height={34}
-                           alt="profile page"
-                        ></Image>
-                     </motion.div>
-                  </Link>
-                  <MainBtn onClick={logOut} type="button"> Log Out</MainBtn>
+                     <Link href={role === "ADMIN" ? "/admin" : "/profile"}>
+                        <motion.div
+                           whileHover={{
+                              scale: 1.1,
+                              transition: { type: "spring", duration: 0.4 },
+                           }}
+                           whileTap={{
+                              scale: 0.9,
+                              transition: { type: "spring", duration: 0.4 },
+                           }}
+                        >
+                           <Image
+                              src={profileIcon}
+                              width={34}
+                              height={34}
+                              alt="profile page"
+                           ></Image>
+                        </motion.div>
+                     </Link>
+                     <MainBtn onClick={logOut} type="button">
+                        {" "}
+                        Log Out
+                     </MainBtn>
                   </div>
                )}
             </div>

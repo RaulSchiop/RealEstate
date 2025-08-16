@@ -5,6 +5,7 @@ import ListListings from "@/Components/Utils/ListListings";
 import ListUsers from "@/Components/Utils/ListUsers";
 import Modal from "@/Components/Modal/Modal";
 import { pre } from "motion/react-client";
+import { useRouter } from "next/navigation";
 
 type UserType = {
    id: number;
@@ -30,6 +31,7 @@ export default function Admin() {
    const [users, setUsers] = useState<UsersType>([]);
    const [listings, setListings] = useState<ListingsType>([]);
    const [modal, setModal] = useState(false);
+   const [logged, setLogged] = useState(false);
    const [modifyUser, setModifyUser] = useState({
       id: 0,
       name: "",
@@ -38,12 +40,11 @@ export default function Admin() {
       oldEmail: "",
       password: "",
    });
-   
-    
+   const [role, setRole] = useState("");
+   const router = useRouter();
 
    function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
       const { name, value } = e.target;
-      
 
       setModifyUser((prev) => ({
          ...prev,
@@ -69,11 +70,25 @@ export default function Admin() {
 
    useEffect(() => {
       const localS = localStorage.getItem("logged");
-      if (!localS) return;
+
+      if (!localS) {
+         router.push("/");
+         return;
+      } else {
+         setLogged(true);
+      }
 
       const parsed = JSON.parse(localS);
       const token = parsed.message;
       const id = parsed.id;
+      const role = parsed.role;
+      setRole(role);
+
+      if (parsed.role !== "ADMIN") {
+         router.push("/");
+         return;
+      }
+
       async function fechUsers() {
          const response = await fetch("http://localhost:8080/admin/users", {
             headers: {
@@ -102,6 +117,14 @@ export default function Admin() {
       fechUsers();
       fechListings();
    }, []);
+
+   if (!logged) {
+      return;
+   }
+
+   if (role !== "ADMIN") {
+      return;
+   }
 
    async function deleteAnunt(id: number) {
       const localS = localStorage.getItem("logged");
