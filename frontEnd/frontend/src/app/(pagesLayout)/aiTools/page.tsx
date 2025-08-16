@@ -4,7 +4,14 @@ import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 
 export default function aiTools() {
+   type AiToolSelect = {
+      tool: "MORGAGE" | "COMPARE" | "";
+   };
+
    const [logged, setLogged] = useState(false);
+   const [aiToolsSelect, setAiToolsSelect] = useState<AiToolSelect>({
+      tool: "",
+   });
 
    const router = useRouter();
    useEffect(() => {
@@ -30,6 +37,7 @@ export default function aiTools() {
          <div className="mt-5 flex items-center justify-center">
             <div className="flex items-center justify-center flex-col gap-10  w-[50%] ">
                <motion.div
+                  onClick={() => setAiToolsSelect({ tool: "MORGAGE" })}
                   whileHover={{
                      scale: 1.1,
                      transition: { type: "spring", duration: 0.4 },
@@ -52,6 +60,7 @@ export default function aiTools() {
                   </p>
                </motion.div>
                <motion.div
+                  onClick={() => setAiToolsSelect({ tool: "COMPARE" })}
                   whileHover={{
                      scale: 1.1,
                      transition: { type: "spring", duration: 0.4 },
@@ -80,23 +89,36 @@ export default function aiTools() {
                </motion.div>
             </div>
 
-            <div className="flex items-center justify-center flex-col gap-10  w-[50%] ">
-               <div>
-                  <h1 className="text-3xl font-bold">👋 Welcome!</h1>
-                  <p className="w-[400px] mt-2 text-muted-foreground">
-                     Pick a tool from the left to explore. Your workspace will
-                     appear here once you make a selection.
-                  </p>
-                  <p className="w-[400px] mt-4 text-sm text-muted-foreground">
-                     Use <strong>Mortgage & Affordability Calculator AI</strong>{" "}
-                     to understand your buying power, or try{" "}
-                     <strong>Compare AI</strong> to explore apartments for sale
-                     based on utilities, location benefits, and neighborhood
-                     character. You can switch between tools anytime — your chat
-                     and results will stay in this panel.
-                  </p>
+            {aiToolsSelect.tool === "" ? (
+               <div className="flex items-center justify-center flex-col gap-10  w-[50%] ">
+                  <div>
+                     <h1 className="text-3xl font-bold">👋 Welcome!</h1>
+                     <p className="w-[400px] mt-2 text-muted-foreground">
+                        Pick a tool from the left to explore. Your workspace
+                        will appear here once you make a selection.
+                     </p>
+                     <p className="w-[400px] mt-4 text-sm text-muted-foreground">
+                        Use{" "}
+                        <strong>Mortgage & Affordability Calculator AI</strong>{" "}
+                        to understand your buying power, or try{" "}
+                        <strong>Compare AI</strong> to explore apartments for
+                        sale based on utilities, location benefits, and
+                        neighborhood character. You can switch between tools
+                        anytime — your chat and results will stay in this panel.
+                     </p>
+                  </div>
                </div>
-            </div>
+            ) : aiToolsSelect.tool === "COMPARE" ? (
+               <div className="flex items-center justify-center flex-col gap-10  w-[50%] ">
+                  {" "}
+                  <h1 className="text-2xl font-bold">Ai Compare ⚖️</h1>{" "}
+               </div>
+            ) : (
+               <div className="flex items-center justify-center flex-col gap-10  w-[50%] ">
+                  {" "}
+                  <h1 className="text-2xl font-bold">Ai Morgage 🏦</h1>
+               </div>
+            )}
          </div>
       </div>
    );
