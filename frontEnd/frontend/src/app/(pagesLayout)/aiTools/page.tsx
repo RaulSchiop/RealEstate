@@ -1,4 +1,5 @@
 "use client";
+import MainBtn from "@/Components/buttons/Mainbtn";
 import { motion, scale } from "motion/react";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
@@ -34,7 +35,7 @@ export default function aiTools() {
             Choose the <span className="text-secondary font-bold">Ai Tool</span>{" "}
             you need.
          </h1>
-         <div className="mt-5 flex items-center justify-center">
+         <div className="flex items-center justify-center h-screen">
             <div className="flex items-center justify-center flex-col gap-10  w-[50%] ">
                <motion.div
                   onClick={() => setAiToolsSelect({ tool: "MORGAGE" })}
@@ -90,7 +91,7 @@ export default function aiTools() {
             </div>
 
             {aiToolsSelect.tool === "" ? (
-               <div className="flex items-center justify-center flex-col gap-10  w-[50%] ">
+               <div className="flex items-center justify-center flex-col gap-10 w-[50%] ">
                   <div>
                      <h1 className="text-3xl font-bold">👋 Welcome!</h1>
                      <p className="w-[400px] mt-2 text-muted-foreground">
@@ -114,69 +115,98 @@ export default function aiTools() {
                   <h1 className="text-2xl font-bold">Ai Compare ⚖️</h1>{" "}
                </div>
             ) : (
-               <div className="flex items-center justify-center flex-col gap-10  w-[50%] ">
+               <div className="flex items-center justify-center flex-col gap-10  w-[50%] h-screen lg:mt-80 ">
                   {" "}
-                  <h1 className="text-2xl font-bold">Ai Morgage 🏦</h1>
-                  {/* private float income;
-    private float downPayment;
-    private float rate;
-    private int years;
-    private float monthlyExpenses;
-    private float maxDebtRatio;
-    private String city; */}
-                  <form>
-                     <input placeholder="Income"></input>
-                     <input placeholder="Down Payment"></input>
-                     <input placeholder="Interest rate"></input>
-                     <input placeholder="Morgage Period"></input>
-                     <input placeholder="Monthly Expenses"></input>
-                     <input placeholder="Max Debt Ratio"></input>
-                     <input placeholder="City"></input>
+                  <h1 className="text-2xl font-bold mt-5">Ai Morgage 🏦</h1>
+                  <form className="flex flex-col items-end justify-center mt-5 w-[80%]">
+                     <input
+                        className="px-2 py-4 bg-[#F5F3EE] w-full rounded mb-3"
+                        placeholder="Income"
+                        type="number"
+                     ></input>
+                     <input
+                        className="px-2 py-4 bg-[#F5F3EE] w-full rounded mb-3"
+                        placeholder="Down Payment"
+                        type="number"
+                     ></input>
+                     <input
+                        className="px-2 py-4 bg-[#F5F3EE] w-full rounded mb-3"
+                        placeholder="Interest rate"
+                        type="number"
+                     ></input>
+                     <input
+                        className="px-2 py-4 bg-[#F5F3EE] w-full rounded mb-3"
+                        placeholder="Morgage Period"
+                        type="number"
+                     ></input>
+                     <input
+                        className="px-2 py-4 bg-[#F5F3EE] w-full rounded mb-3"
+                        placeholder="Monthly Expenses"
+                        type="number"
+                     ></input>
+                     <input
+                        className="px-2 py-4 bg-[#F5F3EE] w-full rounded mb-3"
+                        placeholder="Max Debt Ratio"
+                        type="number"
+                     ></input>
+                     <input
+                        className="px-2 py-4 bg-[#F5F3EE] w-full rounded mb-3"
+                        placeholder="City"
+                     ></input>
+                     <MainBtn type="submit">Submit</MainBtn>
                   </form>
-                  <div>
-                     <h1>💰 Income</h1>
-                     <p>
-                        Your monthly net income (after taxes and deductions).
-                     </p>
-                  </div>
-                  <div>
-                     <h1>🏦 Down Payment</h1>
-                     <p>
-                        The amount of money you can pay upfront for the
-                        property.
-                     </p>
-                  </div>
-                  <div>
-                     <h1>📉 Interest Rate</h1>
-                     <p>Annual interest rate offered by the bank (e.g., 5%).</p>
-                  </div>
-                  <div>
-                     <h1>📅 Mortgage Period</h1>
-                     <p>
-                        The loan repayment period in years (e.g., 20 or 30
-                        years).
-                     </p>
-                  </div>
-                  <div>
-                     <h1>🧾 Monthly Expenses</h1>
-                     <p>
-                        Your regular monthly expenses (bills, food, debts,
-                        etc.).
-                     </p>
-                  </div>
-                  <div>
-                     <h1>📊 Max Debt Ratio</h1>
-                     <p>
-                        The maximum percentage of your income that can go toward
-                        loan repayment (e.g., 35%).
-                     </p>
-                  </div>
-                  <div>
-                     <h1>🏙️ City</h1>
-                     <p>
-                        The city where you plan to buy the apartment (affects
-                        property prices).
-                     </p>
+                  <div className="flex flex-col items-end justify-center mt-5 w-[80%]">
+                     <div className="w-full  mb-5">
+                        <h1 className="text-xl font-bold">💰 Income</h1>
+                        <p className="text-secondary/80">
+                           Your monthly net income (after taxes and deductions).
+                        </p>
+                     </div>
+                     <div className="w-full  mb-5">
+                        <h1 className="text-xl font-bold">🏦 Down Payment</h1>
+                        <p className="text-secondary/80">
+                           The amount of money you can pay upfront for the
+                           property.
+                        </p>
+                     </div>
+                     <div className="w-full  mb-5">
+                        <h1 className="text-xl font-bold">📉 Interest Rate</h1>
+                        <p className="text-secondary/80">
+                           Annual interest rate offered by the bank (e.g., 5%).
+                        </p>
+                     </div>
+                     <div className="w-full  mb-5">
+                        <h1 className="text-xl font-bold">
+                           📅 Mortgage Period
+                        </h1>
+                        <p className="text-secondary/80">
+                           The loan repayment period in years (e.g., 20 or 30
+                           years).
+                        </p>
+                     </div>
+                     <div className="w-full  mb-5">
+                        <h1 className="text-xl font-bold">
+                           🧾 Monthly Expenses
+                        </h1>
+                        <p className="text-secondary/80">
+                           Your regular monthly expenses (bills, food, debts,
+                           etc.).
+                        </p>
+                     </div>
+                     <div className="w-full  mb-5">
+                        <h1 className="text-xl font-bold">📊 Max Debt Ratio</h1>
+                        <p className="text-secondary/80">
+                           The maximum percentage of your income that can go
+                           toward loan repayment (e.g., 35%).
+                        </p>
+                     </div>
+                     <div className="w-full  mb-5">
+                        <h1 className="text-xl font-bold">🏙️ City</h1>
+                        <p className="text-secondary/80">
+                           The city where you plan to buy the apartment (affects
+                           property prices).
+                        </p>
+                     </div>
                   </div>
                </div>
             )}
