@@ -117,6 +117,67 @@ export default function aiTools() {
                <div className="flex items-center justify-center flex-col gap-10  w-[50%] ">
                   {" "}
                   <h1 className="text-2xl font-bold">Ai Morgage 🏦</h1>
+                  {/* private float income;
+    private float downPayment;
+    private float rate;
+    private int years;
+    private float monthlyExpenses;
+    private float maxDebtRatio;
+    private String city; */}
+                  <form>
+                     <input placeholder="Income"></input>
+                     <input placeholder="Down Payment"></input>
+                     <input placeholder="Interest rate"></input>
+                     <input placeholder="Morgage Period"></input>
+                     <input placeholder="Monthly Expenses"></input>
+                     <input placeholder="Max Debt Ratio"></input>
+                     <input placeholder="City"></input>
+                  </form>
+                  <div>
+                     <h1>💰 Income</h1>
+                     <p>
+                        Your monthly net income (after taxes and deductions).
+                     </p>
+                  </div>
+                  <div>
+                     <h1>🏦 Down Payment</h1>
+                     <p>
+                        The amount of money you can pay upfront for the
+                        property.
+                     </p>
+                  </div>
+                  <div>
+                     <h1>📉 Interest Rate</h1>
+                     <p>Annual interest rate offered by the bank (e.g., 5%).</p>
+                  </div>
+                  <div>
+                     <h1>📅 Mortgage Period</h1>
+                     <p>
+                        The loan repayment period in years (e.g., 20 or 30
+                        years).
+                     </p>
+                  </div>
+                  <div>
+                     <h1>🧾 Monthly Expenses</h1>
+                     <p>
+                        Your regular monthly expenses (bills, food, debts,
+                        etc.).
+                     </p>
+                  </div>
+                  <div>
+                     <h1>📊 Max Debt Ratio</h1>
+                     <p>
+                        The maximum percentage of your income that can go toward
+                        loan repayment (e.g., 35%).
+                     </p>
+                  </div>
+                  <div>
+                     <h1>🏙️ City</h1>
+                     <p>
+                        The city where you plan to buy the apartment (affects
+                        property prices).
+                     </p>
+                  </div>
                </div>
             )}
          </div>
