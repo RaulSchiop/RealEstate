@@ -17,7 +17,7 @@ public class MorgageAiInput {
     private int years;
     private float monthlyExpenses;
     private float maxDebtRatio;
-    private String extraDetails;
+    private String city;
 
 
 

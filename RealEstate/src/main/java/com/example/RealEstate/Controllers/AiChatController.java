@@ -34,10 +34,11 @@ public class AiChatController {
                             @RequestParam("years") int years,
                             @RequestParam("monthlyExpenses") float monthyExpenses,
                             @RequestParam("maxDebtRatio") float maxDebtRatio,
-                            @RequestParam("extraDetails") String extraDetails
+
+                            @RequestParam("city") String city
                             ){
 
-        MorgageAiInput morgageAiInput = new MorgageAiInput(income,downPayment,rate,years,monthyExpenses,maxDebtRatio,extraDetails);
+        MorgageAiInput morgageAiInput = new MorgageAiInput(income,downPayment,rate,years,monthyExpenses,maxDebtRatio,city);
 
         return aiChatService.chatMorgageCalculator(morgageAiInput);
 

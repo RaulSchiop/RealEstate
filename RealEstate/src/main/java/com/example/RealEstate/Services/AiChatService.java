@@ -149,7 +149,6 @@ public class AiChatService {
         promptData.append("Years: ").append(morgageAiInput.getYears()).append("\n");
         promptData.append("Monthly Expenses: ").append(morgageAiInput.getMonthlyExpenses()).append(" euro").append("\n");
         promptData.append("Max debt Ratio: ").append(morgageAiInput.getMaxDebtRatio()).append("\n");
-        promptData.append("ExtraDetails: ").append(morgageAiInput.getExtraDetails()).append("\n");
 
 
         double monthlyRate = morgageAiInput.getRate() / 12 / 100; // monthly interest rate
@@ -199,7 +198,7 @@ Calculate:
 Additionally, provide practical guidance for the user based on the mode by listing:
 - 5 Dos (best practices for managing mortgage and finances)
 - 5 Don'ts (common mistakes to avoid)
-
+- Provide a type of apartament that you can get with this morgage principal based on the city provided %s if the money is too low or at limit say that you cant afford to buy in that city.
 Return ONLY valid JSON output in the format specified below. Do not include any explanations or extra text no json at top .
 [
 {
@@ -220,7 +219,8 @@ Return ONLY valid JSON output in the format specified below. Do not include any 
     "Don't 3",
     "Don't 4",
     "Don't 5"
-  ]
+  ],
+  "apartament type":<string>
 }
 ,
 {
@@ -242,6 +242,7 @@ Return ONLY valid JSON output in the format specified below. Do not include any 
     "Don't 4",
     "Don't 5"
   ]
+  "apartament type":<string>
 },
 {
   "mode":"Conservative",
@@ -261,12 +262,14 @@ Return ONLY valid JSON output in the format specified below. Do not include any 
     "Don't 3",
     "Don't 4",
     "Don't 5"
-  ]
+  ],
+  "apartament type":<string>
 }
 
 ]
 """.formatted(
                promptData,
+                morgageAiInput.getCity(),
                 mortgagePrincipalAgresive,
                 maxPayment,
                 apartmentPriceAggresive,
