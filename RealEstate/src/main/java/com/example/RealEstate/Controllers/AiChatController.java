@@ -1,12 +1,10 @@
 package com.example.RealEstate.Controllers;
 
 
+import com.example.RealEstate.Models.MorgageAiInput;
 import com.example.RealEstate.Services.AiChatService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -26,6 +24,25 @@ public class AiChatController {
     public Map<String, String> prompt(@RequestBody String prompt){
         String response = aiChatService.ChatBasedOnPropriteies(prompt);
         return Map.of("response", response);
+    }
+
+
+    @PostMapping("/MorgageAi")
+    public String morgageAi(@RequestParam("income") float income,
+                            @RequestParam("downPayment") float downPayment,
+                            @RequestParam("rate") float rate,
+                            @RequestParam("years") int years,
+                            @RequestParam("monthlyExpenses") float monthyExpenses,
+                            @RequestParam("maxDebtRatio") float maxDebtRatio,
+                            @RequestParam("extraDetails") String extraDetails
+                            ){
+
+        MorgageAiInput morgageAiInput = new MorgageAiInput(income,downPayment,rate,years,monthyExpenses,maxDebtRatio,extraDetails);
+
+        return aiChatService.chatMorgageCalculator(morgageAiInput);
+
+
+
     }
 
 
