@@ -1,6 +1,7 @@
 "use client";
 import MainBtn from "@/Components/buttons/Mainbtn";
 import { motion, scale } from "motion/react";
+import { form } from "motion/react-client";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 
@@ -32,6 +33,8 @@ export default function aiTools() {
       maxDebtRatio: 0,
       city: "",
    });
+   const [morgageAiResponse, setMorgageAiResponse] = useState();
+   const [loading, setLoading] = useState(false);
 
    const router = useRouter();
    useEffect(() => {
@@ -62,11 +65,42 @@ export default function aiTools() {
       }
    }
 
-   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
       e.preventDefault();
+      setLoading(true);
+
+      const formData = new FormData();
+      formData.append("income", inputsChange.income.toString());
+      formData.append("downPayment", inputsChange.downPayment.toString());
+      formData.append("rate", inputsChange.rate.toString());
+      formData.append("years", inputsChange.years.toString());
+      formData.append(
+         "monthlyExpenses",
+         inputsChange.monthlyExpenses.toString()
+      );
+      formData.append("maxDebtRatio", inputsChange.maxDebtRatio.toString());
+      formData.append("city", inputsChange.city);
+
+      try {
+         const response = await fetch("http://localhost:8080/chat/MorgageAi", {
+            method: "POST",
+            body: formData,
+         });
+
+         if (response.ok) {
+            setMorgageAiResponse(await response.json());
+         } else {
+            throw new Error("error");
+         }
+      } catch (err) {
+         console.log(err);
+      } finally {
+         setLoading(false);
+      }
       console.log(inputsChange);
    }
 
+   console.log(morgageAiResponse);
    return (
       <div className="mt-30 px-20 mb-20 w-full h-screen ">
          <h1 className="text-2xl">
@@ -169,7 +203,7 @@ export default function aiTools() {
                            className="px-2 py-4 bg-[#F5F3EE] w-full rounded"
                            type="number"
                            name="income"
-                           value={inputsChange.income}
+                           placeholder="ex:2000"
                         />
                      </label>
 
@@ -182,7 +216,7 @@ export default function aiTools() {
                            className="px-2 py-4 bg-[#F5F3EE] w-full rounded"
                            type="number"
                            name="downPayment"
-                           value={inputsChange.downPayment}
+                           placeholder="ex:20000"
                         />
                      </label>
 
@@ -196,7 +230,7 @@ export default function aiTools() {
                            type="number"
                            step="0.10"
                            name="rate"
-                           value={inputsChange.rate}
+                           placeholder="ex:6.2"
                         />
                      </label>
 
@@ -209,7 +243,7 @@ export default function aiTools() {
                            className="px-2 py-4 bg-[#F5F3EE] w-full rounded"
                            type="number"
                            name="years"
-                           value={inputsChange.years}
+                           placeholder="ex:30"
                         />
                      </label>
 
@@ -222,7 +256,7 @@ export default function aiTools() {
                            className="px-2 py-4 bg-[#F5F3EE] w-full rounded"
                            type="number"
                            name="monthlyExpenses"
-                           value={inputsChange.monthlyExpenses}
+                           placeholder="ex:1000"
                         />
                      </label>
 
@@ -236,7 +270,7 @@ export default function aiTools() {
                            type="number"
                            step="0.1"
                            name="maxDebtRatio"
-                           value={inputsChange.maxDebtRatio}
+                           placeholder="ex:50"
                         />
                      </label>
 
@@ -249,11 +283,16 @@ export default function aiTools() {
                            className="px-2 py-4 bg-[#F5F3EE] w-full rounded"
                            type="text"
                            name="city"
-                           value={inputsChange.city}
+                           placeholder="ex:London"
                         />
                      </label>
-
-                     <MainBtn type="submit">Submit</MainBtn>
+                     {loading ? (
+                        <MainBtn type="submit" state={true}>
+                           Loading
+                        </MainBtn>
+                     ) : (
+                        <MainBtn type="submit">Submit</MainBtn>
+                     )}
                   </form>
                   <div className="flex flex-col items-end justify-center mt-5 w-[80%]">
                      <div className="w-full  mb-5">
