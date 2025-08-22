@@ -9,9 +9,28 @@ export default function aiTools() {
       tool: "MORGAGE" | "COMPARE" | "";
    };
 
+   type MorgageInput = {
+      income: number;
+      downPayment: number;
+      rate: number;
+      years: number;
+      monthlyExpenses: number;
+      maxDebtRatio: number;
+      city: string;
+   };
+
    const [logged, setLogged] = useState(false);
    const [aiToolsSelect, setAiToolsSelect] = useState<AiToolSelect>({
       tool: "",
+   });
+   const [inputsChange, setInputChange] = useState<MorgageInput>({
+      income: 0,
+      downPayment: 0,
+      rate: 0,
+      years: 0,
+      monthlyExpenses: 0,
+      maxDebtRatio: 0,
+      city: "",
    });
 
    const router = useRouter();
@@ -27,6 +46,83 @@ export default function aiTools() {
 
    if (!logged) {
       return;
+   }
+
+   function handleIncomeChange(e: React.ChangeEvent<HTMLInputElement>) {
+      const val = e.target.value;
+
+      if (val === "" || /^[0-9]+$/.test(val)) {
+         setInputChange((prev) => ({
+            ...prev,
+            income: val === "" ? 0 : Number(val),
+         }));
+      }
+   }
+
+   function handleDownPaymentChange(e: React.ChangeEvent<HTMLInputElement>) {
+      const val = e.target.value;
+
+      if (val === "" || /^[0-9]+$/.test(val)) {
+         setInputChange((prev) => ({
+            ...prev,
+            downPayment: val === "" ? 0 : Number(val),
+         }));
+      }
+   }
+
+   function handleRateChange(e: React.ChangeEvent<HTMLInputElement>) {
+      const val = e.target.value;
+
+      if (val === "" || /^[0-9]+$/.test(val)) {
+         setInputChange((prev) => ({
+            ...prev,
+            rate: val === "" ? 0 : Number(val),
+         }));
+      }
+   }
+
+   function handleYearsCahnge(e: React.ChangeEvent<HTMLInputElement>) {
+      const val = e.target.value;
+
+      if (val === "" || /^[0-9]+$/.test(val)) {
+         setInputChange((prev) => ({
+            ...prev,
+            years: val === "" ? 0 : Number(val),
+         }));
+      }
+   }
+
+   function handleMonthlyExpensesChange(
+      e: React.ChangeEvent<HTMLInputElement>
+   ) {
+      const val = e.target.value;
+
+      if (val === "" || /^[0-9]+$/.test(val)) {
+         setInputChange((prev) => ({
+            ...prev,
+            monthlyExpenses: val === "" ? 0 : Number(val),
+         }));
+      }
+   }
+
+   function handleMaxDebtRatioChange(e: React.ChangeEvent<HTMLInputElement>) {
+      const val = e.target.value;
+
+      if (val === "" || /^[0-9]+$/.test(val)) {
+         setInputChange((prev) => ({
+            ...prev,
+            maxDebtRatio: val === "" ? 0 : Number(val),
+         }));
+      }
+   }
+
+   function handleCityChange(e: React.ChangeEvent<HTMLInputElement>) {
+      const val = e.target.value;
+
+      setInputChange((prev) => ({
+         ...prev,
+         city: val,
+      }));
    }
 
    return (
