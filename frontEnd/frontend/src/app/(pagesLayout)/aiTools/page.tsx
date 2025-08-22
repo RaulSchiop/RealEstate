@@ -47,82 +47,24 @@ export default function aiTools() {
    if (!logged) {
       return;
    }
+   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+      const { name, value } = e.target;
 
-   function handleIncomeChange(e: React.ChangeEvent<HTMLInputElement>) {
-      const val = e.target.value;
-
-      if (val === "" || /^[0-9]+$/.test(val)) {
-         setInputChange((prev) => ({
-            ...prev,
-            income: val === "" ? 0 : Number(val),
-         }));
+      if (name === "city") {
+         setInputChange((prev) => ({ ...prev, city: value }));
+      } else {
+         if (value === "" || /^[0-9]*\.?[0-9]*$/.test(value)) {
+            setInputChange((prev) => ({
+               ...prev,
+               [name]: value === "" ? 0 : Number(value),
+            }));
+         }
       }
    }
 
-   function handleDownPaymentChange(e: React.ChangeEvent<HTMLInputElement>) {
-      const val = e.target.value;
-
-      if (val === "" || /^[0-9]+$/.test(val)) {
-         setInputChange((prev) => ({
-            ...prev,
-            downPayment: val === "" ? 0 : Number(val),
-         }));
-      }
-   }
-
-   function handleRateChange(e: React.ChangeEvent<HTMLInputElement>) {
-      const val = e.target.value;
-
-      if (val === "" || /^[0-9]+$/.test(val)) {
-         setInputChange((prev) => ({
-            ...prev,
-            rate: val === "" ? 0 : Number(val),
-         }));
-      }
-   }
-
-   function handleYearsCahnge(e: React.ChangeEvent<HTMLInputElement>) {
-      const val = e.target.value;
-
-      if (val === "" || /^[0-9]+$/.test(val)) {
-         setInputChange((prev) => ({
-            ...prev,
-            years: val === "" ? 0 : Number(val),
-         }));
-      }
-   }
-
-   function handleMonthlyExpensesChange(
-      e: React.ChangeEvent<HTMLInputElement>
-   ) {
-      const val = e.target.value;
-
-      if (val === "" || /^[0-9]+$/.test(val)) {
-         setInputChange((prev) => ({
-            ...prev,
-            monthlyExpenses: val === "" ? 0 : Number(val),
-         }));
-      }
-   }
-
-   function handleMaxDebtRatioChange(e: React.ChangeEvent<HTMLInputElement>) {
-      const val = e.target.value;
-
-      if (val === "" || /^[0-9]+$/.test(val)) {
-         setInputChange((prev) => ({
-            ...prev,
-            maxDebtRatio: val === "" ? 0 : Number(val),
-         }));
-      }
-   }
-
-   function handleCityChange(e: React.ChangeEvent<HTMLInputElement>) {
-      const val = e.target.value;
-
-      setInputChange((prev) => ({
-         ...prev,
-         city: val,
-      }));
+   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+      e.preventDefault();
+      console.log(inputsChange);
    }
 
    return (
@@ -211,44 +153,106 @@ export default function aiTools() {
                   <h1 className="text-2xl font-bold">Ai Compare ⚖️</h1>{" "}
                </div>
             ) : (
-               <div className="flex items-center justify-center flex-col gap-10  w-[50%] h-screen lg:mt-80 ">
+               <div className="flex items-center justify-center flex-col gap-10  w-[50%] h-screen lg:mt-150 ">
                   {" "}
                   <h1 className="text-2xl font-bold mt-5">Ai Morgage 🏦</h1>
-                  <form className="flex flex-col items-end justify-center mt-5 w-[80%]">
-                     <input
-                        className="px-2 py-4 bg-[#F5F3EE] w-full rounded mb-3"
-                        placeholder="Income"
-                        type="number"
-                     ></input>
-                     <input
-                        className="px-2 py-4 bg-[#F5F3EE] w-full rounded mb-3"
-                        placeholder="Down Payment"
-                        type="number"
-                     ></input>
-                     <input
-                        className="px-2 py-4 bg-[#F5F3EE] w-full rounded mb-3"
-                        placeholder="Interest rate"
-                        type="number"
-                     ></input>
-                     <input
-                        className="px-2 py-4 bg-[#F5F3EE] w-full rounded mb-3"
-                        placeholder="Morgage Period"
-                        type="number"
-                     ></input>
-                     <input
-                        className="px-2 py-4 bg-[#F5F3EE] w-full rounded mb-3"
-                        placeholder="Monthly Expenses"
-                        type="number"
-                     ></input>
-                     <input
-                        className="px-2 py-4 bg-[#F5F3EE] w-full rounded mb-3"
-                        placeholder="Max Debt Ratio"
-                        type="number"
-                     ></input>
-                     <input
-                        className="px-2 py-4 bg-[#F5F3EE] w-full rounded mb-3"
-                        placeholder="City"
-                     ></input>
+                  <form
+                     onSubmit={handleSubmit}
+                     className="flex flex-col items-start justify-center mt-5 w-[80%]"
+                  >
+                     <label className="w-full mb-3">
+                        <span className="block mb-1 font-medium text-secondary">
+                           Income
+                        </span>
+                        <input
+                           onChange={handleChange}
+                           className="px-2 py-4 bg-[#F5F3EE] w-full rounded"
+                           type="number"
+                           name="income"
+                           value={inputsChange.income}
+                        />
+                     </label>
+
+                     <label className="w-full mb-3">
+                        <span className="block mb-1 font-medium text-secondary">
+                           Down Payment
+                        </span>
+                        <input
+                           onChange={handleChange}
+                           className="px-2 py-4 bg-[#F5F3EE] w-full rounded"
+                           type="number"
+                           name="downPayment"
+                           value={inputsChange.downPayment}
+                        />
+                     </label>
+
+                     <label className="w-full mb-3">
+                        <span className="block mb-1 font-medium text-secondary">
+                           Interest Rate
+                        </span>
+                        <input
+                           onChange={handleChange}
+                           className="px-2 py-4 bg-[#F5F3EE] w-full rounded"
+                           type="number"
+                           step="0.10"
+                           name="rate"
+                           value={inputsChange.rate}
+                        />
+                     </label>
+
+                     <label className="w-full mb-3">
+                        <span className="block mb-1 font-medium text-secondary">
+                           Mortgage Period (Years)
+                        </span>
+                        <input
+                           onChange={handleChange}
+                           className="px-2 py-4 bg-[#F5F3EE] w-full rounded"
+                           type="number"
+                           name="years"
+                           value={inputsChange.years}
+                        />
+                     </label>
+
+                     <label className="w-full mb-3">
+                        <span className="block mb-1 font-medium text-secondary">
+                           Monthly Expenses
+                        </span>
+                        <input
+                           onChange={handleChange}
+                           className="px-2 py-4 bg-[#F5F3EE] w-full rounded"
+                           type="number"
+                           name="monthlyExpenses"
+                           value={inputsChange.monthlyExpenses}
+                        />
+                     </label>
+
+                     <label className="w-full mb-3">
+                        <span className="block mb-1 font-medium text-secondary">
+                           Max Debt Ratio (%)
+                        </span>
+                        <input
+                           onChange={handleChange}
+                           className="px-2 py-4 bg-[#F5F3EE] w-full rounded"
+                           type="number"
+                           step="0.1"
+                           name="maxDebtRatio"
+                           value={inputsChange.maxDebtRatio}
+                        />
+                     </label>
+
+                     <label className="w-full mb-5">
+                        <span className="block mb-1 font-medium text-secondary">
+                           City
+                        </span>
+                        <input
+                           onChange={handleChange}
+                           className="px-2 py-4 bg-[#F5F3EE] w-full rounded"
+                           type="text"
+                           name="city"
+                           value={inputsChange.city}
+                        />
+                     </label>
+
                      <MainBtn type="submit">Submit</MainBtn>
                   </form>
                   <div className="flex flex-col items-end justify-center mt-5 w-[80%]">
