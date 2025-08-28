@@ -35,6 +35,7 @@ export default function aiTools() {
    });
    const [morgageAiResponse, setMorgageAiResponse] = useState();
    const [loading, setLoading] = useState(false);
+   const [modal,setModalOpen]=useState(false)
 
    const router = useRouter();
    useEffect(() => {
@@ -286,7 +287,9 @@ export default function aiTools() {
                            placeholder="ex:London"
                         />
                      </label>
-                     {loading ? (
+                     {morgageAiResponse ? (
+                        <MainBtn type="button">See Ai Response</MainBtn>
+                     ) : loading ? (
                         <MainBtn type="submit" state={true}>
                            Loading
                         </MainBtn>
