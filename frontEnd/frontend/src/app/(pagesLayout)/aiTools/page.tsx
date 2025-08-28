@@ -1,5 +1,6 @@
 "use client";
 import MainBtn from "@/Components/buttons/Mainbtn";
+import Modal from "@/Components/Modal/Modal";
 import { motion, scale } from "motion/react";
 import { form } from "motion/react-client";
 import { useRouter } from "next/navigation";
@@ -20,6 +21,17 @@ export default function aiTools() {
       city: string;
    };
 
+   type MortgageResult = {
+      mode: "Aggressive" | "Moderate" | "Conservative";
+      mortgage_affordable: number;
+      monthly_payment: number;
+      apartment_price: number;
+      dos?: string[];
+      donts?: string[];
+      "apartament type": string;
+   };
+   const [mortgageResults, setMortgageResults] = useState<MortgageResult[]>([]);
+
    const [logged, setLogged] = useState(false);
    const [aiToolsSelect, setAiToolsSelect] = useState<AiToolSelect>({
       tool: "",
@@ -33,9 +45,10 @@ export default function aiTools() {
       maxDebtRatio: 0,
       city: "",
    });
-   const [morgageAiResponse, setMorgageAiResponse] = useState();
+   const [morgageAiResponse, setMorgageAiResponse] =
+      useState<MortgageResult[]>();
    const [loading, setLoading] = useState(false);
-   const [modal,setModalOpen]=useState(false)
+   const [modal, setModalOpen] = useState(false);
 
    const router = useRouter();
    useEffect(() => {
@@ -102,8 +115,19 @@ export default function aiTools() {
    }
 
    console.log(morgageAiResponse);
+
+   function handleOnClose() {
+      setModalOpen(false);
+   }
+
+   function handleOpenModal() {
+      setModalOpen(true);
+   }
    return (
       <div className="mt-30 px-20 mb-20 w-full h-screen ">
+         <Modal show={modal} onClose={handleOnClose}>
+            <h1>sad</h1>
+         </Modal>
          <h1 className="text-2xl">
             Choose the <span className="text-secondary font-bold">Ai Tool</span>{" "}
             you need.
@@ -288,7 +312,9 @@ export default function aiTools() {
                         />
                      </label>
                      {morgageAiResponse ? (
-                        <MainBtn type="button">See Ai Response</MainBtn>
+                        <MainBtn type="button" onClick={handleOpenModal}>
+                           See Ai Response
+                        </MainBtn>
                      ) : loading ? (
                         <MainBtn type="submit" state={true}>
                            Loading

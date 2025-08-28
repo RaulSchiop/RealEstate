@@ -206,21 +206,21 @@ Return ONLY valid JSON output in the format specified below. Do not include any 
   "mortgage_affordable": %.2f,
   "monthly_payment": %.2f,
   "apartment_price": %.2f,
-  "Dos": [
+  "dos": [
     "Do 1",
     "Do 2",
     "Do 3",
     "Do 4",
     "Do 5"
   ],
-  "Donts": [
+  "donts": [
     "Don't 1",
     "Don't 2",
     "Don't 3",
     "Don't 4",
     "Don't 5"
   ],
-  "apartament type":<string>
+  "apartamentType":<string>
 }
 ,
 {
@@ -242,7 +242,7 @@ Return ONLY valid JSON output in the format specified below. Do not include any 
     "Don't 4",
     "Don't 5"
   ]
-  "apartament type":<string>
+  "apartamentType":<string>
 },
 {
   "mode":"Conservative",
@@ -263,7 +263,7 @@ Return ONLY valid JSON output in the format specified below. Do not include any 
     "Don't 4",
     "Don't 5"
   ],
-  "apartament type":<string>
+  "apartamentType":<string>
 }
 
 ]
