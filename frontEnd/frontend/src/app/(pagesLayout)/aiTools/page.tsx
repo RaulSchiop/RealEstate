@@ -30,7 +30,7 @@ export default function aiTools() {
       donts?: string[];
       apartamentType: string;
    };
-
+   const [jwt, setJwt] = useState("");
    const [logged, setLogged] = useState(false);
    const [aiToolsSelect, setAiToolsSelect] = useState<AiToolSelect>({
       tool: "",
@@ -54,6 +54,7 @@ export default function aiTools() {
       const localS = localStorage.getItem("logged");
       if (localS) {
          const parsed = JSON.parse(localS);
+         setJwt(parsed.message);
          setLogged(true);
       } else {
          router.push("/");
@@ -96,6 +97,9 @@ export default function aiTools() {
 
       try {
          const response = await fetch("http://localhost:8080/chat/MorgageAi", {
+            headers: {
+               Authorization: `Bearer ${jwt}`,
+            },
             method: "POST",
             body: formData,
          });

@@ -41,7 +41,7 @@ public class SpringSecurityConfiguration {
                         .requestMatchers("/admin/modificareUtilizator").hasRole("ADMIN")
                         .requestMatchers("/anunturi/adaugareAnunt").hasAnyRole("CLIENT", "ADMIN")
                         .requestMatchers("/chat/Prompt").permitAll()
-                        .requestMatchers("/chat/MorgageAi").permitAll()
+                        .requestMatchers("/chat/MorgageAi").hasAnyRole("CLIENT", "ADMIN")
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .anyRequest().authenticated()
                 )
