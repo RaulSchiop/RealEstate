@@ -28,7 +28,7 @@ export default function aiTools() {
       apartment_price: number;
       dos?: string[];
       donts?: string[];
-      "apartament type": string;
+      apartamentType: string;
    };
 
    const [logged, setLogged] = useState(false);
@@ -125,32 +125,93 @@ export default function aiTools() {
    return (
       <div className="mt-30 px-20 mb-20 w-full h-screen ">
          <Modal show={modal} onClose={handleOnClose}>
-            <div className="w-full h-full flex flex-col items-center justify-center">
-               <h1 className="text-3xl font-bold">Morgage ai Calculator</h1>
-               {morgageAiResponse?.map((morg) => (
-                  <div>
-                     <h1>Morgage type: {morg.mode}</h1>
-                     <h1>Morgage Affordability: {morg.mortgage_affordable}</h1>
-                     <h1>Monthly Payment: {morg.monthly_payment}</h1>
-                     <h1>Apartament Price: {morg.apartment_price}</h1>
-                     <ul>
-                        Tips for the morgage
-                        {morg.dos?.map((dos) => (
-                           <h1>{dos}</h1>
-                        ))}
-                     </ul>
-                     <ul>
-                        Tips not to do for the morgage
-                        {morg.donts?.map((donts) => (
-                           <h1>{donts}</h1>
-                        ))}
-                     </ul>
-                     <div>
-                        <h1>Apartament that you can buy:</h1>
-                        <p> {morg["apartament type"]}</p>
+            <div className="w-full h-full flex flex-col items-center justify-center p-2 md:p-8">
+               <h1 className="text-3xl font-bold text-white mb-6">
+                  🏦 Mortgage AI Calculator
+               </h1>
+               <div className="w-full  flex flex-col gap-8">
+                  {morgageAiResponse?.map((morg, idx) => (
+                     <div
+                        key={idx}
+                        className="bg-[#F5F3EE] rounded-xl shadow-lg border border-[#EDE6DD] p-6 mb-2 flex flex-col gap-4"
+                     >
+                        <div className="flex flex-col md:flex-row md:gap-8 gap-2">
+                           <div className="flex-1">
+                              <h2 className="text-xl font-bold text-[#3C6E47] mb-2">
+                                 Type:{" "}
+                                 <span className="font-normal text-secondary">
+                                    {morg.mode}
+                                 </span>
+                              </h2>
+                              <p className="text-lg text-[#4B2E05] mb-1">
+                                 💰 Affordability:{" "}
+                                 <span className="font-bold">
+                                    {morg.mortgage_affordable.toLocaleString(
+                                       undefined,
+                                       { maximumFractionDigits: 2 }
+                                    )}{" "}
+                                    €
+                                 </span>
+                              </p>
+                              <p className="text-lg text-[#4B2E05] mb-1">
+                                 📆 Monthly Payment:{" "}
+                                 <span className="font-bold">
+                                    {morg.monthly_payment.toLocaleString(
+                                       undefined,
+                                       { maximumFractionDigits: 2 }
+                                    )}{" "}
+                                    €
+                                 </span>
+                              </p>
+                              <p className="text-lg text-[#4B2E05] mb-1">
+                                 🏠 Apartment Price:{" "}
+                                 <span className="font-bold">
+                                    {morg.apartment_price.toLocaleString(
+                                       undefined,
+                                       { maximumFractionDigits: 2 }
+                                    )}{" "}
+                                    €
+                                 </span>
+                              </p>
+                           </div>
+                           <div className="flex-1">
+                              <h2 className="text-lg font-semibold text-[#3C6E47] mb-2">
+                                 🏷️ Apartment Type
+                              </h2>
+                              <p className="text-[#4B2E05]">
+                                 {morg.apartamentType}
+                              </p>
+                           </div>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                           <div>
+                              <h3 className="text-md font-bold text-[#3C6E47] mb-2">
+                                 ✅ Dos
+                              </h3>
+                              <ul className="list-disc ml-5 text-[#4B2E05]">
+                                 {morg.dos?.map((dos, i) => (
+                                    <li key={i} className="mb-1">
+                                       {dos}
+                                    </li>
+                                 ))}
+                              </ul>
+                           </div>
+                           <div>
+                              <h3 className="text-md font-bold text-[#A94442] mb-2">
+                                 🚫 Don'ts
+                              </h3>
+                              <ul className="list-disc ml-5 text-[#A94442]">
+                                 {morg.donts?.map((donts, i) => (
+                                    <li key={i} className="mb-1">
+                                       {donts}
+                                    </li>
+                                 ))}
+                              </ul>
+                           </div>
+                        </div>
                      </div>
-                  </div>
-               ))}
+                  ))}
+               </div>
             </div>
          </Modal>
          <h1 className="text-2xl">
