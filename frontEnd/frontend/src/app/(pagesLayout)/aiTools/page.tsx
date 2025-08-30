@@ -30,7 +30,6 @@ export default function aiTools() {
       donts?: string[];
       "apartament type": string;
    };
-   const [mortgageResults, setMortgageResults] = useState<MortgageResult[]>([]);
 
    const [logged, setLogged] = useState(false);
    const [aiToolsSelect, setAiToolsSelect] = useState<AiToolSelect>({
@@ -126,7 +125,33 @@ export default function aiTools() {
    return (
       <div className="mt-30 px-20 mb-20 w-full h-screen ">
          <Modal show={modal} onClose={handleOnClose}>
-            <h1>sad</h1>
+            <div className="w-full h-full flex flex-col items-center justify-center">
+               <h1 className="text-3xl font-bold">Morgage ai Calculator</h1>
+               {morgageAiResponse?.map((morg) => (
+                  <div>
+                     <h1>Morgage type: {morg.mode}</h1>
+                     <h1>Morgage Affordability: {morg.mortgage_affordable}</h1>
+                     <h1>Monthly Payment: {morg.monthly_payment}</h1>
+                     <h1>Apartament Price: {morg.apartment_price}</h1>
+                     <ul>
+                        Tips for the morgage
+                        {morg.dos?.map((dos) => (
+                           <h1>{dos}</h1>
+                        ))}
+                     </ul>
+                     <ul>
+                        Tips not to do for the morgage
+                        {morg.donts?.map((donts) => (
+                           <h1>{donts}</h1>
+                        ))}
+                     </ul>
+                     <div>
+                        <h1>Apartament that you can buy:</h1>
+                        <p> {morg["apartament type"]}</p>
+                     </div>
+                  </div>
+               ))}
+            </div>
          </Modal>
          <h1 className="text-2xl">
             Choose the <span className="text-secondary font-bold">Ai Tool</span>{" "}
