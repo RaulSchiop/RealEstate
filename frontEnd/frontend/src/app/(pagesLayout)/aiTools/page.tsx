@@ -5,6 +5,7 @@ import { motion, scale } from "motion/react";
 import { form } from "motion/react-client";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
+import { useCompareContxt } from "@/Components/context/compareContext";
 
 export default function aiTools() {
    type AiToolSelect = {
@@ -30,6 +31,8 @@ export default function aiTools() {
       donts?: string[];
       apartamentType: string;
    };
+
+   const { id } = useCompareContxt();
    const [jwt, setJwt] = useState("");
    const [logged, setLogged] = useState(false);
    const [aiToolsSelect, setAiToolsSelect] = useState<AiToolSelect>({

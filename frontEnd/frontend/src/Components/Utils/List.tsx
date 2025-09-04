@@ -4,6 +4,7 @@ import camereImage from "../../../public/Bed Outline Icon from Real Estate.png";
 import m2Logo from "../../../public/GIS Square PT.png";
 import consIcon from "../../../public/Arcticons Price Converter.png";
 import Compare from "../buttons/CompareButtons";
+import { useCompareContxt } from "../context/compareContext";
 
 type ListType = {
    photo: string | StaticImageData;
@@ -24,6 +25,8 @@ export default function List({
    clicked,
    onToggle,
 }: ListType) {
+   const { addCompare } = useCompareContxt();
+
    return (
       <li
          onClick={onToggle}
@@ -64,7 +67,12 @@ export default function List({
                   </p>
                </div>
                {locatie && (
-                  <p className="text-lightText text-xs w-[50px] truncate" title={locatie}>{locatie}</p>
+                  <p
+                     className="text-lightText text-xs w-[50px] truncate"
+                     title={locatie}
+                  >
+                     {locatie}
+                  </p>
                )}
             </div>
          </div>
