@@ -23,7 +23,7 @@ type CompareProviderProps = {
 export function CompareContextProvider({ children }: CompareProviderProps) {
    const [id, setId] = useState<number[]>([]);
    function addCompare(id: number) {
-      setId((prev) => [...prev, id]);
+      setId((prev) => Array.from(new Set([...prev, id])));
    }
 
    function deleteCompare(id: number) {
