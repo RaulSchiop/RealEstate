@@ -14,6 +14,7 @@ type ListType = {
    locatie?: string;
    onToggle?: () => void;
    clicked?: boolean;
+   dId:number
 };
 
 export default function List({
@@ -23,6 +24,7 @@ export default function List({
    pret,
    locatie,
    clicked,
+   dId,
    onToggle,
 }: ListType) {
    const { addCompare } = useCompareContxt();
@@ -42,7 +44,14 @@ export default function List({
                className="object-cover"
             />
             <div className="absolute top-2 right-2 z-10">
-               <Compare type="button" clasName="">
+               <Compare
+                  type="button"
+                  clasName=""
+                  onClick={(e) => {
+                     e.stopPropagation();
+                     addCompare(dId);
+                  }}
+               >
                   Add to AI Compare
                </Compare>
             </div>

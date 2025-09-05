@@ -66,6 +66,7 @@ export default function PoluparListings() {
                         onClick={() => router.push(`/anunturi/${data.id}`)}
                      >
                         <List
+                           dId={data.id}
                            key={data.id || index}
                            photo={
                               firstPhoto

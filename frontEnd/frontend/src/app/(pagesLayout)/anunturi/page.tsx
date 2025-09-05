@@ -147,6 +147,7 @@ export default function Anunturi() {
                               }}
                            >
                               <List
+                                 dId={data.id}
                                  clicked={clicked}
                                  key={index}
                                  photo={

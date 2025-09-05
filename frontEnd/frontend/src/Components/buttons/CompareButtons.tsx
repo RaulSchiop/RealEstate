@@ -4,7 +4,7 @@ import { button } from "motion/react-client";
 import { ReactNode } from "react";
 type Props = {
    children: ReactNode;
-   onClick?: () => void;
+   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
    type: "button" | "submit" | "reset";
    clasName?: string;
 };

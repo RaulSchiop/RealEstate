@@ -129,6 +129,8 @@ export default function aiTools() {
    function handleOpenModal() {
       setModalOpen(true);
    }
+
+   console.log(id);
    return (
       <div className="mt-30 px-20 mb-20 w-full h-screen ">
          <Modal show={modal} onClose={handleOnClose}>
