@@ -4,53 +4,47 @@ package com.example.RealEstate.Services;
 import com.example.RealEstate.Models.Anunturi;
 import com.example.RealEstate.Models.MorgageAiInput;
 import com.example.RealEstate.Repos.AnunturiRepository;
-import jakarta.annotation.Resource;
+
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.memory.MessageWindowChatMemory;
-import org.springframework.ai.chat.prompt.Prompt;
-import org.springframework.ai.chat.prompt.PromptTemplate;
-import org.springframework.ai.document.Document;
-import org.springframework.ai.vectorstore.SearchRequest;
-import org.springframework.ai.vectorstore.VectorStore;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+
 import org.springframework.stereotype.Service;
-import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
-import java.util.stream.Collectors;
+
 
 @Service
 public class AiChatService {
 
 
-    public final VectorStore vectorStore;
+
 
     public final AnunturiRepository anunturiRepository;
     public final ChatClient chatClient;
-    public final Map<Integer, MessageWindowChatMemory> memory =new ConcurrentHashMap<>();
+    public final Map<Integer, MessageWindowChatMemory> memory = new ConcurrentHashMap<>();
 
     @Autowired
-    public AiChatService(AnunturiRepository anunturiRepository, ChatClient.Builder builder,VectorStore vectorStore) {
+    public AiChatService(AnunturiRepository anunturiRepository, ChatClient.Builder builder ) {
         this.anunturiRepository = anunturiRepository;
-        this.vectorStore = vectorStore;
-        chatClient=builder.build();
+//        this.vectorStore = vectorStore;
+        chatClient = builder.build();
 
     }
 
 
-
-     public String ChatBasedOnPropriteies(String userPrompt) {
+    public String ChatBasedOnPropriteies(String userPrompt) {
 
         List<Anunturi> anunturis = anunturiRepository.findAll();
 
-        List<String> anunturiFormat=anunturis.stream().map(a->{
+        List<String> anunturiFormat = anunturis.stream().map(a -> {
 
             StringBuilder string = new StringBuilder();
             string.append("Title: ").append(a.getTitlu()).append("\n");
-            string.append("Description: ").append((a.getDescriere()==null?"":a.getDescriere())).append("\n");
+            string.append("Description: ").append((a.getDescriere() == null ? "" : a.getDescriere())).append("\n");
             string.append(("Price: ")).append(a.getPret()).append("\n");
             string.append("Apartament size: ").append(a.getSuprafataUtila()).append("\n");
             string.append("Rooms: ").append(a.getCamere()).append("\n");
@@ -88,7 +82,6 @@ public class AiChatService {
 //
 //        List<Document> result = vectorStore.similaritySearch(SearchRequest.builder().query(userPrompt).build());
 //        System.out.println(result);
-
 
 
         String prompt = """
@@ -129,17 +122,17 @@ public class AiChatService {
                 
                 User Questions: %s
                 
-                """.formatted(anunturiFormat,userPrompt);
+                """.formatted(anunturiFormat, userPrompt);
 
 
         return chatClient.prompt(prompt).call().content();
     }
 
-    public String chatComparePropriety(){
-       return "asd";
+    public String chatComparePropriety() {
+        return "asd";
     }
 
-    public String chatMorgageCalculator(MorgageAiInput morgageAiInput){
+    public String chatMorgageCalculator(MorgageAiInput morgageAiInput) {
 
         StringBuilder promptData = new StringBuilder();
 
@@ -160,14 +153,14 @@ public class AiChatService {
                 - morgageAiInput.getMonthlyExpenses();
 
 
-        double maxPaymantModerate=maxPayment*0.7;
-        double maxPaymantConservative=maxPayment*0.5;
+        double maxPaymantModerate = maxPayment * 0.7;
+        double maxPaymantConservative = maxPayment * 0.5;
 
         double Denominator = monthlyRate * Math.pow(1 + monthlyRate, totalMonths);
         double mortgagePrincipalAgresive = maxPayment * (Math.pow(1 + monthlyRate, totalMonths) - 1)
                 / Denominator;
 
-        double mortgagePrincipalModerate= maxPaymantModerate * (Math.pow(1 + monthlyRate, totalMonths) - 1)
+        double mortgagePrincipalModerate = maxPaymantModerate * (Math.pow(1 + monthlyRate, totalMonths) - 1)
                 / Denominator;
 
         double mortgagePrincipalConservative = maxPaymantConservative * (Math.pow(1 + monthlyRate, totalMonths) - 1)
@@ -181,94 +174,91 @@ public class AiChatService {
         double apartmentPriceConsevative = mortgagePrincipalConservative + morgageAiInput.getDownPayment();
 
 
-
-
-
         String Prompt = """
-You are a professional mortgage advisor. Based on the following financial details, provide a comprehensive mortgage affordability analysis.
-
-Financial Details:
-%s
-
-Calculate:
-1. Maximum affordable mortgage principal.
-2. Estimated monthly payment.
-3. Maximum apartment price including down payment.
-
-Additionally, provide practical guidance for the user based on the mode by listing:
-- 5 Dos (best practices for managing mortgage and finances)
-- 5 Don'ts (common mistakes to avoid)
-- Provide a type of apartament that you can get with this morgage principal based on the city provided %s if the money is too low or at limit say that you cant afford to buy in that city.
-Return ONLY valid JSON output in the format specified below. Do not include any explanations or extra text no json at top .
-[
-{
-  "mode":"Aggressive",
-  "mortgage_affordable": %.2f,
-  "monthly_payment": %.2f,
-  "apartment_price": %.2f,
-  "dos": [
-    "Do 1",
-    "Do 2",
-    "Do 3",
-    "Do 4",
-    "Do 5"
-  ],
-  "donts": [
-    "Don't 1",
-    "Don't 2",
-    "Don't 3",
-    "Don't 4",
-    "Don't 5"
-  ],
-  "apartamentType":<string>
-}
-,
-{
-  "mode":"Moderate",
-  "mortgage_affordable": %.2f,
-  "monthly_payment": %.2f,
-  "apartment_price": %.2f,
-  "dos": [
-    "Do 1",
-    "Do 2",
-    "Do 3",
-    "Do 4",
-    "Do 5"
-  ],
-  "donts": [
-    "Don't 1",
-    "Don't 2",
-    "Don't 3",
-    "Don't 4",
-    "Don't 5"
-  ]
-  "apartamentType":<string>
-},
-{
-  "mode":"Conservative",
-  "mortgage_affordable": %.2f,
-  "monthly_payment": %.2f,
-  "apartment_price": %.2f,
-  "dos": [
-    "Do 1",
-    "Do 2",
-    "Do 3",
-    "Do 4",
-    "Do 5"
-  ],
-  "donts": [
-    "Don't 1",
-    "Don't 2",
-    "Don't 3",
-    "Don't 4",
-    "Don't 5"
-  ],
-  "apartamentType":<string>
-}
-
-]
-""".formatted(
-               promptData,
+                You are a professional mortgage advisor. Based on the following financial details, provide a comprehensive mortgage affordability analysis.
+                
+                Financial Details:
+                %s
+                
+                Calculate:
+                1. Maximum affordable mortgage principal.
+                2. Estimated monthly payment.
+                3. Maximum apartment price including down payment.
+                
+                Additionally, provide practical guidance for the user based on the mode by listing:
+                - 5 Dos (best practices for managing mortgage and finances)
+                - 5 Don'ts (common mistakes to avoid)
+                - Provide a type of apartament that you can get with this morgage principal based on the city provided %s if the money is too low or at limit say that you cant afford to buy in that city.
+                Return ONLY valid JSON output in the format specified below. Do not include any explanations or extra text no json at top .
+                [
+                {
+                  "mode":"Aggressive",
+                  "mortgage_affordable": %.2f,
+                  "monthly_payment": %.2f,
+                  "apartment_price": %.2f,
+                  "dos": [
+                    "Do 1",
+                    "Do 2",
+                    "Do 3",
+                    "Do 4",
+                    "Do 5"
+                  ],
+                  "donts": [
+                    "Don't 1",
+                    "Don't 2",
+                    "Don't 3",
+                    "Don't 4",
+                    "Don't 5"
+                  ],
+                  "apartamentType":<string>
+                }
+                ,
+                {
+                  "mode":"Moderate",
+                  "mortgage_affordable": %.2f,
+                  "monthly_payment": %.2f,
+                  "apartment_price": %.2f,
+                  "dos": [
+                    "Do 1",
+                    "Do 2",
+                    "Do 3",
+                    "Do 4",
+                    "Do 5"
+                  ],
+                  "donts": [
+                    "Don't 1",
+                    "Don't 2",
+                    "Don't 3",
+                    "Don't 4",
+                    "Don't 5"
+                  ]
+                  "apartamentType":<string>
+                },
+                {
+                  "mode":"Conservative",
+                  "mortgage_affordable": %.2f,
+                  "monthly_payment": %.2f,
+                  "apartment_price": %.2f,
+                  "dos": [
+                    "Do 1",
+                    "Do 2",
+                    "Do 3",
+                    "Do 4",
+                    "Do 5"
+                  ],
+                  "donts": [
+                    "Don't 1",
+                    "Don't 2",
+                    "Don't 3",
+                    "Don't 4",
+                    "Don't 5"
+                  ],
+                  "apartamentType":<string>
+                }
+                
+                ]
+                """.formatted(
+                promptData,
                 morgageAiInput.getCity(),
                 mortgagePrincipalAgresive,
                 maxPayment,
@@ -282,12 +272,9 @@ Return ONLY valid JSON output in the format specified below. Do not include any 
         );
 
 
-
-
         return chatClient.prompt(Prompt).call().content();
 
     }
-
 
 
 }
