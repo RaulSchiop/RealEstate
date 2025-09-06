@@ -6,6 +6,7 @@ import com.example.RealEstate.Services.AiChatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -44,6 +45,13 @@ public class AiChatController {
 
 
 
+    }
+
+
+
+    @PostMapping("/CompareAi")
+    public String compareAi(@RequestBody List<Integer> Id){
+        return aiChatService.chatComparePropriety(Id);
     }
 
 

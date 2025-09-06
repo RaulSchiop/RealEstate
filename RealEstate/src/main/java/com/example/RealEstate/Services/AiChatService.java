@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -126,10 +127,6 @@ public class AiChatService {
 
 
         return chatClient.prompt(prompt).call().content();
-    }
-
-    public String chatComparePropriety() {
-        return "asd";
     }
 
     public String chatMorgageCalculator(MorgageAiInput morgageAiInput) {
@@ -275,6 +272,56 @@ public class AiChatService {
         return chatClient.prompt(Prompt).call().content();
 
     }
+
+
+    public String chatComparePropriety(List<Integer> id) {
+        List<Anunturi> anunturiToCompare= id.stream().map(anunturiRepository::getAnunturiById).toList();
+
+
+
+        StringBuilder formatedProprieties = new StringBuilder();
+
+        anunturiToCompare.forEach(anunturi -> {
+
+            formatedProprieties.append("Property ").append(anunturi.getId()).append(": ").append("\n");
+            formatedProprieties.append("- Title: ").append(anunturi.getTitlu()).append("\n");
+            formatedProprieties.append("- Location: ").append(anunturi.getLocatie()).append("\n");
+            formatedProprieties.append("- Price: ").append(anunturi.getPret()).append("\n");
+            formatedProprieties.append("- Year built: ").append(anunturi.getAnConstructie()).append("\n");
+            formatedProprieties.append("- Rooms: ").append(anunturi.getCamere()).append("\n");
+            formatedProprieties.append("- Floor: ").append(anunturi.getEtaj()).append("\n");
+
+            if(anunturi.getSuprafataCurte()!=null){
+                formatedProprieties.append("- Yard: ").append(anunturi.getSuprafataCurte()).append("\n");
+            }
+
+            formatedProprieties.append("- Description: ").append(anunturi.getDescriere()).append("\n");
+
+
+
+        });
+
+
+        String prompt = """
+                Compare the following properties:
+                
+                %s
+                
+                Please provide:
+                1. A side-by-side comparison of key details (price, size, rooms, year, location).
+                2. Pros and cons of each property.
+                3. Which property offers better value for money.
+                4. Which property is better for lifestyle (family, young professional, investor).
+                5. A clear final recommendation.
+                
+                
+                """.formatted(formatedProprieties);
+
+
+
+        return chatClient.prompt(prompt).call().content();
+    }
+
 
 
 }

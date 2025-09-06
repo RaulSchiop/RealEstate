@@ -39,7 +39,7 @@ public class Anunturi {
     @Column(nullable = false)
     private Float suprafataUtila;
 
-    private float suprafataCurte;
+    private Float suprafataCurte;
 
     @Column(name = "nrTel")
     private String nrTel;

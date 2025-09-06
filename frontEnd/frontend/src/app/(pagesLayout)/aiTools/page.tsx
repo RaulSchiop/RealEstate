@@ -279,6 +279,10 @@ export default function aiTools() {
                      livability, Compare AI goes beyond property specs to show
                      you what it’s really like to live there.
                   </p>
+                  <p className="w-[80%]">
+                     {" "}
+                     Note: You can compare only 3 proprieties at a time
+                  </p>
                </motion.div>
             </div>
 
